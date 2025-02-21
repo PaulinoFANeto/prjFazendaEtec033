@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Sistema de Fazenda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="register-container">
+        <h2>Cadastrar Usuário</h2>
+        <form action="php/register.php" method="POST">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <label for="access_level">Nível de Acesso:</label>
+            <select id="access_level" name="access_level" required>
+                <option value="admin">Admin</option>
+                <option value="user">Usuário</option>
+            </select>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+</body>
+</html>
