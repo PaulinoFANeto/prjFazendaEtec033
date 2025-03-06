@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Fazenda</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="php/login.php" method="POST">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" value="Submit">Entrar</button>
+            <button type="reset" value="Limpar">Limpar</button>
+        </form>
+        <a href="register.html">Cadastrar novo usuário</a>
+    </div>
+    <script src="js/scripts.js"></script>
+
+    <script 
+        src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false">
+    </script>
+
+    <script>
+        window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+            "background": "#f5f5f5",
+            "text": "#000000"
+            },
+            "button": {
+            "background": "#0001ff",
+            "text": "#ffffff"
+            }
+        },
+        "content": {
+            "message": "Este site usa cookies para garantir que você obtenha a melhor experiência de navegação. Desativar os cookies do site pode prejudicar a funcionalidade de alguns recursos.",
+            "dismiss": "Concordar e fechar",
+            "link": "Ler mais",
+            "href": "https://seu-dominio-de-site.com.br/pagina-da-politica"
+        }
+        });
+    </script>
+</body>
+</html>
