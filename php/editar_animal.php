@@ -10,9 +10,9 @@
     <div class="editar-container">
         <h2>Editar Animal</h2>
         <?php
-               include 'php/buscar_animal.php';
+            include 'buscar_animal.php';
         ?>
-        <form action="php/atualizar_animal.php" method="POST">
+        <form action="atualizar_animal.php" method="POST">
             <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
             <label for="animal_name">Nome do Animal:</label>
             <input type="text" id="animal_name" name="animal_name" value="<?php echo $animal['animal_name']; ?>" required>

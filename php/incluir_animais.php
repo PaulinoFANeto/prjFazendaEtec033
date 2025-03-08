@@ -26,4 +26,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
+header("Location: controle_animais.php");
 ?>

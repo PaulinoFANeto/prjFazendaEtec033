@@ -26,4 +26,5 @@ if (isset($_GET['id'])) {
 }
 
 $conn->close();
+header("Location: controle_animais.php");
 ?>

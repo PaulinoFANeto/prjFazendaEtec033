@@ -1,29 +1,25 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "fazenda";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Animais - Sistema de Fazenda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="controle-container">
+        <h2>Controle de Animais</h2>
+        <form action="incluir_animais.php" method="POST">
+            <label for="animal_name">Nome do Animal:</label>
+            <input type="text" id="animal_name" name="animal_name" required>
+            <label for="animal_type">Tipo de Animal:</label>
+            <input type="text" id="animal_type" name="animal_type" required>
+            <button type="submit">Adicionar</button>
+        </form>
+        <h3>Lista de Animais</h3>
+        <?php include("listar_animais.php"); ?>
+    </div>
+</body>
+</html>
 
-// Cria conexão
-$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica conexão
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $animal_name = $_POST['animal_name'];
-    $animal_type = $_POST['animal_type'];
-
-    $sql = "INSERT INTO animals (animal_name, animal_type) VALUES ('$animal_name', '$animal_type')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Novo animal adicionado com sucesso";
-    } else {
-        echo "Erro: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-$conn->close();
-?>
