@@ -1,0 +1,231 @@
+Análise de dados referente animais que podem fazer parte de uma fazenda
+
+
+Uma análise de dados é constituida de diversas partes. Normalmente temos:
+1ª Parte: Uma análise ampla de conhecimento geral sobre o que se deseja informatizar;
+2ª Parte: Uma análise focada em um ou mais conhecimentos específicos que façam parte do conhecimento geral;
+3ª Parte: Uma análise de aprofundamento em relação aos focos estabelecidos na 2ª Parte;
+4ª Parte: Uma análise interativa onde se determina os "mini mundos" a serem informatizados;  
+5ª Parte: Fazer um levantamento das informações mais relevantes.
+6ª Parte: Conhecida como DFD (Diagrama de Fluxo de Dados) 
+    1º - Estabelecer um fluxo das informações, determinando os processos de incluir, excluir, alterar e consultar; 
+7ª Parte: Conhecida como DER (Diagrama de Entidade e Relacionamento)
+    1º - Determinar, a partir das informações levantadas na 5ª Parte, as: Entidades, dados e tipos. 
+    2º - Criar os relacionamentos entre as entidades encontradas
+
+
+
+
+No nosso caso da Fazenda ETEC temos:
+
+1ª Parte: Compreender, em linhas gerais, o que se pode criar numa fazenda, assim sendo, temos:
+
+Há uma variedade de animais que você pode criar em uma fazenda. Aqui estão alguns exemplos:
+
+1. **Suínos**: Porcos são uma ótima opção para produção de carne.
+2. **Aves**: Galinhas, patos, perus e gansos são comuns para produção de ovos e carne.
+3. **Ovinos**: Ovelhas são criadas para carne, leite e lã.
+4. **Caprinos**: Cabras são versáteis, fornecendo carne, leite e até mesmo fibras.
+5. **Equinos**: Cavalos e burros podem ser usados para trabalho e transporte.
+6. **Coelhos**: Criados para carne e peles.
+7. **Peixes**: A piscicultura é uma opção interessante para produção de peixes em tanques ou lagos.
+8. **Abelhas**: Apicultura para produção de mel e outros produtos apícolas.
+9. **Avestruzes**: Embora menos comuns, são criados para carne, ovos e penas.
+10. **Etc...**: Além de outros que podem ser adptados de acordo com a sua realidade
+
+Cada tipo de animal tem suas próprias características, necessidades e benefícios, então é importante
+considerar o que melhor se adapta à sua fazenda e aos seus objetivos.
+
+
+
+
+2ª Parte: Compreender, de forma mais específica, um ou mais sistemas de funcionamento da fazenda, como exemplo, temos:
+
+O foco principal da Fazenda ETEC são os Suínos, neste caso é preciso aprofundar o conhecimento em relação a este tipo
+de animal, para tanto, devemos fazer uma descrição mais detalhada dos diferentes tipos de suínos com base em suas 
+funções e estágios de vida:
+
+1. **Matriz**: Uma fêmea adulta que é usada para reprodução. 
+    As matrizes são selecionadas por suas características genéticas e capacidade de produzir leitões saudáveis.
+
+2. **Cachaço**: Um macho adulto usado para reprodução. 
+    Os cachaços são escolhidos por suas qualidades genéticas e capacidade de melhorar a linhagem dos leitões.
+
+3. **Leitão**: Um porco jovem, geralmente com menos de dois meses de idade. 
+    Os leitões são desmamados da mãe e começam a ser alimentados com ração sólida.
+
+4. **Marra**: Uma fêmea jovem que ainda não foi usada para reprodução. 
+    As marrãs são criadas até atingirem a maturidade sexual, quando podem ser usadas como matrizes.
+
+5. **Barrão**: Um macho castrado, geralmente criado para produção de carne. 
+    A castração é feita para melhorar a qualidade da carne e reduzir comportamentos agressivos.
+
+6. **Terminação**: Suínos que estão na fase final de engorda antes do abate. 
+    Esses animais são alimentados com uma dieta específica para maximizar o ganho de peso e a qualidade da carne.
+
+Essas categorias ajudam a organizar e gerenciar a criação de suínos de maneira eficiente,
+garantindo que cada animal receba os cuidados e a alimentação adequados para sua função e estágio de vida.
+
+
+
+Parte 3 : Aprofundar em um dos focos da parte anterior. Como exemplo, temos o sistema de funcinamento 
+da criaçãode um suíno desde de o nascimento até o abate:
+
+Este ponto da análise é importante para compreender o processo desenvolvido na criação dos animais.
+No nosso caso vamos explicar e explorar o processo de criação dos suínos. 
+O objetivo da compreensão de um processo é passar por cada fase do desenvolvimento, sendo assim,
+no caso dos suínos temos as seguintes fases:
+
+Fase 1. Monta e Inseminação
+- **Monta Natural**: O cachaço (macho reprodutor) é introduzido na baia da matriz (fêmea reprodutora) para a cópula.
+    A monta pode ser: 
+        livre (cachaço mantido com várias fêmeas) ou 
+        controlada (cachaço introduzido na baia da matriz em momentos específicos)
+- **Inseminação Artificial**: O sêmen do cachaço é coletado e introduzido artificialmente na matriz. 
+    Este método permite melhor controle genético e maior eficiência reprodutiva.
+
+Fase 2. Gestação
+- **Duração**: A gestação dos suínos dura aproximadamente 114 dias (3 meses, 3 semanas e 3 dias)
+- **Cuidados**: Durante a gestação, as matrizes devem receber uma dieta balanceada e cuidados veterinários regulares
+    para garantir a saúde dos fetos e da mãe.
+
+Fase 3. Parto
+- **Preparação**: A matriz é transferida para a baia de maternidade alguns dias antes do parto. 
+    A baia deve estar limpa, seca e aquecida.
+- **Parto**: O parto dura de 2 a 6 horas, com intervalos de 5 a 20 minutos entre os nascimentos dos leitões. 
+    Após o nascimento, os leitões devem ser secos e aquecidos imediatamente.
+    
+Fase 4. Cuidados com os Leitões
+- **Primeiras 24 Horas**: Os leitões devem receber colostro da mãe nas primeiras 24 horas para garantir imunidade.
+- **Procedimentos Iniciais**: Incluem corte do cordão umbilical, aplicação de ferro para prevenir anemia 
+    e desbaste de dentes e cauda para evitar ferimentos.
+- **Desmame**: O desmame ocorre entre 21 e 28 dias de vida, quando os leitões são separados da mãe
+    e começam a ser alimentados com ração sólida.
+
+Fase 5. Creche
+- **Transição**: Após o desmame, os leitões são transferidos para a creche, onde permanecem até atingirem cerca de 25 kg.
+    A creche deve proporcionar um ambiente confortável e uma dieta rica em nutrientes.
+
+Fase 6. Recria
+- **Crescimento**: Nesta fase, os suínos continuam a crescer e ganhar peso. 
+    A recria dura até os suínos atingirem cerca de 60 kg.
+- **Cuidados**: Incluem monitoramento da saúde, controle de temperatura e fornecimento de água e ração adequadas.
+
+Fase 7. Terminação
+- **Engorda**: A fase de terminação é focada na engorda dos suínos até atingirem o peso ideal de abate, 
+    geralmente entre 100 e 120 kg.
+- **Manejo**: Inclui manutenção de um ambiente limpo e confortável, controle de doenças e uma dieta balanceada 
+    para maximizar o ganho de peso e a qualidade da carne.
+    
+Este processo detalhado garante que cada fase da criação de suínos seja bem gerenciada, 
+resultando em animais saudáveis e produtivos.
+
+
+
+
+
+4ª Parte: Interação entre controles de envolvimento
+
+A partir do momento em que você adquire a compreensão do sistema de funcionamento, se faz necessário explorar, ao máximo,
+as interações que acontecem dentro do processo de análise.
+
+No nosso caso da criação de suínos, vamos especificar o mini mundo das "matrizes" em relação aos cuidados "veterinários"
+que a "matriz" deve ter em todo o processo onde ela se envolve, ou seja, desde a "monta" até o "desmame", vejamos:
+
+Os cuidados veterinários para uma matriz suína ao longo do processo de criação são essenciais para garantir 
+a saúde da mãe e dos leitões. Vamos analisar etapa por etapa:
+
+Etapa 1. Monta e Inseminação
+- **Exame de Saúde**: Antes da monta ou inseminação, a matriz deve passar por um exame de saúde para 
+    garantir que está em boas condições físicas e livres de doenças.
+- **Vacinação**: Aplicação de vacinas reprodutivas para prevenir doenças que possam afetar a gestação, 
+    como leptospirose e parvovirose.
+
+Etapa 2. Gestação
+- **Nutrição**: Fornecimento de uma dieta balanceada rica em nutrientes essenciais para o desenvolvimento dos fetos
+    e a saúde da matriz.
+- **Suplementação**: Suplementação de vitaminas e minerais, como ferro e cálcio, para prevenir deficiências nutricionais.
+- **Controle de Parasitas**: Tratamento regular para controle de parasitas internos e externos.
+- **Monitoramento**: Exames periódicos, incluindo ultrassonografias, para monitorar o desenvolvimento dos fetos
+    e a saúde da matriz.
+
+Etapa 3. Parto
+- **Preparação da Baia**: Transferência da matriz para uma baia de maternidade limpa e confortável 
+    alguns dias antes do parto.
+- **Assistência ao Parto**: Monitoramento do parto por um veterinário ou técnico treinado para identificar
+    e intervir em caso de complicações, como distocia (dificuldade no parto).
+- **Cuidados Imediatos**: Após o parto, os leitões devem ser secos e aquecidos imediatamente para prevenir hipotermia.
+
+Etapa 4. Lactação
+- **Alimentação**: Fornecimento de uma dieta rica em energia e nutrientes para suportar a produção de leite.
+- **Hidratação**: Garantir acesso constante a água limpa e fresca.
+- **Controle de Saúde**: Monitoramento da saúde da matriz e dos leitões,
+    incluindo a prevenção de mastite (infecção das glândulas mamárias) e outras infecções.
+
+Etapa 5. Desmame
+- **Transição Alimentar**: Introdução gradual de ração sólida para os leitões enquanto ainda estão com a mãe
+    para facilitar a transição após o desmame.
+- **Cuidados Pós-Desmame**: Após o desmame, a matriz deve ser monitorada para garantir que se recupere 
+    adequadamente e esteja pronta para a próxima fase reprodutiva.
+    
+Esses cuidados veterinários são fundamentais para garantir a saúde e o bem-estar da matriz e dos leitões 
+ao longo de todo o processo de criação.
+
+
+
+
+5ª Parte: Levantando informações relevantes de acordo com o que foi analisado previamente.
+
+No nosso caso da fazenda ETEC e de acordo com a analise acima descrita, entendemos que as informações mais relevante são: 
+o controle das matrizes e de suas crias, para tanto percebemos que tanto a "Matriz" quanto suas "crias" tem:
+
+- **Cuidados específicos**: Partos, vacinas, procedimentos, alimentação, pesagem, coberturas
+
+também percebemos que tais cuidados ocorrem sistematicamente. Isso permeia informações de datas, peso, quantidade, tipo,
+etc:
+
+- **Datas**: 
+    => data de nascimento da matriz e das crias, 
+    => data do desmame das crias,
+    => datas das vacinações da matriz e das crias,
+    => datas dos procedimentos efetuados na matriz e nas crias,
+    => datas de pesagem da matriz e das crias,
+    => datas de cobertura da matriz,
+- **Pesos**: 
+    => Peso da matriz e das crias separadamente em diversas datas,
+- **Quantidade**:
+    => Quantidade de alimentos dados em diversas datas para a matriz,
+- **Tipo**:
+    => Tipo de alimento dado em diversas datas para matriz.
+
+
+
+
+6ª Parte: Criar o DFD das informações referente as principais páginas de funcionalidades do sistema.
+
+No nosso caso vamos exemplificar uma linha de funcionalidade do sistema da Fezenda ETEC, para gerenciar o seguinte:
+- Acesso ao sistema por um usuário cadastrado;
+- Menu de acesso para:
+    ==> Usuários,
+    ==> Matrizes,
+    ==> Partos,
+    ==> Crias,
+    ==> Vacinas,
+    ==> Procedimentos,
+    ==> Alimentação,
+    ==> Pesagem, e 
+    ==> Cobertura.
+- Tela de gerenciamento (Incluir, Excluir, Alterar, Consultar, etc) para:
+    ==> Usuários,
+    ==> Matrizes,
+    ==> Partos,
+    ==> Crias,
+    ==> Vacinas,
+    ==> Procedimentos,
+    ==> Alimentação,
+    ==> Pesagem, e 
+    ==> Cobertura.
+
+
+
+

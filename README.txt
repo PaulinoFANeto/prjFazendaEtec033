@@ -16,7 +16,7 @@ Como configurar o Git Hub
 Como atualizar o diretório antes de começar a trabalhar no projeto
     git pull origin main ==> Deixa o diretório igual ao repositório para todos os participantes do projeto
 
-Como usar o Git Hub sempre que fizer uma alteração nos arquivos do repositório
+Como usar o Git Hub sempre que fazer uma alteração nos arquivos do repositório
     git add . ==> prepara os arquivos que foram manipulados para serem salvos efetivados no projeto através do commit
     git commit -m "<<digite o que foi alterado aqui>>" ==> efetua as alteraçoes devidas
     git push origin main ==> Envia sobreescrevendo o arquivo que já está no repositório
