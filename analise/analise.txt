@@ -68,13 +68,11 @@ garantindo que cada animal receba os cuidados e a alimentação adequados para s
 
 
 
-Parte 3 : Aprofundar em um dos focos da parte anterior. Como exemplo, temos o sistema de funcinamento 
-da criaçãode um suíno desde de o nascimento até o abate:
+Parte 3 : Aprofundar em um dos focos da parte anterior. Como exemplo vamos focar nos estágios de vida
+de um suino, desde de o nascimento até o abate:
 
-Este ponto da análise é importante para compreender o processo desenvolvido na criação dos animais.
-No nosso caso vamos explicar e explorar o processo de criação dos suínos. 
-O objetivo da compreensão de um processo é passar por cada fase do desenvolvimento, sendo assim,
-no caso dos suínos temos as seguintes fases:
+Este ponto da análise é importante para compreender o processo desenvolvido na criação dos animais, 
+explicando e explorando cada fase do desenvolvimento. Sendo assim, no caso dos suínos, temos as seguintes fases:
 
 Fase 1. Monta e Inseminação
 - **Monta Natural**: O cachaço (macho reprodutor) é introduzido na baia da matriz (fêmea reprodutora) para a cópula.
@@ -174,15 +172,16 @@ ao longo de todo o processo de criação.
 
 
 
-5ª Parte: Levantando informações relevantes de acordo com o que foi analisado previamente.
+5ª Parte: Levantar informações relevantes de acordo com o que foi analisado previamente.
 
-No nosso caso da fazenda ETEC e de acordo com a analise acima descrita, entendemos que as informações mais relevante são: 
-o controle das matrizes e de suas crias, para tanto percebemos que tanto a "Matriz" quanto suas "crias" tem:
+No nosso caso da fazenda ETEC e de acordo com a analise acima descrita, entendemos que as informações mais relevantes são: 
+o controle das matrizes e/ou de suas crias. Estes controles são:
 
-- **Cuidados específicos**: Partos, vacinas, procedimentos, alimentação, pesagem, coberturas
+- **Cuidados específicos**: 
+    => Partos, vacinas, procedimentos, alimentação, pesagem, coberturas
 
 também percebemos que tais cuidados ocorrem sistematicamente. Isso permeia informações de datas, peso, quantidade, tipo,
-etc:
+etc. Como exemplo consideramos:
 
 - **Datas**: 
     => data de nascimento da matriz e das crias, 
@@ -197,6 +196,10 @@ etc:
     => Quantidade de alimentos dados em diversas datas para a matriz,
 - **Tipo**:
     => Tipo de alimento dado em diversas datas para matriz.
+
+OBS: Esta parte pode ser aprimorada ao longo do desenvolvimento do sistema, porém, deve-se atentar para as modificações
+nas partes subsequentes.
+
 
 
 
@@ -215,7 +218,7 @@ No nosso caso vamos exemplificar uma linha de funcionalidade do sistema da Fezen
     ==> Alimentação,
     ==> Pesagem, e 
     ==> Cobertura.
-- Tela de gerenciamento (Incluir, Excluir, Alterar, Consultar, etc) para:
+- Tela de gerenciamento com no mínimo os seguintes processos: (Incluir, Excluir, Alterar e Consultar) para:
     ==> Usuários,
     ==> Matrizes,
     ==> Partos,
@@ -226,6 +229,179 @@ No nosso caso vamos exemplificar uma linha de funcionalidade do sistema da Fezen
     ==> Pesagem, e 
     ==> Cobertura.
 
+Esta parte irá facilitar a compreensão de como o sistema será desenvolvido, esclarecendo de forma gráfica 
+o fluxo do usuário do sistema em relação as informações do mesmo.
+OBS: O arquivo DFD_FazendaEtec.vsdx tem o esquema montado no software VISIO da Microsoft
 
 
+
+
+7ª Parte: Conhecida como DER (Diagrama de Entidade e Relacionamento). 
+Nesta parte o desenvolvedor do sistema começa a trabalhar os campos de dados organizados em tabelas específicas,
+que são conhecidas como Entidades. Ou seja, começamos a desenvolver o que chamamos de Banco de Dados.
+
+No nosso caso da Fazenda ETEC as entidades serão definidas da seguinte forma:
+
+1. **Adicionar Entidades**: Também conhecidas como tabelas do banco de dados:
+     - **usuarios**
+     - **matrizes**
+     - **partos**
+     - **crias**
+     - **vacinas**
+     - **vacinas_matrizes**
+     - **vacinas_crias**
+     - **procedimentos**
+     - **procedimentos_matrizes**
+     - **procedimentos_crias**
+     - **alimentos**
+     - **alimentacao_matrizes**
+     - **alimentacao_crias**
+     - **pesagem_matrizes**
+     - **pesagem_crias**
+     - **coberturas**
+
+2. **Definir Atributos**: Também conhecidos como campos de dados, para cada entidade.
+     - **usuarios**: id, nome, senha, email, nivelAcesso, dataCadastro
+     - **matrizes**: id, nome, raça, peso, data_nascimento, data_entrada
+     - **partos**: id, matriz_id, data_parto, data_desmame
+     - **crias**: id, parto_id, nome, peso_nascimento, data_nascimento
+     - **vacinas**: id, nome, descricao
+     - **vacinas_matrizes**: id, matriz_id, vacina_id, data_aplicacao
+     - **vacinas_crias**: id, cria_id, vacina_id, data_aplicacao
+     - **procedimentos**: id, nome, descricao
+     - **procedimentos_matrizes**: id, matriz_id, procedimento_id, data_procedimento, descricao
+     - **procedimentos_crias**: id, cria_id, procedimento_id, data_procedimento, descricao
+     - **alimentos**: id, nome, descrição, tipo_alimento
+     - **alimentacao_matrizes**: id, matriz_id, alimento_id, quantidade, data_alimentacao
+     - **alimentacao_crias**: id, cria_id, alimento_id, quantidade, data_alimentacao
+     - **pesagem_matrizes**: id, matriz_id, peso, data_pesagem
+     - **pesagem_crias**: id, cria_id, peso, data_pesagem
+     - **coberturas**: id, matriz_id, data_cobertura
+
+3. **Adicionar Relacionamentos**:
+   - Use linhas de relacionamento para conectar as entidades de acordo com as chaves estrangeiras. Por exemplo:
+     - **partos.matriz_id** -> **matrizes.id**
+     - **crias.parto_id** -> **partos.id**
+     - **vacinas_matrizes.matriz_id** -> **matrizes.id**
+     - **vacinas_matrizes.vacina_id** -> **vacinas.id**
+     - **vacinas_crias.cria_id** -> **crias.id**
+     - **vacinas_crias.vacina_id** -> **vacinas.id**
+     - **procedimentos_matrizes.matriz_id** -> **matrizes.id**
+     - **procedimentos_matrizes.procedimento_id** -> **procedimentos.id**
+     - **procedimentos_crias.cria_id** -> **crias.id**
+     - **procedimentos_crias.procedimento_id** -> **procedimentos.id**
+     - **alimentacao_matrizes.matriz_id** -> **matrizes.id**
+     - **alimentacao_matrizes.alimento_id** -> **alimentos.id**
+     - **pesagem_matrizes.matriz_id** -> **matrizes.id**
+     - **pesagem_crias.cria_id** -> **crias.id**
+     - **coberturas.matriz_id** -> **matrizes.id**
+
+4. **Revisar e Ajustar**:
+   - Revise o diagrama para garantir que todos os relacionamentos estejam corretos e que o layout seja claro e legível.
+   - Ajuste o posicionamento das entidades e relacionamentos conforme necessário para melhorar a clareza.
+
+Abaixo esta o exemplo da Estrutura do DER para a fazenda ETEC com as identificações de chaves primárias e estrangeiras
+além de seus relacionamentos.
+
+[usuarios]
+  - id (PK)
+  - nome
+  - senha
+  - email
+  - nivel_acesso
+  - data_cadastro
+
+[matrizes]
+  - id (PK)
+  - nome
+  - raça
+  - peso
+  - data_nascimento
+  - data_entrada
+
+[partos]
+  - id (PK)
+  - matriz_id (FK) -> [matrizes.id]
+  - data_parto
+  - data_desmame
+
+[crias]
+  - id (PK)
+  - parto_id (FK) -> [partos.id]
+  - nome
+  - peso_nascimento
+  - data_nascimento
+
+[vacinas]
+  - id (PK)
+  - nome
+  - descricao
+
+[vacinas_matrizes]
+  - id (PK)
+  - matriz_id (FK) -> [matrizes.id]
+  - vacina_id (FK) -> [vacinas.id]
+  - data_aplicacao
+
+[vacinas_crias]
+  - id (PK)
+  - cria_id (FK) -> [crias.id]
+  - vacina_id (FK) -> [vacinas.id]
+  - data_aplicacao
+
+[procedimentos]
+  - id (PK)
+  - nome
+  - descricao
+
+[procedimentos_matrizes]
+  - id (PK)
+  - matriz_id (FK) -> [matrizes.id]
+  - procedimento_id (FK) -> [procedimentos.id]
+  - data_procedimento
+  - descricao
+
+[procedimentos_crias]
+  - id (PK)
+  - cria_id (FK) -> [crias.id]
+  - procedimento_id (FK) -> [procedimentos.id]
+  - data_procedimento
+  - descricao
+
+[alimentos]
+  - id (PK)
+  - nome
+  - descricao
+  - tipo_alimento
+
+[alimentacao_matrizes]
+  - id (PK)
+  - matriz_id (FK) -> [matrizes.id]
+  - alimento_id (FK) -> [alimentos.id]
+  - quantidade
+  - data_alimentacao
+
+[alimentacao_crias]
+  - id (PK)
+  - cria_id (FK) -> [crias.id]
+  - alimento_id (FK) -> [alimentos.id]
+  - quantidade
+  - data_alimentacao
+
+[pesagem_matrizes]
+  - id (PK)
+  - matriz_id (FK) -> [matrizes.id]
+  - peso
+  - data_pesagem
+
+[pesagem_crias]
+  - id (PK)
+  - cria_id (FK) -> [crias.id]
+  - peso
+  - data_pesagem
+
+[coberturas]
+  - id (PK)
+  - matriz_id (FK) -> [matrizes.id]
+  - data_cobertura
 
