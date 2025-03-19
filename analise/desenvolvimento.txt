@@ -1,0 +1,1429 @@
+Desenvolvendo um sistema WEB a partir da Análise da dados
+
+Desenvolver um sistema WEB compreende informatizar tanto o front-end quanto o back-end.
+No front-end iremos trabalhar as páginas que serão mostradas ao usuário.
+No back-end iremos trabalhar como os dados, passados pelo usuário ou criados pelo sistema, serão armazenados
+em um banco de dados.
+
+Existem várias metodologias para se desenvolver um sistema WEB, mas basicamente se resume em:
+1º Estabelecer as linguagens de programação a serem utilizadas. Exemplo:
+    - No front-end: HTML, CSS e JavaScript
+    - No back-end: mysqli e PHP
+2º Definir a sistemática de padronização, documentação e estrutura, tipo:
+    - Padronização:
+        => Definir a convençao de nomenclatura para pastas, arquivos, variáveis, etc
+        => Definir o layout a ser utilizado
+        => Definir a paleta de cores, etc.
+    - Documentação:
+        => Guardar todos os documentos da análise de dados
+        => Sistematizar, na escrita do código de programação, a forma de comentários
+        => Criar arquivos de cópias de segurança, etc.
+    - Estrutura:
+        => Criar o esquema de pasta e subpastas para o projeto a ser desenvolvido
+        => Definir a estrura de arquivos a serem desenvolvidos
+3º Desenvolver o projeto:
+    - Seguir os objetivos traçados na análise e levantamento de requisitos
+    - Seguir as diretrizes de padronização, documentação e estrutura
+4º Efetuar testes e otimizar o desempenho do sistema
+5º Implantar o site na internet e o sistema de manutenção
+
+
+
+Desenvolvimento do sistema WEB para a Fazenda ETEC
+
+1º Passo => Estabelecer as linguagens de programação:
+
+No sistema da fazenda ETEC iremos utilizar as seguintes linguagens, conforme as necessidades:
+    - No front-end: HTML, CSS e JavaScript
+    - No back-end: mysqli e PHP
+
+2º Definir a sistemática de padronização, documentação e estrutura, tipo:
+    - Padronização:
+        => Definir a convençao de nomenclatura para pastas, arquivos, variáveis, etc
+        => Definir o layout a ser utilizado
+        => Definir a paleta de cores, etc.
+    - Documentação:
+        => Guardar todos os documentos da análise de dados
+        => Sistematizar, na escrita do código de programação, a forma de comentários
+        => Criar arquivos de cópias de segurança, etc.
+    - Estrutura:
+        => Criar o esquema de pasta e subpastas para o projeto a ser desenvolvido
+        => Definir a estrura de arquivos a serem desenvolvidos
+
+
+
+
+Para desenvolver um sistema web com controles CRUD (Create, Read, Update, Delete) para cada uma das tabelas mencionadas, você pode seguir os passos abaixo. Vou fornecer um exemplo básico usando PHP (estrutural), HTML, CSS e JavaScript.
+
+### Estrutura de Arquivos
+1. **index.php** - Página inicial.
+2. **db.php** - Conexão com o banco de dados.
+3. **matrizes.php** - CRUD para matrizes.
+4. **partos.php** - CRUD para partos.
+5. **crias.php** - CRUD para crias.
+6. **vacinas.php** - CRUD para vacinas.
+7. **vacinas_matrizes.php** - CRUD para vacinas de matrizes.
+8. **vacinas_crias.php** - CRUD para vacinas de crias.
+9. **procedimentos.php** - CRUD para procedimentos.
+10. **procedimentos_crias.php** - CRUD para procedimentos de crias.
+11. **alimentacao_matrizes.php** - CRUD para alimentação de matrizes.
+12. **pesagem_matrizes.php** - CRUD para pesagem de matrizes.
+13. **coberturas.php** - CRUD para coberturas.
+
+### 1. Conexão com o Banco de Dados (db.php)
+```php
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "fazendaEtec";
+
+// Criar conexão
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar conexão
+if ($conn->connect_error) {
+    die("Conexão falhou: " . $conn->connect_error);
+}
+?>
+```
+
+### 2. Página Inicial (index.php)
+```php
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Fazenda Etec</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Bem-vindo à Fazenda Etec</h1>
+    <nav>
+        <ul>
+            <li><a href="matrizes.php">Matrizes</a></li>
+            <li><a href="partos.php">Partos</a></li>
+            <li><a href="crias.php">Crias</a></li>
+            <li><a href="vacinas.php">Vacinas</a></li>
+            <li><a href="vacinas_matrizes.php">Vacinas Matrizes</a></li>
+            <li><a href="vacinas_crias.php">Vacinas Crias</a></li>
+            <li><a href="procedimentos.php">Procedimentos</a></li>
+            <li><a href="procedimentos_crias.php">Procedimentos Crias</a></li>
+            <li><a href="alimentacao_matrizes.php">Alimentação Matrizes</a></li>
+            <li><a href="pesagem_matrizes.php">Pesagem Matrizes</a></li>
+            <li><a href="coberturas.php">Coberturas</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
+```
+
+### 3. CRUD para Matrizes (matrizes.php)
+#### a. Listar Matrizes
+```php
+<?php
+include 'db.php';
+$sql = "SELECT * FROM matrizes";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Matrizes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Matrizes</h1>
+    <a href="add_matriz.php">Adicionar Matriz</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Raça</th>
+            <th>Peso</th>
+            <th>Data de Nascimento</th>
+            <th>Data de Entrada</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['nome']; ?></td>
+            <td><?php echo $row['raça']; ?></td>
+            <td><?php echo $row['peso']; ?></td>
+            <td><?php echo $row['data_nascimento']; ?></td>
+            <td><?php echo $row['data_entrada']; ?></td>
+            <td>
+                <a href="edit_matriz.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_matriz.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Matriz (add_matriz.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = $_POST['nome'];
+    $raca = $_POST['raca'];
+    $peso = $_POST['peso'];
+    $data_nascimento = $_POST['data_nascimento'];
+    $data_entrada = $_POST['data_entrada'];
+
+    $sql = "INSERT INTO matrizes (nome, raça, peso, data_nascimento, data_entrada) VALUES ('$nome', '$raca', '$peso', '$data_nascimento', '$data_entrada')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: matrizes.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Matriz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Matriz</h1>
+    <form method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="raca">Raça:</label>
+        <input type="text" id="raca" name="raca" required>
+        <label for="peso">Peso:</label>
+        <input type="number" step="0.01" id="peso" name="peso" required>
+        <label for="data_nascimento">Data de Nascimento:</label>
+        <input type="date" id="data_nascimento" name="data_nascimento" required>
+        <label for="data_entrada">Data de Entrada:</label>
+        <input type="date" id="data_entrada" name="data_entrada" required>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+#### c. Editar Matriz (edit_matriz.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "SELECT * FROM matrizes WHERE id=$id";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = $_POST['nome'];
+    $raca = $_POST['raca'];
+    $peso = $_POST['peso'];
+    $data_nascimento = $_POST['data_nascimento'];
+    $data_entrada = $_POST['data_entrada'];
+
+    $sql = "UPDATE matrizes SET nome='$nome', raça='$raca', peso='$peso', data_nascimento='$data_nascimento', data_entrada='$data_entrada' WHERE id=$id";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: matrizes.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Matriz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Editar Matriz</h1>
+    <form method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="<?php echo $row['nome']; ?>" required>
+        <label for="raca">Raça:</label>
+        <input type="text" id="raca" name="raca" value="<?php echo $row['raça']; ?>" required>
+        <label for="peso">Peso:</label>
+        <input type="number" step="0.01" id="peso" name="peso" value="<?php echo $row['peso']; ?>" required>
+        <label for="data_nascimento">Data de Nascimento:</label>
+        <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo $row['data_nascimento']; ?>" required>
+        <label for="data_entrada">Data de Entrada:</label>
+        <input type="date" id="data_entrada" name="data_entrada" value="<?php echo $row['data_entrada']; ?>" required>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
+```
+
+#### d
+Claro! Vamos continuar com os exemplos de CRUD para as outras tabelas. Vou seguir a mesma estrutura que usamos para a tabela `matrizes`.
+
+### 4. CRUD para Partos (partos.php)
+#### a. Listar Partos
+```php
+<?php
+include 'db.php';
+$sql = "SELECT * FROM partos";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Partos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Partos</h1>
+    <a href="add_parto.php">Adicionar Parto</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>ID Matriz</th>
+            <th>Data do Parto</th>
+            <th>Data do Desmame</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['matriz_id']; ?></td>
+            <td><?php echo $row['data_parto']; ?></td>
+            <td><?php echo $row['data_desmame']; ?></td>
+            <td>
+                <a href="edit_parto.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_parto.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Parto (add_parto.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $matriz_id = $_POST['matriz_id'];
+    $data_parto = $_POST['data_parto'];
+    $data_desmame = $_POST['data_desmame'];
+
+    $sql = "INSERT INTO partos (matriz_id, data_parto, data_desmame) VALUES ('$matriz_id', '$data_parto', '$data_desmame')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: partos.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Parto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Parto</h1>
+    <form method="post">
+        <label for="matriz_id">ID Matriz:</label>
+        <input type="number" id="matriz_id" name="matriz_id" required>
+        <label for="data_parto">Data do Parto:</label>
+        <input type="date" id="data_parto" name="data_parto" required>
+        <label for="data_desmame">Data do Desmame:</label>
+        <input type="date" id="data_desmame" name="data_desmame" required>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+#### c. Editar Parto (edit_parto.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "SELECT * FROM partos WHERE id=$id";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $matriz_id = $_POST['matriz_id'];
+    $data_parto = $_POST['data_parto'];
+    $data_desmame = $_POST['data_desmame'];
+
+    $sql = "UPDATE partos SET matriz_id='$matriz_id', data_parto='$data_parto', data_desmame='$data_desmame' WHERE id=$id";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: partos.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Parto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Editar Parto</h1>
+    <form method="post">
+        <label for="matriz_id">ID Matriz:</label>
+        <input type="number" id="matriz_id" name="matriz_id" value="<?php echo $row['matriz_id']; ?>" required>
+        <label for="data_parto">Data do Parto:</label>
+        <input type="date" id="data_parto" name="data_parto" value="<?php echo $row['data_parto']; ?>" required>
+        <label for="data_desmame">Data do Desmame:</label>
+        <input type="date" id="data_desmame" name="data_desmame" value="<?php echo $row['data_desmame']; ?>" required>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
+```
+
+### 5. CRUD para Crias (crias.php)
+#### a. Listar Crias
+```php
+<?php
+include 'db.php';
+$sql = "SELECT * FROM crias";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Crias</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Crias</h1>
+    <a href="add_cria.php">Adicionar Cria</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>ID Parto</th>
+            <th>Nome</th>
+            <th>Peso ao Nascimento</th>
+            <th>Data de Nascimento</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['parto_id']; ?></td>
+            <td><?php echo $row['nome']; ?></td>
+            <td><?php echo $row['peso_nascimento']; ?></td>
+            <td><?php echo $row['data_nascimento']; ?></td>
+            <td>
+                <a href="edit_cria.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Cria (add_cria.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $parto_id = $_POST['parto_id'];
+    $nome = $_POST['nome'];
+    $peso_nascimento = $_POST['peso_nascimento'];
+    $data_nascimento = $_POST['data_nascimento'];
+
+    $sql = "INSERT INTO crias (parto_id, nome, peso_nascimento, data_nascimento) VALUES ('$parto_id', '$nome', '$peso_nascimento', '$data_nascimento')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: crias.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Cria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Cria</h1>
+    <form method="post">
+        <label for="parto_id">ID Parto:</label>
+        <input type="number" id="parto_id" name="parto_id" required>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="peso_nascimento">Peso ao Nascimento:</label>
+        <input type="number" step="0.01" id="peso_nascimento" name="peso_nascimento" required>
+        <label for="data_nascimento">Data de Nascimento:</label>
+        <input type="date" id="data_nascimento" name="data_nascimento" required>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+#### c. Editar Cria (edit_cria.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "SELECT * FROM crias WHERE id=$id";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $parto_id = $_POST['parto_id'];
+    $
+
+    Vamos continuar com o CRUD para a tabela `crias`.
+
+#### c. Editar Cria (edit_cria.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "SELECT * FROM crias WHERE id=$id";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $parto_id = $_POST['parto_id'];
+    $nome = $_POST['nome'];
+    $peso_nascimento = $_POST['peso_nascimento'];
+    $data_nascimento = $_POST['data_nascimento'];
+
+    $sql = "UPDATE crias SET parto_id='$parto_id', nome='$nome', peso_nascimento='$peso_nascimento', data_nascimento='$data_nascimento' WHERE id=$id";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: crias.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Cria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Editar Cria</h1>
+    <form method="post">
+        <label for="parto_id">ID Parto:</label>
+        <input type="number" id="parto_id" name="parto_id" value="<?php echo $row['parto_id']; ?>" required>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="<?php echo $row['nome']; ?>" required>
+        <label for="peso_nascimento">Peso ao Nascimento:</label>
+        <input type="number" step="0.01" id="peso_nascimento" name="peso_nascimento" value="<?php echo $row['peso_nascimento']; ?>" required>
+        <label for="data_nascimento">Data de Nascimento:</label>
+        <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo $row['data_nascimento']; ?>" required>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
+```
+
+#### d. Excluir Cria (delete_cria.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "DELETE FROM crias WHERE id=$id";
+
+if ($conn->query($sql) === TRUE) {
+    header('Location: crias.php');
+} else {
+    echo "Erro ao excluir: " . $conn->error;
+}
+?>
+```
+
+### 6. CRUD para Vacinas (vacinas.php)
+#### a. Listar Vacinas
+```php
+<?php
+include 'db.php';
+$sql = "SELECT * FROM vacinas";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacinas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Vacinas</h1>
+    <a href="add_vacina.php">Adicionar Vacina</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['nome']; ?></td>
+            <td><?php echo $row['descricao']; ?></td>
+            <td>
+                <a href="edit_vacina.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_vacina.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+   table>
+</body>
+</html>
+```
+
+#### b. Adicionar Vacina (add_vacina.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+
+    $sql = "INSERT INTO vacinas (nome, descricao) VALUES ('$nome', '$descricao')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: vacinas.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html <meta charset="UTF-8">
+    <title>Adicionar Vacina</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Vacina</h1>
+    <form method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required></textarea>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+#### c. Editar Vacina (edit_vacina.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "SELECT * FROM vacinas WHERE id=$id";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+
+    $sql = "UPDATE vacinas SET nome='$nome', descricao='$descricao' WHERE id=$id";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: vacinas.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Vacina</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Editar Vacina</h1>
+    <form method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="<?php echo $row['nome']; ?>" required>
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required><?php echo $row['descricao']; ?></textarea>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
+```
+
+#### d. Excluir Vacina (delete_vacina.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "DELETE FROM vacinas WHERE id=$id";
+
+if ($conn->query($sql) === TRUE) {
+    header('Location: vacinas.php');
+} else {
+    echo "Erro ao excluir: " . $conn->error;
+}
+?>
+```
+
+### 7. CRUD para Vacinas de Matrizes (vacinas_matrizes.php)
+#### a. Listar Vacinas de Matrizes
+```php
+<?php
+include 'db.php';
+$sql = "SELECT vm.id, m.nome AS matriz_nome, v.nome AS vacina_nome, vm.data_aplicacao 
+        FROM vacinas_matrizes vm
+        JOIN matrizes m ON vm.matriz_id = m.id
+        JOIN vacinas v ON vm.vacina_id = v.id";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacinas de Matrizes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Vacinas de Matrizes</h1>
+    <a href="add_vacina_matriz.php">Adicionar Vacina para Matriz</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Matriz</th>
+            <th>Vacina</th>
+            <th>Data de Aplicação</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['matriz_nome']; ?></td>
+            <td><?php echo $row['vacina_nome']; ?></td>
+            <td><?php echo $row['data_aplicacao']; ?></td>
+            <td>
+                <a href="edit_vacina_matriz.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_vacina_matriz.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Vacina para Matriz (add_vacina_matriz.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+   
+
+   Claro! Vamos completar o código para adicionar uma vacina para uma matriz em `add_vacina_matriz.php`.
+
+#### b. Adicionar Vacina para Matriz (add_vacina_matriz.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $matriz_id = $_POST['matriz_id'];
+    $vacina_id = $_POST['vacina_id'];
+    $data_aplicacao = $_POST['data_aplicacao'];
+
+    $sql = "INSERT INTO vacinas_matrizes (matriz_id, vacina_id, data_aplicacao) VALUES ('$matriz_id', '$vacina_id', '$data_aplicacao')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: vacinas_matrizes.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Vacina para Matriz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Vacina para Matriz</h1>
+    <form method="post">
+        <label for="matriz_id">ID Matriz:</label>
+        <input type="number" id="matriz_id" name="matriz_id" required>
+        <label for="vacina_id">ID Vacina:</label>
+        <input type="number" id="vacina_id" name="vacina_id" required>
+        <label for="data_aplicacao">Data de Aplicação:</label>
+        <input type="date" id="data_aplicacao" name="data_aplicacao" required>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+### 8. CRUD para Vacinas de Crias (vacinas_crias.php)
+#### a. Listar Vacinas de Crias
+```php
+<?php
+include 'db.php';
+$sql = "SELECT vc.id, c.nome AS cria_nome, v.nome AS vacina_nome, vc.data_aplicacao 
+        FROM vacinas_crias vc
+        JOIN crias c ON vc.cria_id = c.id
+        JOIN vacinas v ON vc.vacina_id = v.id";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacinas de Crias</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Vacinas de Crias</h1>
+    <a href="add_vacina_cria.php">Adicionar Vacina para Cria</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Cria</th>
+            <th>Vacina</th>
+            <th>Data de Aplicação</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['cria_nome']; ?></td>
+            <td><?php echo $row['vacina_nome']; ?></td>
+            <td><?php echo $row['data_aplicacao']; ?></td>
+            <td>
+               _vacina_cria.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_vacina_cria.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Vacina para Cria (add_vacina_cria.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $cria_id = $_POST['cria_id'];
+    $vacina_id = $_POST['vacina_id'];
+    $data_aplicacao = $_POST['data_aplicacao'];
+
+   cria_id, vacina_id, data_aplicacao) VALUES ('$cria_id', '$vacina_id', '$data_aplicacao')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: vacinas_crias.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Vacina para Cria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Vacina para Cria</h1>
+    <form method="post">
+        <label for="cria_id">ID Cria:</label>
+        <input type="number" id="cria_id" name="cria_id" required>
+        <label for="vacina_id">ID Vacina:</label>
+        <input type="number" id="vacina_id" name="vacina_id" required>
+        <label for="data_aplicacao">Data de Aplicação:</label>
+        <input type="date" id="data_aplicacao" name="data_aplicacao" required>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+### 9. CRUD para Procedimentos (procedimentos.php)
+#### a. Listar Procedimentos
+```php
+<?php
+include 'db.php';
+$sql = "SELECT * FROM procedimentos";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Procedimentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Procedimentos</h1>
+    <a href="add_procedimento.php">Adicionar Procedimento</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['nome']; ?></td>
+            <td><?php echo $row['descricao']; ?></td>
+            <td>
+                <a href="edit_procedimento.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_procedimento.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Procedimento (add_procedimento.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+
+    $sql = "INSERT INTO procedimentos (nome, descricao) VALUES ('$nome', '$descricao')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: procedimentos.php');
+    } else {
+        echo "Erro: " . $error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Procedimento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Procedimento</h1>
+    <form method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required></textarea>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+### 10. CRUD para Procedimentos de Crias (procedimentos_crias.php)
+#### a. Listar Procedimentos de Crias
+```php
+<?php
+include 'db.php';
+$sql = "SELECT pc.id, c.nome AS cria_nome, p.nome AS procedimento_nome, pc.data_procedimento, pc.descricao 
+        FROM procedimentos_crias pc
+        JOIN crias c ON pc.cria_id = c.id
+        JOIN procedimentos p ON pc.procedimento_id = p.id";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Procedimentos de Crias</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Procedimentos de Crias</h1>
+    <a href="add_procedimento_cria.php">Adicionar Procedimento para Cria</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Cria</th>
+            <th>Procedimento</th>
+            <th>Data do Procedimento</th>
+            <th>Descrição</th>
+            <th>Ações</th
+
+
+            Vamos continuar e finalizar os códigos para os CRUDs restantes.
+
+### 10. CRUD para Procedimentos de Crias (procedimentos_crias.php)
+#### a. Listar Procedimentos de Crias
+```php
+<?php
+include 'db.php';
+$sql = "SELECT pc.id, c.nome AS cria_nome, p.nome AS procedimento_nome, pc.data_procedimento, pc.descricao 
+        FROM procedimentos_crias pc
+        JOIN crias c ON pc.cria_id = c.id
+        JOIN procedimentos p ON pc.procedimento_id = p.id";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Procedimentos de Crias</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Procedimentos de Crias</h1>
+    <a href="add_procedimento_cria.php">Adicionar Procedimento para Cria</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Cria</th>
+            <th>Procedimento</th>
+            <th>Data do Procedimento</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['cria_nome']; ?></td>
+            <td><?php echo $row['procedimento_nome']; ?></td>
+            <td><?php echo $row['data_procedimento']; ?></td>
+            <td><?php echo $row['descricao']; ?></td>
+            <td>
+                <a href="edit_procedimento_cria.php?id=<?php echo $row['id']; ?>">Editar</a>
+               row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Procedimento para Cria (add_procedimento_cria.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $cria_id = $_POST['cria_id'];
+    $procedimento_id = $_POST['procedimento_id'];
+    $data_procedimento = $_POST['data_procedimento'];
+    $descricao = $_POST['descricao'];
+
+    $sql = "INSERT INTO procedimentos_crias (cria_id, procedimento_id, data_procedimento, descricao) VALUES ('$cria_id', '$procedimento_id', '$data_procedimento', '$descricao')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: procedimentos_crias.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Procedimento para Cria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Procedimento para Cria</h1>
+    <form method="post">
+        <label for="cria_id">ID Cria:</label>
+        <input type="number" id="cria_id" name="cria_id" required>
+        <label for="procedimento_id">ID Procedimento:</label>
+        <input type="number" id="procedimento_id" name="procedimento_id" required>
+        <label for="data_procedimento">Data do Procedimento:</label>
+        <input type="date" id="data_procedimento" name="data_procedimento" required>
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required></textarea>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+### 11. CRUD para Alimentação de Matrizes (alimentacao_matrizes.php)
+#### a. Listar Alimentação de Matrizes
+```php
+<?php
+include 'db.php';
+$sql = "SELECT am.id, m.nome AS matriz_nome, am.tipo_alimento, am.quantidade, am.data 
+        FROM alimentacao_matrizes am
+        JOIN matrizes m ON am.matriz_id = m.id";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Alimentação de Matrizes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Alimentação de Matrizes</h1>
+    <a href="add_alimentacao_matriz.php">Adicionar Alimentação para Matriz</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Matriz</th>
+            <th>Tipo de Alimento</th>
+            <th>Quantidade</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['matriz_nome']; ?></td>
+            <td><?php echo $row['tipo_alimento']; ?></td>
+            <td><?php echo $row['quantidade']; ?></td>
+            <td><?php echo $row['data']; ?></td>
+            <td>
+                <a href="edit_alimentacao_matriz.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_alimentacao_matriz.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Alimentação para Matriz (add_alimentacao_matriz.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $matriz_id = $_POST['matriz_id'];
+    $tipo_alimento = $_POST['tipo_alimento'];
+    $quantidade = $_POST['quantidade'];
+    $data = $_POST['data'];
+
+    $sql = "INSERT INTO alimentacao_matrizes (matriz_id, tipo_alimento, quantidade, data) VALUES ('$matriz_id', '$tipo_alimento', '$quantidade', '$data')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: alimentacao_matrizes.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Alimentação para Matriz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Alimentação para Matriz</h1>
+    <form method="post">
+        <label for="matriz_id">ID Matriz:</label>
+        <input type="number" id="matriz_id" name="matriz_id" required>
+        <label for="tipo_alimento">Tipo de Alimento:</label>
+        <input type="text" id="tipo_alimento" name="tipo_alimento" required>
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" step="0.01" id="quantidade" name="quantidade" required>
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+### 12. CRUD para Pesagem de Matrizes (pesagem_matrizes.php)
+#### a. Listar Pesagem de Matrizes
+```php
+<?php
+include 'db.php';
+$sql = "SELECT pm.id, m.nome AS matriz_nome, pm.peso, pm.data 
+        FROM pesagem_matrizes pm
+        JOIN matrizes m ON pm.matriz_id = m.id";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pesagem de Matrizes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Pesagem de Matrizes</h1>
+    <a href="add_pesagem_matriz.php">Adicionar Pesagem para Matriz</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Matriz</th>
+            <th>Peso</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+           >
+            <td><?php echo $row['peso']; ?></td>
+            <td><?php echo $row['data']; ?></td>
+            <td>
+                <a href="edit_pesagem_matriz.php?id=<?
+
+
+
+                Vamos continuar e finalizar o código para a listagem de pesagem de matrizes em `pesagem_matrizes.php`.
+
+#### a. Listar Pesagem de Matrizes (pesagem_matrizes.php)
+```php
+<?php
+include 'db.php';
+$sql = "SELECT pm.id, m.nome AS matriz_nome, pm.peso, pm.data 
+        FROM pesagem_matrizes pm
+        JOIN matrizes m ON pm.matriz_id = m.id";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pesagem de Matrizes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Pesagem de Matrizes</h1>
+    <a href="add_pesagem_matriz.php">Adicionar Pesagem para Matriz</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Matriz</th>
+            <th>Peso</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['matriz_nome']; ?></td echo $row['peso']; ?></td>
+            <td><?php echo $row['data']; ?></td>
+            <td>
+                <a href="edit_pesagem_matriz.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_pesagem_matriz.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Pesagem para Matriz (add_pesagem_mmatriz_id = $_POST['matriz_id'];
+    $peso = $_POST['peso'];
+    $data = $_POST['data'];
+
+    $sql = "INSERT INTO pesagem_matrizes (matriz_id, peso, data) VALUES ('$matriz_id', '$peso', '$data')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: pesagem_matrizes.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Pesagem para Matriz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Pesagem para Matriz</h1>
+    <form method="post">
+        <label for="matriz_id">ID Matriz:</label>
+        <input type="number" id="matriz_id" name="matriz_id" required>
+        <label for="peso">Peso:</label>
+        <input type="number" step="0.01" id="peso" name="peso" required>
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+### 13. CRUD para Coberturas (coberturas.php)
+#### a. Listar Coberturas
+```php
+<?php
+include 'db.php';
+$sql = "SELECT c.id, m.nome AS matriz_nome, c.data_cobertura 
+        FROM coberturas c
+        JOIN matrizes m ON c.matriz_id = m.id";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Coberturas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Coberturas</h1>
+    <a href="add_cobertura.php">Adicionar Cobertura</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Matriz</th>
+            <th>Data de Cobertura</th>
+            <th>Ações</th>
+        </tr>
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['matriz_nome']; ?></td>
+            <td><?php echo $row['data_cobertura']; ?></td>
+           ?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+```
+
+#### b. Adicionar Cobertura (add_cobertura.php)
+```php
+<?php
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $matriz_id = $_POST['matriz_id'];
+    $data_cobertura = $_POST['data_cobertura'];
+
+    $sql = "INSERT INTO coberturas (matriz_id, data_cobertura) VALUES ('$matriz_id', '$data_cobertura')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: coberturas.php');
+    } else {
+        echo ";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Cobertura</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Adicionar Cobertura</h1>
+    <form method="post">
+        <label for="matriz_id">ID Matriz:</label>
+        <input type="number" id="matriz_id" name="matriz_id" required>
+        <label for="data_cobertura">Data de Cobertura:</label>
+        <input type="date" id="data_cobertura" name="data_cobertura" required>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>
+```
+
+### 14. Editar e Excluir para as Tabelas Restantes
+Para as operações de edição e exclusão, você pode seguir a mesma estrutura que usamos anteriormente. Aqui está um exemplo para a tabela `pesagem_matrizes`:
+
+#### c. Editar Pesagem para Matriz (edit_pesagem_matriz.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "SELECT * FROM pesagem_matrizes WHERE id=$id";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $matriz_id = $_POST['matriz_id'];
+    $peso = $_POST['peso'];
+    $data = $_POST['data'];
+
+    $sql = "UPDATE pesagem_matrizes SET matriz_id='$matriz_id', peso='$peso', data='$data' WHERE id=$id";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: pesagem_matrizes.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Pesagem para Matriz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Editar Pesagem para Matriz</h1>
+    <form method="post">
+        <label for="matriz_id">ID Matriz:</label>
+        <input type="number" id="matriz_id" name="matriz_id" value="<?php echo $row['matriz_id']; ?>" required>
+        <label for="peso">Peso:</label>
+        <input type="number" step="0.01" id="peso" name="peso" value="<?php echo $row['peso']; ?>" required>
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" value="<?php echo $row['data']; ?>" required>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
+```
+
+#### d. Excluir Pesagem para Matriz (delete_pesagem_matriz.php)
+```php
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+$sql = "DELETE FROM pesagem_matrizes WHERE id=$id";
+
+if ($conn->query($sql) === TRUE) {
+    header('Location: pesagem_matrizes.php');
+} else {
+    echo "Erro ao excluir: " . $conn->error;
+}
+?>
+```
+
+Você pode adaptar esses exemplos para as outras tabelas (`coberturas`, `procedimentos_crias`, etc.) seguindo a mesma lógica. Se precisar de mais alguma coisa ou tiver outra dúvida, estou à disposição!
+

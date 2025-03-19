@@ -1,22 +1,32 @@
-Análise de dados referente animais que podem fazer parte de uma fazenda
+Análise de dados
 
+Analisar é um processo cujo objetivo é compreender o sistema de funcionamento de algo.
+Uma análise deve levantar informações e questionamentos a fim de estabelecer e identificar 
+os relacionamentos entre os subprocessos do sistema de forma tal que fique claro o fluxo das informações desde o 
+início do processo até o seu término. 
 
 Uma análise de dados é constituida de diversas partes. Normalmente temos:
 1ª Parte: Uma análise ampla de conhecimento geral sobre o que se deseja informatizar;
 2ª Parte: Uma análise focada em um ou mais conhecimentos específicos que façam parte do conhecimento geral;
 3ª Parte: Uma análise de aprofundamento em relação aos focos estabelecidos na 2ª Parte;
-4ª Parte: Uma análise interativa onde se determina os "mini mundos" a serem informatizados;  
+4ª Parte: Uma análise interativa, da seguinte forma:  
+    1º - Determinar os mini-mundos a serem informatizados;
+    2º - Determinar os objetivos a serem alcançados;
 5ª Parte: Fazer um levantamento das informações mais relevantes.
-6ª Parte: Conhecida como DFD (Diagrama de Fluxo de Dados) 
-    1º - Estabelecer um fluxo das informações, determinando os processos de incluir, excluir, alterar e consultar; 
-7ª Parte: Conhecida como DER (Diagrama de Entidade e Relacionamento)
+6ª Parte: Conhecida como DFD (Diagrama de Fluxo de Dados) esta parte é responsável por: 
+    1º - Estabelecer um fluxo das informações, determinando no mínimo,
+         os processos de incluir, excluir, alterar e consultar; 
+7ª Parte: Conhecida como DER (Diagrama de Entidade e Relacionamento) esta parte é responsável por:
     1º - Determinar, a partir das informações levantadas na 5ª Parte, as: Entidades, dados e tipos. 
     2º - Criar os relacionamentos entre as entidades encontradas
 
+OBSERVAÇÃO IMPORTANTE: Somente após estas partes serem desenvolvidas e que se inicia o desenvolvimento do software.
 
 
 
-No nosso caso da Fazenda ETEC temos:
+
+
+Análise de dados Fazenda ETEC
 
 1ª Parte: Compreender, em linhas gerais, o que se pode criar numa fazenda, assim sendo, temos:
 
@@ -122,7 +132,9 @@ resultando em animais saudáveis e produtivos.
 
 
 
-4ª Parte: Interação entre controles de envolvimento
+4ª Parte: Análise interativa entre controles de envolvimento
+
+    *** DEFININDO O MINI-MUNO ***
 
 A partir do momento em que você adquire a compreensão do sistema de funcionamento, se faz necessário explorar, ao máximo,
 as interações que acontecem dentro do processo de análise.
@@ -169,13 +181,26 @@ Etapa 5. Desmame
 Esses cuidados veterinários são fundamentais para garantir a saúde e o bem-estar da matriz e dos leitões 
 ao longo de todo o processo de criação.
 
+    *** OBJETIVOS A SEREM ALCANÇADOS ***
+
+No caso do sistema ETEC os objetivos são:
+    - Gerais:
+        => Informatizar a parte de sunicultura
+    - Específicos:
+        => Informatizar os controles das matrizes e de suas crias
+        => Informatizar para cada matriz os controles de:
+            - Partos, vacinas, procedimentos, alimentação, pesagem e cobertura
+        => Informatizar para cada cria de uma matriz os controles de:
+            - Vacinação, procedimentos, alimentação e pesagem
+
+
 
 
 
 5ª Parte: Levantar informações relevantes de acordo com o que foi analisado previamente.
 
 No nosso caso da fazenda ETEC e de acordo com a analise acima descrita, entendemos que as informações mais relevantes são: 
-o controle das matrizes e/ou de suas crias. Estes controles são:
+o controle das matrizes e de suas crias. Estes controles são:
 
 - **Cuidados específicos**: 
     => Partos, vacinas, procedimentos, alimentação, pesagem, coberturas
@@ -261,24 +286,38 @@ No nosso caso da Fazenda ETEC as entidades serão definidas da seguinte forma:
      - **coberturas**
 
 2. **Definir Atributos**: Também conhecidos como campos de dados, para cada entidade.
-     - **usuarios**: id, nome, senha, email, nivelAcesso, dataCadastro
-     - **matrizes**: id, nome, raça, peso, data_nascimento, data_entrada
-     - **partos**: id, matriz_id, data_parto, data_desmame
-     - **crias**: id, parto_id, nome, peso_nascimento, data_nascimento
-     - **vacinas**: id, nome, descricao
-     - **vacinas_matrizes**: id, matriz_id, vacina_id, data_aplicacao
-     - **vacinas_crias**: id, cria_id, vacina_id, data_aplicacao
-     - **procedimentos**: id, nome, descricao
-     - **procedimentos_matrizes**: id, matriz_id, procedimento_id, data_procedimento, descricao
-     - **procedimentos_crias**: id, cria_id, procedimento_id, data_procedimento, descricao
-     - **alimentos**: id, nome, descrição, tipo_alimento
-     - **alimentacao_matrizes**: id, matriz_id, alimento_id, quantidade, data_alimentacao
-     - **alimentacao_crias**: id, cria_id, alimento_id, quantidade, data_alimentacao
-     - **pesagem_matrizes**: id, matriz_id, peso, data_pesagem
-     - **pesagem_crias**: id, cria_id, peso, data_pesagem
-     - **coberturas**: id, matriz_id, data_cobertura
+    Quando se cria as entidades é preciso encontrar, entre seus atributos, aquele ou aqueles que irão identificar
+    de forma única e exclusiva o demais atributos da entidade. Eles são chamados de chaves primárias - PK
+    Quando um atributo de uma entidade faz referência a um atributo de outra entidade, chamamos isto de 
+    chave estrangeira - FK.
 
-3. **Adicionar Relacionamentos**:
+     - **usuarios**: id (PK), nome, senha, email, nivel_acesso, data_cadastro
+     - **matrizes**: id (PK), nome, raça, peso, data_nascimento, data_entrada
+     - **partos**: id (PK), matriz_id (FK), data_parto, data_desmame
+     - **crias**: id (PK), parto_id (FK), nome, peso_nascimento, data_nascimento
+     - **vacinas**: id (PK), nome, descricao
+     - **vacinas_matrizes**: id (PK), matriz_id (FK), vacina_id (FK), data_aplicacao
+     - **vacinas_crias**: id (PK), cria_id (FK), vacina_id (FK), data_aplicacao
+     - **procedimentos**: id (PK), nome, descricao
+     - **procedimentos_matrizes**: id (PK), matriz_id (FK), procedimento_id (FK), data_procedimento, descricao
+     - **procedimentos_crias**: id (PK), cria_id (FK), procedimento_id (FK), data_procedimento, descricao
+     - **alimentos**: id (PK), nome, descrição, tipo_alimento
+     - **alimentacao_matrizes**: id (PK), matriz_id (FK), alimento_id (FK), quantidade, data_alimentacao
+     - **alimentacao_crias**: id (PK), cria_id (FK), alimento_id (FK), quantidade, data_alimentacao
+     - **pesagem_matrizes**: id (PK), matriz_id (FK), peso, data_pesagem
+     - **pesagem_crias**: id (PK), cria_id (FK), peso, data_pesagem
+     - **coberturas**: id (PK), matriz_id (FK), data_cobertura
+
+3. **Adicionar Relacionamentos**: 
+    Relacionar entidades é estabelecer quais atributos de uma entidade estão ligados a atributos de outra entidade.
+    Os relacionamentos podem ser de:
+    - ** 1 para 1 **
+        Ocorre quando UM registro de uma entidade se relaciona uma ÚNICA vez com um registro de outra entidade
+    - ** 1 para N **
+        Ocorre quando UM registro de uma entidade se relaciona VÁRIAS vezes com os registros de outra entidade
+    - ** N para N **
+        Ocorre quando VÁRIOS registros de uma entidade se relaciona VÁRIAS vezes com os registros de outra entidade
+
    - Use linhas de relacionamento para conectar as entidades de acordo com as chaves estrangeiras. Por exemplo:
      - **partos.matriz_id** -> **matrizes.id**
      - **crias.parto_id** -> **partos.id**
