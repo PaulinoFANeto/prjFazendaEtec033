@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "fazenda";
+$dbname = "fazendaEtec";
 
 // Cria conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -13,11 +13,14 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = $_POST['username'];
-    $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $access_level = $_POST['access_level'];
+    $usuario = $_POST['usuario'];
+    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+    $email - $_POST['email'];
+    $nivel_acesso = $_POST['nivel_acesso'];
+    $data_cadastro = date('Y-m-d H:i:s');
 
-    $sql = "INSERT INTO users (username, password, access_level) VALUES ('$user', '$pass', '$access_level')";
+    $sql = "INSERT INTO usuarios (nome, senha, email, nivel_acesso, data_cadastro) 
+    VALUES ('$usuario', '$senha', '$email', '$nivel_acesso', '$data_cadastro')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Novo usuário cadastrado com sucesso";

@@ -3,21 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - Sistema de Fazenda</title>
+    <title>Cadastro - Sistema Fazenda ETEC</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="register-container">
         <h2>Cadastrar Usuário</h2>
+        <!-- Regras de Negócio para o cadastro de usuários:
+            O campo usuário:
+                - Deve ser único e não pode conter caracteres especiais.
+                - Deve ter entre 3 e 20 caracteres.
+                - Não pode ser igual ao nome do usuário logado.
+            O campo senha:
+                - Deve ter entre 6 e 20 caracteres.
+                - Deve conter letras maiúsculas, minúsculas, números e simbolos.
+                - Não pode ser igual ao nome do usuário logado.
+            O campo email:
+                - Deve ser único e não pode conter caracteres especiais.
+                - Deve ser um email válido.
+                - Não pode ser igual ao email do usuário logado.
+            O campo nível de acesso:
+                - Deve ser um dos seguintes: administrador, docente, auxiliar docente ou aluno.
+                - Não pode ser igual ao nível de acesso do usuário logado.
+            - O usuário logado não pode cadastrar outro usuário com o mesmo nível de acesso.
+            - O usuário logado não pode cadastrar outro usuário com o mesmo nome de usuário ou email.
+        -->
         <form action="php/registro.php" method="POST">
-            <label for="username">Usuário:</label>
-            <input type="text" id="username" name="username" required><br>
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required><br>
-            <label for="access_level">Nível de Acesso:</label>
-            <select id="access_level" name="access_level" required>
-                <option value="admin">Admin</option>
-                <option value="user">Usuário</option>
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" name="usuario" required ><br>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+            <label for="nivel_acesso">Nível de Acesso:</label>
+            <select id="nivel_acesso" name="nivel_acesso" required>
+                <option value="administrador">Administrador</option>
+                <option value="docente">Docente</option>
+                <option value="auxiliar_docente">Auxiliar docente</option>
+                <option value="aluno">Aluno</option>
             </select><br>
             <input type="submit" value="Cadastrar">
             <div>
