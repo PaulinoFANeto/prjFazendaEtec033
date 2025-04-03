@@ -21,3 +21,13 @@ Como usar o Git Hub sempre que fazer uma alteração nos arquivos do repositóri
     git commit -m "<<digite o que foi alterado aqui>>" ==> efetua as alteraçoes devidas
     git push origin main ==> Envia sobreescrevendo o arquivo que já está no repositório
 
+Para aceitar as modificações de um branch no main no Git, você pode seguir os seguintes passos:
+
+1. **Troque para o branch main**:           git checkout main
+2. **Atualize o branch main**:              git pull origin main
+3. **Faça o merge do branch desejado**:     git merge nome-do-branch
+4. **Resolva conflitos (se houver)**:       git add arquivos-afetados
+   Caso haja conflitos, o Git irá notificá-lo. 
+   Você precisará resolver os conflitos manualmente nos arquivos afetados e depois adicionar as mudanças resolvidas:
+5. **Finalize o merge**:                    git commit -m "Merge do branch nome-do-branch no main"
+6. **Envie as mudanças para o repositório remoto**:   git push origin main
