@@ -29,12 +29,27 @@
             - O usuário logado não pode cadastrar outro usuário com o mesmo nome de usuário ou email.
         -->
         <form action="php/registro.php" method="POST">
+            <!-- Este pattern abaixo no input text faz o seguinte:
+                Deve ser único e não pode conter caracteres especiais: ^[a-zA-Z0-9] - Garante que apenas caracteres alfanuméricos sejam permitidos.
+                Deve ter entre 3 e 20 caracteres: {3,20}$ - Limita o comprimento do campo entre 3 e 20 caracteres.
+            -->
             <label for="usuario">Usuário:</label>
-            <input type="text" id="usuario" name="usuario" required ><br>
+            <input type="text" id="usuario" name="usuario" required pattern="^[a-zA-Z0-9]{3,20}$" ><br>
+            <!-- O pattern abaixo utilizado no input password faz o seguinte:
+                Deve ter entre 6 e 20 caracteres: [A-Za-z\d@$!%*?&]{6,20}$ - Limita o comprimento do campo entre 6 e 20 caracteres.
+                Deve conter letras maiúsculas: (?=.*[A-Z]) - Garante que haja pelo menos uma letra maiúscula.
+                Deve conter letras minúsculas: (?=.*[a-z]) - Garante que haja pelo menos uma letra minúscula.
+                Deve conter números: (?=.*\d) - Garante que haja pelo menos um número.
+                Deve conter símbolos: (?=.*[@$!%*?&]) - Garante que haja pelo menos um símbolo especial.
+            -->
             <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required><br>
+            <input type="password" id="senha" name="senha" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$"><br>
+            <!-- O pattern abaixo utilizado no input email faz o seguinte:
+                Deve ser único e não pode conter caracteres especiais: ^[a-zA-Z0-9._%+-]+ - Garante que apenas caracteres alfanuméricos e alguns caracteres permitidos (ponto, sublinhado, porcentagem, mais e hífen) sejam usados antes do símbolo @.
+                Deve ser um email válido: @[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ - Garante que o formato do email seja válido, incluindo o domínio e a extensão.
+            -->
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+            <input type="email" id="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"><br>
             <label for="nivel_acesso">Nível de Acesso:</label>
             <select id="nivel_acesso" name="nivel_acesso" required>
                 <option value="administrador">Administrador</option>
