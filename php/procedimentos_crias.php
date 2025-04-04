@@ -34,7 +34,7 @@ $result = $conn->query($sql);
             <td><?php echo $row['descricao']; ?></td>
             <td>
                 <a href="edit_procedimento_cria.php?id=<?php echo $row['id']; ?>">Editar</a>
-               row['id']; ?>">Excluir</a>
+                <a href="delete_procedimento_cria.php?id=<?php echo $row['id']; ?>">Excluir</a>
             </td>
         </tr>
         <?php endwhile; ?>

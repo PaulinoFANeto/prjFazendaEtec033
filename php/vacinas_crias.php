@@ -31,7 +31,7 @@ $result = $conn->query($sql);
             <td><?php echo $row['vacina_nome']; ?></td>
             <td><?php echo $row['data_aplicacao']; ?></td>
             <td>
-               _vacina_cria.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="edit_vacina_cria.php?id=<?php echo $row['id']; ?>">Editar</a>
                 <a href="delete_vacina_cria.php?id=<?php echo $row['id']; ?>">Excluir</a>
             </td>
         </tr>

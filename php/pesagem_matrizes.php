@@ -26,7 +26,8 @@ $result = $conn->query($sql);
         <?php while($row = $result->fetch_assoc()): ?>
         <tr>
             <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['matriz_nome']; ?></td echo $row['peso']; ?></td>
+            <td><?php echo $row['matriz_nome']; ?></td>
+            <td><?php echo $row['peso']; ?></td>
             <td><?php echo $row['data']; ?></td>
             <td>
                 <a href="edit_pesagem_matriz.php?id=<?php echo $row['id']; ?>">Editar</a>

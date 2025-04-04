@@ -6,7 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $vacina_id = $_POST['vacina_id'];
     $data_aplicacao = $_POST['data_aplicacao'];
 
-    $sql = "INSERT INTO vacinas_crias (cria_id, vacina_id, data_aplicacao) VALUES ('$cria_id', '$vacina_id', '$data_aplicacao')";
+    $sql = "INSERT INTO vacinas_crias (cria_id, vacina_id, data_aplicacao) 
+    VALUES ('$cria_id', '$vacina_id', '$data_aplicacao')";
     if ($conn->query($sql) === TRUE) {
         header('Location: vacinas_crias.php');
     } else {

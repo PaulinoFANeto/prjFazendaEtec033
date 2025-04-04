@@ -17,6 +17,7 @@
             <li><a href="vacinas_crias.php">Vacinas Crias</a></li>
             <li><a href="procedimentos.php">Procedimentos</a></li>
             <li><a href="procedimentos_crias.php">Procedimentos Crias</a></li>
+            <li><a href="alimentos.php">Alimentos</a></li>
             <li><a href="alimentacao_matrizes.php">Alimentação Matrizes</a></li>
             <li><a href="pesagem_matrizes.php">Pesagem Matrizes</a></li>
             <li><a href="coberturas.php">Coberturas</a></li>

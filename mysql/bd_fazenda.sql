@@ -5,7 +5,7 @@ USE fazendaEtec;
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
-    senha VARCHAR(20) NOT NULL,
+    senha VARCHAR(250) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     nivel_acesso ENUM('Administrador', 'Docente', 'Auxiliar docente', 'Aluno') NOT NULL,
     data_cadastro DATETIME
