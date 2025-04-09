@@ -27,7 +27,9 @@ $result = $conn->query($sql);
             <td><?php echo $row['id']; ?></td>
             <td><?php echo $row['matriz_nome']; ?></td>
             <td><?php echo $row['data_cobertura']; ?></td>
-           ?id=<?php echo $row['id']; ?>">Excluir</a>
+            <td>
+                <a href="edit_cobertura.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_cobertura.php?id=<?php echo $row['id']; ?>">Excluir</a>
             </td>
         </tr>
         <?php endwhile; ?>

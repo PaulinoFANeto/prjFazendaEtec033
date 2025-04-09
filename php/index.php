@@ -19,7 +19,9 @@
             <li><a href="procedimentos_crias.php">Procedimentos Crias</a></li>
             <li><a href="alimentos.php">Alimentos</a></li>
             <li><a href="alimentacao_matrizes.php">Alimentação Matrizes</a></li>
+            <li><a href="alimentacao_crias.php">Alimentação Crias</a></li>
             <li><a href="pesagem_matrizes.php">Pesagem Matrizes</a></li>
+            <li><a href="pesagem_crias.php">Pesagem Crias</a></li>
             <li><a href="coberturas.php">Coberturas</a></li>
         </ul>
     </nav>

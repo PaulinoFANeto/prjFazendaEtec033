@@ -1,0 +1,26 @@
+/* Regras de negócio para o desenvolvido do estilo do login
+    - Deve prevalecer a paleta de cores em tonalidades de verde e marrom
+    - Os campos de entrada (usuário e senha) devem ter:
+        * bordas arredondadas
+        * fundo branco
+        * texto verde escuro
+        * efeito de sombra ao serem clicados
+    - Os botões (entrar e limpar) devem ter:
+        * bordas arredondadas
+        * fundo verde
+        * texto branco 
+        * efeito de sombra ao serem clicados
+        * mudar de cor ao passar o mouse por cima (hover)
+        * um efeito de transição suave ao mudar de cor
+    
+    OBS: Outras regras podem ser criadas, porém, precisam ser anotadas neste comentário, exemplos:
+    
+    - regras de acessibilidade (WCAG 2.1 ou superior)
+        * O estilo deve ser compatível com leitores de tela (screen readers)
+        * O estilo deve ser compatível com o tema escuro (dark mode) e claro (light mode)
+        * O estilo deve ser compatível com o modo alto contraste (high contrast mode)
+        * O estilo deve ser compatível com o modo de navegação anônima (incognito mode)
+
+    - regras de responsividade
+        * O estilo deve ser responsivo, ou seja, deve se adaptar a diferentes tamanhos de tela (mobile e desktop)
+*/

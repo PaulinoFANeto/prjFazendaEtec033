@@ -1,24 +1,24 @@
 <?php
 include 'db.php';
-$sql = "SELECT pm.id, m.nome AS matriz_nome, pm.peso, pm.data_pesagem 
-        FROM pesagem_matrizes pm
-        JOIN matrizes m ON pm.matriz_id = m.id";
+$sql = "SELECT pc.id, c.nome AS cria_nome, pc.peso, pc.data_pesagem 
+        FROM pesagem_crias pc
+        JOIN crias c ON pc.cria_id = c.id";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Pesagem de Matrizes</title>
+    <title>Pesagem de Crias</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Pesagem de Matrizes</h1>
-    <a href="add_pesagem_matriz.php">Adicionar Pesagem para Matriz</a>
+    <h1>Pesagem de Crias</h1>
+    <a href="add_pesagem_cria.php">Adicionar Pesagem para Cria</a>
     <table>
         <tr>
             <th>ID</th>
-            <th>Matriz</th>
+            <th>Cria</th>
             <th>Peso</th>
             <th>Data</th>
             <th>Ações</th>
@@ -26,12 +26,12 @@ $result = $conn->query($sql);
         <?php while($row = $result->fetch_assoc()): ?>
         <tr>
             <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['matriz_nome']; ?></td>
+            <td><?php echo $row['cria_nome']; ?></td>
             <td><?php echo $row['peso']; ?></td>
             <td><?php echo $row['data_pesagem']; ?></td>
             <td>
-                <a href="edit_pesagem_matriz.php?id=<?php echo $row['id']; ?>">Editar</a>
-                <a href="delete_pesagem_matriz.php?id=<?php echo $row['id']; ?>">Excluir</a>
+                <a href="edit_pesagem_cria.php?id=<?php echo $row['id']; ?>">Editar</a>
+                <a href="delete_pesagem_cria.php?id=<?php echo $row['id']; ?>">Excluir</a>
             </td>
         </tr>
         <?php endwhile; ?>

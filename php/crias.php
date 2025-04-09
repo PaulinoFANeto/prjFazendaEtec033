@@ -31,7 +31,8 @@ $result = $conn->query($sql);
             <td><?php echo $row['data_nascimento']; ?></td>
             <td>
                 <a href="edit_cria.php?id=<?php echo $row['id']; ?>">Editar</a>
-                <a>
+                <a href="delete_cria.php?id=<?php echo $row['id']; ?>">Excluir</a>
+            </td>
         <?php endwhile; ?>
     </table>
 </body>
