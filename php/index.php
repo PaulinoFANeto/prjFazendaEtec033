@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Fazenda Etec</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
+    <button class="voltar-btn" onclick="window.history.back();">← Voltar</button>
     <h1>Bem-vindo à Fazenda Etec</h1>
     <nav>
         <ul>

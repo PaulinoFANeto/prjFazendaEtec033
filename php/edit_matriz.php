@@ -26,9 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Editar Matriz</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
+    <button class="voltar-btn" onclick="window.history.back();">← Voltar</button>
+
     <h1>Editar Matriz</h1>
     <form method="post">
         <label for="nome">Nome:</label>
