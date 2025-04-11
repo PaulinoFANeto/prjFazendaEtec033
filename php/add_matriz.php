@@ -1,19 +1,47 @@
 <?php
+session_start();
 include 'db.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Captura os dados do formulário
+    $usuario_id = $_SESSION['usuario_id'];
     $nome = $_POST['nome'];
     $raca = $_POST['raca'];
     $peso = $_POST['peso'];
     $data_nascimento = $_POST['data_nascimento'];
     $data_entrada = $_POST['data_entrada'];
 
-    $sql = "INSERT INTO matrizes (nome, raça, peso, data_nascimento, data_entrada) VALUES ('$nome', '$raca', '$peso', '$data_nascimento', '$data_entrada')";
-    if ($conn->query($sql) === TRUE) {
-        header('Location: matrizes.php');
-    } else {
-        echo "Erro: " . $sql . "<br>" . $conn->error;
+    // Prepara a declaração SQL para evitar SQL Injection
+    $stmt = $conn->prepare("INSERT INTO matrizes (nome, raca, peso, data_nascimento, data_entrada, usuario_id, data_acao) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+    // Verifica se a preparação foi bem-sucedida
+    if ($stmt === false) {
+        die("Erro na preparação da declaração: " . $conn->error);
     }
+
+    // Vincula os parâmetros
+    $stmt->bind_param("ssdsii", $nome, $raca, $peso, $data_nascimento, $data_entrada, $usuario_id);
+    // Executa a declaração
+    $stmt->execute();
+
+    // Registro no log
+    $tabela = 'matrizes';
+    $acao = 'inclusao';
+    // Prepara a declaração SQL para o log e evita SQL Injection
+    $stmt_log = $conn->prepare("INSERT INTO logs (usuario_id, tabela, acao, data_acao) VALUES (?, ?, ?, NOW())");
+    // Verifica se a preparação foi bem-sucedida
+    if ($stmt_log === false) {
+        die("Erro na preparação da declaração de log: " . $conn->error);
+    }
+    // Vincula os parâmetros para o log
+    $stmt_log->bind_param("iss", $usuario_id, $tabela, $acao);
+    // Executa a declaração de log
+    $stmt_log->execute();
+
+    $stmt->close();
+    $stmt_log->close();
+    $conn->close();
+
+    header("Location: matrizes.php");
 }
 ?>
 <!DOCTYPE html>

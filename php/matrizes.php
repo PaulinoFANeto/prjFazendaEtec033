@@ -1,7 +1,39 @@
 <?php
+session_start();
 include 'db.php';
+
+// Verificar se o usuário está logado
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Obter informações do usuário logado
+$usuario_id = $_SESSION['usuario_id'];
+$sql_usuario = "SELECT nivel_acesso FROM usuarios WHERE id = ?";
+$stmt_usuario = $conn->prepare($sql_usuario);
+$stmt_usuario->bind_param("i", $usuario_id);
+$stmt_usuario->execute();
+$result_usuario = $stmt_usuario->get_result();
+$usuario = $result_usuario->fetch_assoc();
+$nivel_acesso = $usuario['nivel_acesso'];
+
+// Definir permissões com base no nível de acesso
+$permissoes = [
+    'Administrador' => ['consulta', 'inclusao', 'alteracao', 'exclusao'],
+    'Docente' => ['consulta', 'inclusao', 'alteracao'],
+    'Auxiliar docente' => ['consulta', 'inclusao'],
+    'Aluno' => ['consulta']
+];
+
+$usuario_permissoes = $permissoes[$nivel_acesso];
+
+// Consulta à tabela matrizes
 $sql = "SELECT * FROM matrizes";
 $result = $conn->query($sql);
+if ($result === false) {
+    die("Erro na consulta: " . $conn->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -133,7 +165,9 @@ $result = $conn->query($sql);
 
     <!-- Botão adicionar -->
     <div class="btn-group">
-        <button class="btn" onclick="window.location.href='add_matriz.php'">Adicionar nova Matriz</button>
+        <?php if (in_array('inclusao', $usuario_permissoes)): ?>
+            <button class="btn" onclick="window.location.href='add_matriz.php'">Adicionar nova Matriz</button>
+        <?php endif; ?>
     </div>
 
     <!-- Tabela -->
@@ -156,12 +190,17 @@ $result = $conn->query($sql);
             <td><?php echo date('d/m/Y', strtotime($row['data_nascimento'])); ?></td>
             <td><?php echo date('d/m/Y', strtotime($row['data_entrada'])); ?></td>
             <td>
-                <button class="btn" onclick="window.location.href='edit_matriz.php?id=<?php echo $row['id']; ?>'">Editar</button>
-                <button class="btn" onclick="if(confirm('Deseja realmente excluir esta matriz?')) window.location.href='delete_matriz.php?id=<?php echo $row['id']; ?>'">Excluir</button>
+                <?php if (in_array('alteracao', $usuario_permissoes)): ?>
+                    <button class="btn" onclick="window.location.href='edit_matriz.php?id=<?php echo $row['id']; ?>'">Editar</button>
+                <?php endif; ?>
+                <?php if (in_array('exclusao', $usuario_permissoes)): ?>
+                    <button class="btn" onclick="if(confirm('Deseja realmente excluir esta matriz?')) window.location.href='delete_matriz.php?id=<?php echo $row['id']; ?>'">Excluir</button>
+                <?php endif; ?>
             </td>
         </tr>
         <?php endwhile; ?>
     </table>
+
 
     <!-- Modal de Ajuda -->
     <div id="modalAjuda" class="modal">

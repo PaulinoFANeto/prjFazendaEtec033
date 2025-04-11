@@ -1,4 +1,38 @@
 <?php
+session_start();
+include 'db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $usuario_id = $_SESSION['usuario_id'];
+    $id = $_POST['id'];
+    $nome = $_POST['nome'];
+    $raca = $_POST['raca'];
+    $peso = $_POST['peso'];
+    $data_nascimento = $_POST['data_nascimento'];
+    $data_entrada = $_POST['data_entrada'];
+
+    $stmt = $conn->prepare("UPDATE matrizes SET nome = ?, raca = ?, peso = ?, data_nascimento = ?, data_entrada = ?, usuario_id = ?, data_acao = NOW() WHERE id = ?");
+    $stmt->bind_param("ssdsiii", $nome, $raca, $peso, $data_nascimento, $data_entrada, $usuario_id, $id);
+    $stmt->execute();
+
+    // Registro no log
+    $tabela = 'matrizes';
+    $acao = 'alteracao';
+    $stmt_log = $conn->prepare("INSERT INTO logs (usuario_id, tabela, acao, data_acao) VALUES (?, ?, ?, NOW())");
+    $stmt_log->bind_param("iss", $usuario_id, $tabela, $acao);
+    $stmt_log->execute();
+
+    $stmt->close();
+    $stmt_log->close();
+    $conn->close();
+
+    header("Location: matrizes.php");
+}
+?>
+
+
+<?php
+/*
 include 'db.php';
 
 $id = $_GET['id'];
@@ -20,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Erro: " . $sql . "<br>" . $conn->error;
     }
 }
+    */
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

@@ -1,72 +1,49 @@
 <?php
-include 'db.php';
-
-/*
-Método de Requisição: Verificar se a requisição é do tipo POST com $_SERVER["REQUEST_METHOD"].
-
-Os métodos de requisição são formas de um cliente (como um navegador web) interagir com um servidor. Os mais comuns são:
-
-GET: Usado para solicitar dados de um servidor. Os dados são enviados na URL. Exemplo: acessar uma página web.
-POST: Usado para enviar dados ao servidor. Os dados são incluídos no corpo da requisição. Exemplo: enviar um formulário.
-PUT: Usado para atualizar dados existentes no servidor.
-DELETE: Usado para deletar dados no servidor.
-No código, usamos $_SERVER["REQUEST_METHOD"] para verificar se a requisição é do tipo POST, 
-garantindo que estamos lidando com dados enviados por um formulário.
-*/
+session_start(); // Inicia a sessão
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = $_POST['usuario'];
-    $senha = $_POST['senha'];
+    // Verifica se os campos "usuario" e "senha" foram enviados
+    if (isset($_POST['usuario']) && isset($_POST['senha'])) {
+        $nome = $_POST['usuario'];
+        $senha = $_POST['senha'];
 
-    // Prepara a declaração SQL
-    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nome = ?");
-    
-    // Verifica se a preparação foi bem-sucedida
-    if ($stmt === false) {
-        die("Erro na preparação da declaração: " . $conn->error);
-    }
+        // Armazena o nome e senha na sessão
+        $_SESSION['usuario'] = $nome;
+        $_SESSION['senha'] = $senha;
 
-    // Vincula os parâmetros
-    $stmt->bind_param("s", $nome);
+        // Inclui o arquivo de conexão com o banco de dados
+        include 'db.php';
 
-    // Executa a declaração
-    $stmt->execute();
-
-    // Obtém o resultado
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-
- 
-    if ($user) {
-        echo "Nome: " . $user['nome'] . "<br>";
-        echo "Minha Senha: " . $senha . "<br>";
-        echo "Senha Criptografada: " . $user['senha'] . "<br>";
-        if (password_verify($senha, $user['senha'])) {
-            // Redireciona para menu principal do sistema
-            header("Location: index.php");
-        } else {
-            echo "Senha incorreta.";
+        // Prepara a declaração SQL para validar o usuário
+        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nome = ?");
+        if ($stmt === false) {
+            die("Erro na preparação da declaração: " . $conn->error);
         }
+
+        // Vincula os parâmetros e executa a declaração
+        $stmt->bind_param("s", $nome);
+        $stmt->execute();
+
+        // Obtém o resultado
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        // Verifica se o usuário foi encontrado e a senha está correta
+        if ($user && password_verify($senha, $user['senha'])) {
+            $_SESSION['usuario_id'] = $user['id'];
+            header("Location: index.php");
+            exit;
+        } else {
+            echo "Nome de usuário ou senha incorretos.";
+        }
+
+        // Fecha a declaração
+        $stmt->close();
     } else {
-        echo "Usuário não encontrado.";
+        die("Erro: Campos de usuário ou senha não foram enviados.");
     }
-
-    /*
-
-    // Verifica se o usuário foi encontrado e se a senha está correta
-//    if ($user && password_verify($senha, $user['senha'])) {
-    if ($user && $senha) {
-        // Redireciona para menu principal do sistema
-        header("Location: index.php");
-        exit(); // Garante que o script pare de executar após o redirecionamento    
-    } else {
-        echo "Nome de usuário ou senha incorretos.";
-    }
-
-    */  
-
-    // Fecha a declaração
-    $stmt->close();
+} else {
+    die("Erro: Requisição inválida. Use o método POST.");
 }
 
 // Fecha a conexão
