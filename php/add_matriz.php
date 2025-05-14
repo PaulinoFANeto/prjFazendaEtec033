@@ -4,22 +4,23 @@ include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Captura os dados do formulário
-    $usuario_id = $_SESSION['usuario_id'];
     $nome = $_POST['nome'];
     $raca = $_POST['raca'];
-    $peso = $_POST['peso'];
+    $peso = floatval($_POST['peso']);
     $data_nascimento = $_POST['data_nascimento'];
     $data_entrada = $_POST['data_entrada'];
+    $usuario_id = intval($_SESSION['usuario_id']);
 
     // Prepara a declaração SQL para evitar SQL Injection
-    $stmt = $conn->prepare("INSERT INTO matrizes (nome, raca, peso, data_nascimento, data_entrada, usuario_id, data_acao) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+    $stmt = $conn->prepare("INSERT INTO matrizes (nome, raca, peso, data_nascimento, data_entrada, usuario_id, data_acao)
+     VALUES (?, ?, ?, ?, ?, ?, NOW())");
     // Verifica se a preparação foi bem-sucedida
     if ($stmt === false) {
         die("Erro na preparação da declaração: " . $conn->error);
     }
 
-    // Vincula os parâmetros
-    $stmt->bind_param("ssdsii", $nome, $raca, $peso, $data_nascimento, $data_entrada, $usuario_id);
+    // Vincula os parâmetros com o tipo correto
+    $stmt->bind_param("ssdssi", $nome, $raca, $peso, $data_nascimento, $data_entrada, $usuario_id);
     // Executa a declaração
     $stmt->execute();
 
@@ -49,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Adicionar Matriz</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <button class="voltar-btn" onclick="window.history.back();">← Voltar</button>

@@ -59,3 +59,12 @@ body {
 .login-container a:hover {
     text-decoration: underline;
 }
+
+.alto-contraste {
+    background-color: black;
+    color: yellow;
+}
+
+.fonte-grande {
+    font-size: 20px;
+}
