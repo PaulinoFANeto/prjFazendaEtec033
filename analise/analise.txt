@@ -233,26 +233,24 @@ nas partes subsequentes.
 
 No nosso caso vamos exemplificar uma linha de funcionalidade do sistema da Fezenda ETEC, para gerenciar o seguinte:
 - Acesso ao sistema por um usuário cadastrado;
+    ==> Usuários,
 - Menu de acesso para:
-    ==> Usuários,
     ==> Matrizes,
     ==> Partos,
     ==> Crias,
     ==> Vacinas,
+    ==> Vacinas Matrizes,
+    ==> Vacinas Crias,
     ==> Procedimentos,
-    ==> Alimentação,
-    ==> Pesagem, e 
-    ==> Cobertura.
-- Tela de gerenciamento com no mínimo os seguintes processos: (Incluir, Excluir, Alterar e Consultar) para:
-    ==> Usuários,
-    ==> Matrizes,
-    ==> Partos,
-    ==> Crias,
-    ==> Vacinas,
-    ==> Procedimentos,
-    ==> Alimentação,
-    ==> Pesagem, e 
-    ==> Cobertura.
+    ==> Procedimentos Crias,
+    ==> Alimentos,
+    ==> Alimentos Matrizes,
+    ==> Alimentos Crias,
+    ==> Pesagem Matrizes, 
+    ==> Pesagem Crias, 
+    ==> Cobertura,
+    ==> Configurações
+- Tela de gerenciamento com no mínimo os seguintes processos: (Incluir, Excluir, Alterar e Consultar) para para todos os itens do menu de acesso:
 
 Esta parte irá facilitar a compreensão de como o sistema será desenvolvido, esclarecendo de forma gráfica 
 o fluxo do usuário do sistema em relação as informações do mesmo.
