@@ -18,48 +18,48 @@ session_start();
             <div class="grupo">
                 <h3>Cadastros</h3>
                 <ul>
-                    <li><a href="matrizes.php">Matrizes</a></li>
-                    <li><a href="crias.php">Crias</a></li>
-                    <li><a href="vacinas.php">Vacinas</a></li>
-                    <li><a href="procedimentos.php">Procedimentos</a></li>
-                    <li><a href="alimentos.php">Alimentos</a></li>
+                    <li><a href="matrizes.php?from=menu.php">Matrizes</a></li>
+                    <li><a href="crias.php?from=menu.php">Crias</a></li>
+                    <li><a href="vacinas.php?from=menu.php">Vacinas</a></li>
+                    <li><a href="procedimentos.php?from=menu.php">Procedimentos</a></li>
+                    <li><a href="alimentos.php?from=menu.php">Alimentos</a></li>
                 </ul>
             </div>
 
             <div class="grupo">
                 <h3>Vacinação</h3>
                 <ul>
-                    <li><a href="vacinas_matrizes.php">De Matrizes</a></li>
-                    <li><a href="vacinas_crias.php">De Crias</a></li>
+                    <li><a href="vacinas_matrizes.php?from=menu.php">De Matrizes</a></li>
+                    <li><a href="vacinas_crias.php?from=menu.php">De Crias</a></li>
                 </ul>
                 <h3>Ações Especiais</h3>
                 <ul>
-                    <li><a href="partos.php">Partos</a></li>
-                    <li><a href="coberturas.php">Coberturas</a></li>
+                    <li><a href="partos.php?from=menu.php">Partos</a></li>
+                    <li><a href="coberturas.php?from=menu.php">Coberturas</a></li>
                 </ul>
             </div>
 
             <div class="grupo">
                 <h3>Procedimentos</h3>
                 <ul>
-                    <li><a href="procedimentos_matrizes.php">Em Matrizes</a></li>
-                    <li><a href="procedimentos_crias.php">Em Crias</a></li>
+                    <li><a href="procedimentos_matrizes.php?from=menu.php">Em Matrizes</a></li>
+                    <li><a href="procedimentos_crias.php?from=menu.php">Em Crias</a></li>
                 </ul>
             </div>
 
             <div class="grupo">
                 <h3>Alimentação</h3>
                 <ul>
-                    <li><a href="alimentacao_matrizes.php">De Matrizes</a></li>
-                    <li><a href="alimentacao_crias.php">De Crias</a></li>
+                    <li><a href="alimentacao_matrizes.php?from=menu.php">De Matrizes</a></li>
+                    <li><a href="alimentacao_crias.php?from=menu.php">De Crias</a></li>
                 </ul>
             </div>
 
             <div class="grupo">
                 <h3>Pesagem</h3>
                 <ul>
-                    <li><a href="pesagem_matrizes.php">De Matrizes</a></li>
-                    <li><a href="pesagem_crias.php">De Crias</a></li>
+                    <li><a href="pesagem_matrizes.php?from=menu.php">De Matrizes</a></li>
+                    <li><a href="pesagem_crias.php?from=menu.php">De Crias</a></li>
                 </ul>
             </div>
 
@@ -69,7 +69,7 @@ session_start();
                     <!-- Exibir opção de configuração do sistema apenas para administradores -->
                     <?php
                     if (isset($_SESSION['nivel_acesso']) && $_SESSION['nivel_acesso'] === 'Administrador') {
-                        echo '<ul><li><a href="configuracoes.php">Configurações do Sistema</a></li></ul>';
+                        echo '<ul><li><a href="configuracoes.php?from=menu.php">Configurações do Sistema</a></li></ul>';
                     }
                     ?>
                 </ul>

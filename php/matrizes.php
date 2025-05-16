@@ -17,54 +17,16 @@ if ($result === false) {
     <meta charset="UTF-8">
     <title>Matrizes</title>
     <link rel="stylesheet" href="../css/estilo.css">
-    <script>
-        function sortTable(n) {
-            const table = document.getElementById("matrizTable");
-            let rows, switching, i, x, y, shouldSwitch, dir = "asc", switchcount = 0;
-            switching = true;
-
-            while (switching) {
-                switching = false;
-                rows = table.rows;
-
-                for (i = 1; i < rows.length - 1; i++) {
-                    shouldSwitch = false;
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-
-                    if (dir == "asc" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
-                    } else if (dir == "desc" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
-
-                if (shouldSwitch) {
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    switchcount++;
-                } else {
-                    if (switchcount === 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body>
 <div class="container">
     <?php include 'header.php'; ?>
 
-    <div class="btn-group">
-        <div class="search-container">
-            <input type="text" id="search" placeholder="Buscar matriz..." 
-                onkeyup="window.location.href='?search=' + this.value">
-        </div>
-    
+    <div class="top-bar">
+        <form class="search-form" method="GET" action="">
+            <input type="text" name="search" placeholder="Buscar matriz..." value="<?php echo htmlspecialchars($search); ?>">
+        </form>
+
         <?php if (in_array('inclusao', $usuario_permissoes)): ?>
             <button class="btn" onclick="window.location.href='add_matriz.php'">Adicionar nova Matriz</button>
         <?php endif; ?>
@@ -99,9 +61,29 @@ if ($result === false) {
         </tr>
         <?php endwhile; ?>
     </table>
+
+    <!-- Modal de Ajuda -->
+    <?php
+        $titulo_ajuda = "Ajuda - Tela de Matrizes";
+        $descricao_ajuda = "Esta tela exibe uma lista de todas as matrizes cadastradas no sistema.";
+        $itens_ajuda = [
+            ['titulo' => 'Voltar', 'descricao' => 'Retorna para a tela anterior.'],
+            ['titulo' => 'Ajudar', 'descricao' => 'Abre esta tela de auxílio.'],
+            ['titulo' => 'Buscar Matriz', 'descricao' => 'Exibe na tela dados específicos. Par mostrar tudo, apague o texto do campo de busca.'],
+            ['titulo' => 'Adicionar', 'descricao' => 'Permite registrar um novo parto.'],
+            ['titulo' => 'Editar', 'descricao' => 'Permite alterar os dados de um parto existente.'],
+            ['titulo' => 'Excluir', 'descricao' => 'Remove o registro de um parto.']
+        ];
+        $observacao_ajuda = "OBSERVAÇÃO: As ações só aparecem se o usuário tiver permissão para executá-las.";
+        // Incluir o arquivo de ajuda
+        include 'modal_ajuda.php';
+    ?>    
+
 </div>
 
 <?php include 'footer.php'; ?>
+<script src="../js/ordenaTabela.js"></script>
+
 </body>
 </html>
 

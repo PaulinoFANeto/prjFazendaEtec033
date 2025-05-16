@@ -23,7 +23,7 @@ CREATE TABLE logs (
 CREATE TABLE matrizes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50),
-    raça VARCHAR(50),
+    raca VARCHAR(50),
     peso DECIMAL(5,2),
     data_nascimento DATE,
     data_entrada DATE,
