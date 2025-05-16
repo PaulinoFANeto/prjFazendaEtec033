@@ -1,4 +1,5 @@
 <?php
+$titulo_pagina = "Bem-vindo à tela de Menu Principal";
 session_start();
 ?> 
 
@@ -7,36 +8,96 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Fazenda Etec</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/menu.css">
 </head>
 <body>
-    <button class="voltar-btn" onclick="window.history.back();">← Voltar</button>
-    <h1>Bem-vindo à Fazenda Etec, <?php echo $_SESSION['nome']; ?></h1>
-    <nav>
-        <ul>
-            <li><a href="matrizes.php">Matrizes</a></li>
-            <li><a href="partos.php">Partos</a></li>
-            <li><a href="crias.php">Crias</a></li>
-            <li><a href="vacinas.php">Vacinas</a></li>
-            <li><a href="vacinas_matrizes.php">Vacinas Matrizes</a></li>
-            <li><a href="vacinas_crias.php">Vacinas Crias</a></li>
-            <li><a href="procedimentos.php">Procedimentos</a></li>
-            <li><a href="procedimentos_matrizes.php">Procedimentos Matrizes</a></li>
-            <li><a href="procedimentos_crias.php">Procedimentos Crias</a></li>
-            <li><a href="alimentos.php">Alimentos</a></li>
-            <li><a href="alimentacao_matrizes.php">Alimentação Matrizes</a></li>
-            <li><a href="alimentacao_crias.php">Alimentação Crias</a></li>
-            <li><a href="pesagem_matrizes.php">Pesagem Matrizes</a></li>
-            <li><a href="pesagem_crias.php">Pesagem Crias</a></li>
-            <li><a href="coberturas.php">Coberturas</a></li>
+    <?php include 'header.php'; ?>
 
-             <!-- Exibir opção de configuração do sistema apenas para administradores -->
-            <?php
-            if (isset($_SESSION['nivel_acesso']) && $_SESSION['nivel_acesso'] === 'Administrador') {
-                echo '<li><a href="configuracoes.php">Configurações do Sistema</a></li>';
-            }
-            ?>
-        </ul>
+    <nav>
+        <div class="container-nav">
+            <div class="grupo">
+                <h3>Cadastros</h3>
+                <ul>
+                    <li><a href="matrizes.php">Matrizes</a></li>
+                    <li><a href="crias.php">Crias</a></li>
+                    <li><a href="vacinas.php">Vacinas</a></li>
+                    <li><a href="procedimentos.php">Procedimentos</a></li>
+                    <li><a href="alimentos.php">Alimentos</a></li>
+                </ul>
+            </div>
+
+            <div class="grupo">
+                <h3>Vacinação</h3>
+                <ul>
+                    <li><a href="vacinas_matrizes.php">De Matrizes</a></li>
+                    <li><a href="vacinas_crias.php">De Crias</a></li>
+                </ul>
+                <h3>Ações Especiais</h3>
+                <ul>
+                    <li><a href="partos.php">Partos</a></li>
+                    <li><a href="coberturas.php">Coberturas</a></li>
+                </ul>
+            </div>
+
+            <div class="grupo">
+                <h3>Procedimentos</h3>
+                <ul>
+                    <li><a href="procedimentos_matrizes.php">Em Matrizes</a></li>
+                    <li><a href="procedimentos_crias.php">Em Crias</a></li>
+                </ul>
+            </div>
+
+            <div class="grupo">
+                <h3>Alimentação</h3>
+                <ul>
+                    <li><a href="alimentacao_matrizes.php">De Matrizes</a></li>
+                    <li><a href="alimentacao_crias.php">De Crias</a></li>
+                </ul>
+            </div>
+
+            <div class="grupo">
+                <h3>Pesagem</h3>
+                <ul>
+                    <li><a href="pesagem_matrizes.php">De Matrizes</a></li>
+                    <li><a href="pesagem_crias.php">De Crias</a></li>
+                </ul>
+            </div>
+
+            <div class="grupo">
+                <h3>Configurações</h3>
+                <ul>
+                    <!-- Exibir opção de configuração do sistema apenas para administradores -->
+                    <?php
+                    if (isset($_SESSION['nivel_acesso']) && $_SESSION['nivel_acesso'] === 'Administrador') {
+                        echo '<ul><li><a href="configuracoes.php">Configurações do Sistema</a></li></ul>';
+                    }
+                    ?>
+                </ul>
+            </div>
+
+        </div>
     </nav>
+
+    <!-- Modal de Ajuda -->
+    <?php
+        $titulo_ajuda = "Ajuda - Tela de Menu Principal";
+        $descricao_ajuda = "Esta tela exibe uma lista de opções de acesso ao sistema.";
+        $itens_ajuda = [
+            ['titulo' => 'Cadastros', 'descricao' => 'Usado para fazer os registros básicos.'],
+            ['titulo' => 'Vacinação', 'descricao' => 'Permite aplicar as vacinas cadastradas em matrizes ou crias.'],
+            ['titulo' => 'Ações Especiais', 'descricao' => 'Registra partos e coberturas de uma matriz.'],
+            ['titulo' => 'Procedimentos', 'descricao' => 'Registra outros tipos de procedimentos feitos em matrizes ou crias.'],
+            ['titulo' => 'Alimentação', 'descricao' => 'Mantem o registro de tratos feitos em matrizes ou crias.'],
+            ['titulo' => 'Pesagem', 'descricao' => 'Mantem o registro de pesagem realizados em matrizes ou crias.'],
+            ['titulo' => 'Configurações', 'descricao' => 'Permite alterar as configurações do sistema.'],
+            ['titulo' => 'Voltar', 'descricao' => 'Retorna para a tela anterior.'],
+            ['titulo' => 'Sair', 'descricao' => 'Encerra a sessão atual.']
+        ];
+        $observacao_ajuda = "OBSERVAÇÃO: As opções de acesso aparecem de acordo com o nível de permissão do usuário.";
+        // Incluir o arquivo de ajuda
+        include 'modal_ajuda.php';
+    ?>
+
+    <?php include 'footer.php'; ?>
 </body>
 </html>

@@ -1,8 +1,10 @@
 <?php
-$titulo_pagina = "Bem vindo à tela de Matrizes";
+$titulo_pagina = "Bem-vindo à tela de Matrizes";
 include 'auth.php';
 
-$sql = "SELECT * FROM matrizes";
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
+$sql = "SELECT * FROM matrizes WHERE nome LIKE '%$search%' OR raca LIKE '%$search%'";
 $result = $conn->query($sql);
 if ($result === false) {
     die("Erro na consulta: " . $conn->error);
@@ -15,25 +17,67 @@ if ($result === false) {
     <meta charset="UTF-8">
     <title>Matrizes</title>
     <link rel="stylesheet" href="../css/estilo.css">
+    <script>
+        function sortTable(n) {
+            const table = document.getElementById("matrizTable");
+            let rows, switching, i, x, y, shouldSwitch, dir = "asc", switchcount = 0;
+            switching = true;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < rows.length - 1; i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                    if (dir == "asc" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    } else if (dir == "desc" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount === 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <?php include 'header.php'; ?>
 
     <div class="btn-group">
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Buscar matriz..." 
+                onkeyup="window.location.href='?search=' + this.value">
+        </div>
+    
         <?php if (in_array('inclusao', $usuario_permissoes)): ?>
             <button class="btn" onclick="window.location.href='add_matriz.php'">Adicionar nova Matriz</button>
         <?php endif; ?>
     </div>
 
-    <table>
+    <table id="matrizTable">
         <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Raça</th>
-            <th>Peso (kg)</th>
-            <th>Data de Nascimento</th>
-            <th>Data de Entrada</th>
+            <th onclick="sortTable(0)">ID</th>
+            <th onclick="sortTable(1)">Nome</th>
+            <th onclick="sortTable(2)">Raça</th>
+            <th onclick="sortTable(3)">Peso (kg)</th>
+            <th onclick="sortTable(4)">Data de Nascimento</th>
+            <th onclick="sortTable(5)">Data de Entrada</th>
             <th>Ações</th>
         </tr>
         <?php while($row = $result->fetch_assoc()): ?>
@@ -55,23 +99,9 @@ if ($result === false) {
         </tr>
         <?php endwhile; ?>
     </table>
-
-    <!-- Modal de Ajuda -->
-    <?php
-        $titulo_ajuda = "Ajuda - Tela de Matrizes";
-        $descricao_ajuda = "Esta tela exibe uma lista de todas as matrizes cadastradas no sistema.";
-        $itens_ajuda = [
-            ['titulo' => 'Adicionar', 'descricao' => 'Permite registrar uma nova matriz.'],
-            ['titulo' => 'Editar', 'descricao' => 'Permite alterar os dados de uma matriz existente.'],
-            ['titulo' => 'Excluir', 'descricao' => 'Remove o registro de uma matriz.'],
-            ['titulo' => 'Voltar', 'descricao' => 'Retorna para a tela anterior.']
-        ];
-        $observacao_ajuda = "OBSERVAÇÃO: As ações só aparecem se o usuário tiver permissão para executá-las.";
-        // Incluir o arquivo de ajuda
-        include 'modal_ajuda.php';
-    ?>
 </div>
 
 <?php include 'footer.php'; ?>
 </body>
 </html>
+
