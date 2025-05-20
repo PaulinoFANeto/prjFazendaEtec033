@@ -35,8 +35,12 @@ CREATE TABLE matrizes (
 CREATE TABLE partos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     matriz_id INT,
-    data_parto DATE,
-    data_desmame DATE,
+    data_prevista_parto DATE,
+    data_efetiva_parto DATE,
+    data_prevista_desmame DATE,
+    data_efetiva_desmame DATE,
+    data_prevista_transferencia_maternidade DATE,
+    data_efetiva_transferencia_maternidade DATE,
     usuario_id INT,
     data_acao DATETIME,
     FOREIGN KEY (matriz_id) REFERENCES matrizes(id),
@@ -189,4 +193,12 @@ CREATE TABLE coberturas (
     data_acao DATETIME,
     FOREIGN KEY (matriz_id) REFERENCES matrizes(id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE configuracoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dia_previsto_gestacao INT,
+    dia_preparacao_parto INT,
+    usuario_id INT,
+    data_acao DATETIME,
 );

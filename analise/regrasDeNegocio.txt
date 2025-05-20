@@ -1,0 +1,13 @@
+Relatório de regras de negócio a serem implementadas no sistema
+
+1ª Regra - Quando um registro for efetuado na tabela de "coberturas" o sistema deverá:
+    - Gerar um registro na tabela de "partos" com as seguintes informações:
+        partos.data_prevista_parto = coberturas.data_cobertura + configuracoes.dia_previsto_gestacao;
+    
+        partos.data_prevista_transferencia_maternidade = partos.data_prevista_parto - configuracoes.dia_preparacao_parto;
+2ª Regra - A partir da data_prevista_parto
+
+    - Gerar 
+    data
+
+    - O sistema deverá abrir uma tela avisando que a matriz está próxima de dar a luz, a partir de 5 dias antes da data_prevista_parto
