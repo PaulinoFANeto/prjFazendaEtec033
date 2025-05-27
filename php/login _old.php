@@ -45,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Fecha a declaração
         $stmt->close();
     } else {
-        // Se os campos de usuário ou senha não foram enviados, exibe um erro 
         die("Erro: Campos de usuário ou senha não foram enviados.");
     }
 } else {
