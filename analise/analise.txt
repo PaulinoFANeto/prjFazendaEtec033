@@ -1,5 +1,7 @@
 Análise de dados
+ modificado dia 26052025
 
+ 
 Analisar é um processo cujo objetivo é compreender o sistema de funcionamento de algo.
 Uma análise deve levantar informações e questionamentos a fim de estabelecer e identificar 
 os relacionamentos entre os subprocessos do sistema de forma tal que fique claro o fluxo das informações desde o 
