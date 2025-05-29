@@ -1,20 +1,6 @@
 <?php
-include 'db.php';
-
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: index.php");
-    exit;
-}
-
-// Exemplo de restrição por nível
-if ($_SESSION['nivel_acesso'] !== 'Administrador') {
-    echo "Acesso negado. Esta área é restrita a administradores.";
-    exit;
-}
-?>
-
-<?php
 $titulo_pagina = "Bem-vindo à tela de Menu Principal";
+session_start();
 ?> 
 
 <!DOCTYPE html>
@@ -46,9 +32,6 @@ $titulo_pagina = "Bem-vindo à tela de Menu Principal";
                     <li><a href="vacinas_matrizes.php?from=menu.php">De Matrizes</a></li>
                     <li><a href="vacinas_crias.php?from=menu.php">De Crias</a></li>
                 </ul>
-            </div>
-
-            <div class="grupo">
                 <h3>Ações Especiais</h3>
                 <ul>
                     <li><a href="partos.php?from=menu.php">Partos</a></li>

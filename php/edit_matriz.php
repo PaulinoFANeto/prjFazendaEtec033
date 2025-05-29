@@ -2,8 +2,15 @@
 session_start();
 include 'db.php';
 
+// Verifica se o usuário está logado
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$usuario_id = $_SESSION['usuario_id'];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario_id = $_SESSION['usuario_id'];
     $id = $_POST['id'];
     $nome = $_POST['nome'];
     $raca = $_POST['raca'];
@@ -12,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data_entrada = $_POST['data_entrada'];
 
     $stmt = $conn->prepare("UPDATE matrizes SET nome = ?, raca = ?, peso = ?, data_nascimento = ?, data_entrada = ?, usuario_id = ?, data_acao = NOW() WHERE id = ?");
-    $stmt->bind_param("ssdsiii", $nome, $raca, $peso, $data_nascimento, $data_entrada, $usuario_id, $id);
+    $stmt->bind_param("ssdssii", $nome, $raca, $peso, $data_nascimento, $data_entrada, $usuario_id, $id);
     $stmt->execute();
 
     // Registro no log
@@ -27,57 +34,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 
     header("Location: matrizes.php");
+    exit();
 }
-?>
 
-
-<?php
-/*
-include 'db.php';
-
-$id = $_GET['id'];
-$sql = "SELECT * FROM matrizes WHERE id=$id";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nome = $_POST['nome'];
-    $raca = $_POST['raca'];
-    $peso = $_POST['peso'];
-    $data_nascimento = $_POST['data_nascimento'];
-    $data_entrada = $_POST['data_entrada'];
-
-    $sql = "UPDATE matrizes SET nome='$nome', raça='$raca', peso='$peso', data_nascimento='$data_nascimento', data_entrada='$data_entrada' WHERE id=$id";
-    if ($conn->query($sql) === TRUE) {
-        header('Location: matrizes.php');
-    } else {
-        echo "Erro: " . $sql . "<br>" . $conn->error;
-    }
+// Carrega os dados da matriz para edição
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $stmt = $conn->prepare("SELECT * FROM matrizes WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+} else {
+    echo "ID da matriz não fornecido.";
+    exit();
 }
-    */
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Editar Matriz</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
     <button class="voltar-btn" onclick="window.history.back();">← Voltar</button>
 
     <h1>Editar Matriz</h1>
     <form method="post">
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" value="<?php echo $row['nome']; ?>" required>
+        <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required>
         <label for="raca">Raça:</label>
-        <input type="text" id="raca" name="raca" value="<?php echo $row['raça']; ?>" required>
+        <input type="text" id="raca" name="raca" value="<?php echo htmlspecialchars($row['raca']); ?>" required>
         <label for="peso">Peso:</label>
-        <input type="number" step="0.01" id="peso" name="peso" value="<?php echo $row['peso']; ?>" required>
+        <input type="number" step="0.01" id="peso" name="peso" value="<?php echo htmlspecialchars($row['peso']); ?>" required>
         <label for="data_nascimento">Data de Nascimento:</label>
-        <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo $row['data_nascimento']; ?>" required>
+        <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo htmlspecialchars($row['data_nascimento']); ?>" required>
         <label for="data_entrada">Data de Entrada:</label>
-        <input type="date" id="data_entrada" name="data_entrada" value="<?php echo $row['data_entrada']; ?>" required>
+        <input type="date" id="data_entrada" name="data_entrada" value="<?php echo htmlspecialchars($row['data_entrada']); ?>" required>
         <button type="submit">Salvar</button>
     </form>
 </body>

@@ -1,57 +1,67 @@
 <?php
-// Inclui o arquivo de conexão com o banco de dados
 include 'db.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica se os campos "usuario" e "senha" foram enviados
-    if (isset($_POST['usuario']) && isset($_POST['senha'])) {
-        $nome = $_POST['usuario'];
-        $senha = $_POST['senha'];
-
-        // Armazena o nome e senha na sessão
-        $_SESSION['usuario'] = $nome;
-        $_SESSION['senha'] = $senha;
-
-        // Prepara a declaração SQL para validar o usuário
-        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nome = ?");
-        if ($stmt === false) {
-            die("Erro na preparação da consulta: " . $conn->error);
-        }
-
-        // Vincula os parâmetros e executa a declaração
-        $stmt->bind_param("s", $nome);
-        $stmt->execute();
-
-        // Obtém o resultado
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-
-        // Verifica se o usuário foi encontrado e a senha está correta
-        if ($user && password_verify($senha, $user['senha'])) {
-            $_SESSION['usuario_id'] = $user['id'];
-            $_SESSION['nome'] = $user['nome'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['nivel_acesso'] = $user['nivel_acesso'];
-            $_SESSION['data_cadastro'] = $user['data_cadastro'];
-            $_SESSION['loggedin'] = true; // Define a variável de sessão de login
-            
-            // Redireciona para a página de menu do sistemas
-            header("Location: menu.php");
-            exit;
-        } else {
-            echo "Nome de usuário ou senha incorretos.";
-        }
-
-        // Fecha a declaração
-        $stmt->close();
-    } else {
-        // Se os campos de usuário ou senha não foram enviados, exibe um erro 
-        die("Erro: Campos de usuário ou senha não foram enviados.");
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!isset($_POST['usuario'], $_POST['senha'])) {
+        die("Erro: Campos obrigatórios não enviados.");
     }
+
+    $nome = trim($_POST['usuario']);
+    $senha = $_POST['senha'];
+
+    // Validação backend do nome de usuário
+    if (!preg_match('/^[a-zA-Z0-9]{3,20}$/', $nome)) {
+        die("Erro: Nome de usuário inválido.");
+    }
+
+    // Validação backend da senha
+    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$/', $senha)) {
+        die("Erro: Senha inválida.");
+    }
+
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nome = ?");
+    if (!$stmt) {
+        die("Erro na preparação da consulta: " . $conn->error);
+    }
+
+    $stmt->bind_param("s", $nome);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    if ($user && password_verify($senha, $user['senha'])) {
+        $_SESSION['usuario_id'] = $user['id'];
+        $_SESSION['nome'] = $user['nome'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['nivel_acesso'] = $user['nivel_acesso'];
+        $_SESSION['loggedin'] = true;
+
+        // Redireciona com base no nível de acesso
+        switch ($user['nivel_acesso']) {
+            case 'administrador':
+                header("Location: admin_dashboard.php");
+                break;
+            case 'docente':
+                header("Location: docente_dashboard.php");
+                break;
+            case 'auxiliar':
+                header("Location: auxiliar_dashboard.php");
+                break;
+            case 'aluno':
+                header("Location: aluno_dashboard.php");
+                break;
+            default:
+                header("Location: menu.php");
+        }
+        exit;
+    } else {
+        echo "Usuário ou senha incorretos.";
+    }
+
+    $stmt->close();
 } else {
-    die("Erro: Requisição inválida. Use o método POST.");
+    die("Erro: Requisição inválida.");
 }
 
-// Fecha a conexão
 $conn->close();
 ?>

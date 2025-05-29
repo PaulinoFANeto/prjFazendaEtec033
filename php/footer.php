@@ -1,9 +1,9 @@
 <div class="footer">
     <div class="footer-left">
-        Usuário: <?php echo htmlspecialchars($_SESSION['usuario']); ?>
+        Usuário: <?php echo isset($_SESSION['nome']) ? htmlspecialchars($_SESSION['nome']) : 'Desconhecido'; ?>
     </div>
     <div class="footer-right">
-        Nível de acesso: <?php echo htmlspecialchars($_SESSION['nivel_acesso']); ?>
+        Nível de acesso: <?php echo isset($_SESSION['nivel_acesso']) ? htmlspecialchars($_SESSION['nivel_acesso']) : 'Desconhecido'; ?>
     </div>
 </div>
 

@@ -55,7 +55,8 @@ if ($result === false) {
                     <button class="btn" onclick="window.location.href='edit_matriz.php?id=<?php echo $row['id']; ?>'">Editar</button>
                 <?php endif; ?>
                 <?php if (in_array('exclusao', $usuario_permissoes)): ?>
-                    <button class="btn" onclick="if(confirm('Deseja realmente excluir esta matriz?')) window.location.href='delete_matriz.php?id=<?php echo $row['id']; ?>'">Excluir</button>
+                    <!-- <button class="btn" onclick="if(confirm('Deseja realmente excluir a matriz ' + $row['nome'] +' ?' )) window.location.href='delete_matriz.php?id=<?php echo $row['id']; ?>'">Excluir</button> -->
+                    <button class="btn" onclick="if(confirm('Deseja realmente excluir a matriz <?php echo $row['nome'];?> ?' )) window.location.href='delete_matriz.php?id=<?php echo $row['id']; ?>'">Excluir</button>
                 <?php endif; ?>
             </td>
         </tr>

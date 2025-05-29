@@ -26,7 +26,6 @@
     <!-- <link rel="stylesheet" href="css/estilo_registro.css"> -->
 </head>
 <body>
-
     <div class="register-container">
         <h2>Cadastrar Usuário</h2>
         <form action="usuario.php" method="POST">
