@@ -1,0 +1,125 @@
+Relatório de regras de negócio a serem implementadas no sistema
+
+Contexto:
+    O presente projeto propõe o desenvolvimento de um aplicativo mobile denominado “SuínoPró” e é desenvolvido 
+no âmbito da Fazenda Etec-033 como "prjFazendaEtec033".
+
+    Por ser mobile, deve atender diferentes dispositivos, como celulares, tablets, etc.
+
+Regras de negócio para padronização, documentação e estruturação:
+    1ª Regra: Para efeitos de padronização: 
+        1.1 - A nomenclatura das pastas ou arquivos deve seguir o Padrão SNAKE CASE, ou seja: 
+                - Deve ser digitado em letras minúsculas, sem acentos de qualquer espécie
+                - Deve utilizar o símbolo "underline" no lugar do espaço para separar as palavras.
+                Exemplo: regras_negocio.txt
+
+        1.2 - No início de cada arquivo, antes de qualquer programação, deve ser colocada a frase abaixo, como segue.
+                <!-- Veja orientações de funcionamento deste arquivo, no arquivo "regras_negocio.txt" -->
+                - Obviamente, o arquivo regras_negocio.txt deverá receber os escritos das novas regras do novo arquivo.
+
+    2ª Regra: Para efeitos de documentação:
+        2.1 - Antes de iniciar os trabalhos é obrigatório:
+                - Fazer uma cópia de segurança do diretório (pasta do projeto), especificando a data da cópia
+                    Exemplo: prjFazendaEtec033 - Copia 16052025 - Inicio
+                - Fazer a atualização do diretório (pasta do projeto) para deixá-lo igual ao repositório do github.
+                    Orientações de como fazer:
+                        - Na internet: Abra o repositório do projeto no github.
+                        - Na sua máquina, no visual estudio code:
+                            - Abra o diretório do projeto
+                            - Abra um novo terminal de comandos git´s
+                            - Digite no prompt do terminal o seguinte comando:
+                                git pull origin main
+                            - Certifique-se de que tudo ocorreu corretamente. Caso contrário procure ajuda.
+        
+        2.2 - Durante os trabalhos é obrigatório:
+                - Caso já exista o arquivo no qual vai trabalhar:
+                    Faça uma cópia de segurança do mesmo.
+                        Exemplo: Se já existe o arquivo "matrizes.php" crie uma cópia "matrizes_old_30052025.php"
+                - Caso não exista a pasta ou arquivo no qual vai trabalhar: 
+                    Crie a pasta ou arquivo desejado de acordo com as regras de nomenclatura.
+                - Caso tenha um arquivo semelhante ao que deseja trabalhar:
+                    Crie uma cópia do arquivo semelhante,
+                    Altere o nome do arquivo de cópia, para o nome desejado,
+                    Faça as alterações no novo arquivo a fim de adaptá-lo as novas necessidades.
+                - Caso já exista um ou mais arquivos de cópia do arquivo a ser trabalhado:
+                    Mantenha apenas as 3 últimas datas, ou seja, substitua sempre a cópia mais velha. 
+                - Sempre coloque o máximo de comentários possíveis na sua programação.
+                - Manter este arquivo "regras_negocio.txt" sempre atualizado, da seguinte forma:
+                    Escreva a regra que será implementada no sistema; e
+                    Mantenha atualizado o status da referida regra
+                        Status possíveis: 
+                            A ser desenvolvida;
+                            Em desenvolvimento;
+                            Finalizada;
+        
+        2.3 - Após finalizar os trabalhos é orbigatório:
+                - Fazer a atualização do repositório no github deixando-o igual ao diretório (pasta do projeto)
+                    Orientações de como fazer:
+                        - Na internet: Abra o repositório do projeto no github.
+                        - Na sua máquina, no visual estudio code:
+                            - Abra o diretório do projeto
+                            - Abra um novo terminal de comandos git´s
+                            - Digite no prompt do terminal os seguintes comandos:
+                                git add .
+                                git commit -m "<<digite o que foi alterado aqui>>"
+                                    Exemplo:
+                                        git commit - m "Alteração feita em 30052025 - Paulino"
+                                git push origin main
+                            - Certifique-se de que tudo ocorreu corretamente. Caso contrário procure ajuda.
+                - Fazer uma cópia de segurança do diretório (pasta do projeto), especificando a data da cópia
+                    Exemplo: prjFazendaEtec033 - Copia 16052025 - Fim
+    3ª Regra: Para efeitos de estruturação:
+        2.1 - Durante sua programação, utilize o sistema de tabulação para que o código fique endentado.
+        2.2 - Lembre-se de programar, sempre que possível, através de parametrização.
+        2.3 - Se preocupe, o tempo todo, com a responsividade do arquivo trabalhado. Lembre-se o projeto é mobile.
+
+Regras de negócio do arquivo "index.php": 
+STATUS: Finalizada
+1º Deve usar o atributo "pattern" nos input´s para fazer a segurança de entrada de dados:
+    - O campo usuário:
+        * Deve ser único e não pode conter caracteres especiais: 
+            O pattern abaixo garante que apenas caracteres alfanuméricos sejam permitidos.
+                ^[a-zA-Z0-9]
+        * Deve ter entre 3 e 20 caracteres: 
+            O pattern abaixo limita o comprimento do campo entre 3 e 20 caracteres.
+                {3,20}$
+    - O campo senha:
+        * Deve ter entre 6 e 20 caracteres.
+            O pattern abaixo limita o comprimento do campo entre 6 e 20 caracteres.
+                [A-Za-z\d@$!%*?&]{6,20}$
+        * Deve conter letras maiúsculas:
+            O pattern abaixo garante que haja pelo menos uma letra maiúscula. 
+                (?=.*[A-Z]) 
+        * Deve conter letras minúsculas: 
+            O pattern abaixo garante que haja pelo menos uma letra minúscula.
+                (?=.*[a-z])
+        * Deve conter números: 
+            O pattern abaixo garante que haja pelo menos um número.
+                (?=.*\d)
+        * Deve conter símbolos: 
+            O pattern abaixo garante que haja pelo menos um símbolo especial.
+                (?=.*[@$!%*?&])
+
+Regras de negócio para cálculo do campo de dados "data_prevista_parto" que fica na tabela de "partos": 
+STATUS: A ser desenvolvida 
+    - Quando um registro for INSERIDO na tabela de "coberturas" o sistema deverá:
+        - Gerar, automaticamente, um registro na tabela de "partos" com as seguintes informações:
+            partos.data_prevista_parto = coberturas.data_cobertura + configuracoes.dia_previsto_gestacao;
+            partos.data_prevista_transferencia_maternidade = partos.data_prevista_parto - configuracoes.dia_preparacao_parto;
+
+Regras de negócio para cálculo do campo de dados "data_prevista_desmame" que fica na tabela de "partos": 
+STATUS: A ser desenvolvida 
+    - Quando um registro for ALTERADO na tabela de "partos", informando a "data_efetiva_parto" o sistema deverá:
+        - Atualizar, também, de forma automática o campo de dados "data_prevista_desmame", através do cálculo:
+            partos.data_prevista_desmame = partos.data_efetiva_parto + configuracoes.dia_previsto_desmame;
+
+Regras de negócio sobre o comportamento do sistema: 
+STATUS: A ser desenvolvida
+    - Após fazer o login, e antes de acessar o menu principal, o sistema deverá, automaticamente:
+        - Fazer uma leitura das tabelas do banco de dados, gerando:
+            - Uma tela de layout, na forma de tabela, que irá:
+                Mostrar:
+                    - As atividades atrasadas, que ainda não foram realizadas ou atualizadas no sistema.
+                    - As atividades previstas para os próximos 5 dias.
+                    - As atividades realizadas.
+                Filtrar os tipos de atividades

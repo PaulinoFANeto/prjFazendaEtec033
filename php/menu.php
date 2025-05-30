@@ -6,11 +6,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 
-// Exemplo de restrição por nível
-if ($_SESSION['nivel_acesso'] !== 'Administrador') {
-    echo "Acesso negado. Esta área é restrita a administradores.";
-    exit;
-}
+// // Exemplo de restrição por nível
+// if ($_SESSION['nivel_acesso'] !== 'Administrador') {
+//     echo "Acesso negado. Esta área é restrita a administradores.";
+//     exit;
+// }
 ?>
 
 <?php
@@ -30,13 +30,13 @@ $titulo_pagina = "Bem-vindo à tela de Menu Principal";
     <nav>
         <div class="container-nav">
             <div class="grupo">
-                <h3>Cadastros</h3>
+                <h3>Manejos</h3>
                 <ul>
                     <li><a href="matrizes.php?from=menu.php">Matrizes</a></li>
                     <li><a href="crias.php?from=menu.php">Crias</a></li>
                     <li><a href="vacinas.php?from=menu.php">Vacinas</a></li>
                     <li><a href="procedimentos.php?from=menu.php">Procedimentos</a></li>
-                    <li><a href="alimentos.php?from=menu.php">Alimentos</a></li>
+                    <li><a href="alimentos.php?from=menu.php">Nutrições</a></li>
                 </ul>
             </div>
 
@@ -49,7 +49,7 @@ $titulo_pagina = "Bem-vindo à tela de Menu Principal";
             </div>
 
             <div class="grupo">
-                <h3>Ações Especiais</h3>
+                <h3>Manejos Especiais</h3>
                 <ul>
                     <li><a href="partos.php?from=menu.php">Partos</a></li>
                     <li><a href="coberturas.php?from=menu.php">Coberturas</a></li>
@@ -65,7 +65,7 @@ $titulo_pagina = "Bem-vindo à tela de Menu Principal";
             </div>
 
             <div class="grupo">
-                <h3>Alimentação</h3>
+                <h3>Nutrição</h3>
                 <ul>
                     <li><a href="alimentacao_matrizes.php?from=menu.php">De Matrizes</a></li>
                     <li><a href="alimentacao_crias.php?from=menu.php">De Crias</a></li>
@@ -80,18 +80,19 @@ $titulo_pagina = "Bem-vindo à tela de Menu Principal";
                 </ul>
             </div>
 
-            <div class="grupo">
-                <h3>Configurações</h3>
-                <ul>
-                    <!-- Exibir opção de configuração do sistema apenas para administradores -->
-                    <?php
-                    if (isset($_SESSION['nivel_acesso']) && $_SESSION['nivel_acesso'] === 'Administrador') {
-                        echo '<ul><li><a href="configuracoes.php?from=menu.php">Configurações do Sistema</a></li></ul>';
-                    }
-                    ?>
-                </ul>
-            </div>
-
+            <!-- Exibir opção de configuração do sistema apenas para administradores -->
+            <?php
+                if (isset($_SESSION['nivel_acesso']) && $_SESSION['nivel_acesso'] === 'Administrador') {
+                    echo '
+                        <div class="grupo">
+                            <h3>Configurações</h3>
+                            <ul>
+                                <ul><li><a href="configuracoes.php?from=menu.php">Configurações do Sistema</a></li></ul>
+                            </ul>
+                        </div>
+                    ';
+                }
+            ?>
         </div>
     </nav>
 
@@ -100,11 +101,11 @@ $titulo_pagina = "Bem-vindo à tela de Menu Principal";
         $titulo_ajuda = "Ajuda - Tela de Menu Principal";
         $descricao_ajuda = "Esta tela exibe uma lista de opções de acesso ao sistema.";
         $itens_ajuda = [
-            ['titulo' => 'Cadastros', 'descricao' => 'Usado para fazer os registros básicos.'],
+            ['titulo' => 'Manejos', 'descricao' => 'Usado para fazer os registros básicos do sistema.'],
             ['titulo' => 'Vacinação', 'descricao' => 'Permite aplicar as vacinas cadastradas em matrizes ou crias.'],
-            ['titulo' => 'Ações Especiais', 'descricao' => 'Registra partos e coberturas de uma matriz.'],
+            ['titulo' => 'Manejos Especiais', 'descricao' => 'Registra partos e coberturas de uma matriz.'],
             ['titulo' => 'Procedimentos', 'descricao' => 'Registra outros tipos de procedimentos feitos em matrizes ou crias.'],
-            ['titulo' => 'Alimentação', 'descricao' => 'Mantem o registro de tratos feitos em matrizes ou crias.'],
+            ['titulo' => 'Nutrição', 'descricao' => 'Mantem o registro de tratos feitos em matrizes ou crias.'],
             ['titulo' => 'Pesagem', 'descricao' => 'Mantem o registro de pesagem realizados em matrizes ou crias.'],
             ['titulo' => 'Configurações', 'descricao' => 'Permite alterar as configurações do sistema.'],
             ['titulo' => 'Voltar', 'descricao' => 'Retorna para a tela anterior.'],
@@ -115,6 +116,6 @@ $titulo_pagina = "Bem-vindo à tela de Menu Principal";
         include 'modal_ajuda.php';
     ?>
 
-    <?php include 'footer.php'; ?>
+    <?php include 'footer.php'; ?> 
 </body>
 </html>

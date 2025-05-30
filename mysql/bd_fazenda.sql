@@ -199,6 +199,7 @@ CREATE TABLE configuracoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     dia_previsto_gestacao INT,
     dia_preparacao_parto INT,
+    dia_previsto_desmame INT,
     usuario_id INT,
     data_acao DATETIME,
 );

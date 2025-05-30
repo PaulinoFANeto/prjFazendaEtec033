@@ -1,19 +1,20 @@
-<!-- Regras de Negócio para fazer login:
-    O campo usuário:
-        - Deve ser único e não pode conter caracteres especiais.
-        - Deve ter entre 3 e 20 caracteres.
-    O campo senha:
-        - Deve ter entre 6 e 20 caracteres.
-        - Deve conter letras maiúsculas, minúsculas, números e simbolos.
--->
-
+<!-- Veja orientações de funcionamento deste arquivo, no arquivo "regras_negocio.txt" -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistema Fazenda Etec</title>
-    <!-- <link rel="stylesheet" href="css/estilo_login.css"> -->
+
+    <!-- Link para o CSS do arquivo "estilo_index.css".
+        observações:
+        1. Certifique-se que o arquivo CSS esteja na pasta "css" do projeto.
+        2. Se não tiver o arquivo CSS, deixe comentada a linha abaixo.
+        3. Se tiver o arquivo CSS, descomente a linha abaixo.
+        <link rel="stylesheet" href="../css/estilo_index.css"> 
+    -->
+
+    <!-- Link de importação da biblioteca css de autorização de cookies -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
 
 </head>
@@ -21,19 +22,8 @@
     <div class="login-container">
         <h2>Login</h2>
         <form action="login.php" method="POST">
-            <!-- Este pattern abaixo no input text faz o seguinte:
-                Deve ser único e não pode conter caracteres especiais: ^[a-zA-Z0-9] - Garante que apenas caracteres alfanuméricos sejam permitidos.
-                Deve ter entre 3 e 20 caracteres: {3,20}$ - Limita o comprimento do campo entre 3 e 20 caracteres.
-            -->
             <label for="usuario">Usuário:</label>
             <input type="text" id="usuario" name="usuario" required pattern="^[a-zA-Z0-9]{3,20}$" ><br>
-            <!-- O pattern abaixo utilizado no input password faz o seguinte:
-                Deve ter entre 6 e 20 caracteres: [A-Za-z\d@$!%*?&]{6,20}$ - Limita o comprimento do campo entre 6 e 20 caracteres.
-                Deve conter letras maiúsculas: (?=.*[A-Z]) - Garante que haja pelo menos uma letra maiúscula.
-                Deve conter letras minúsculas: (?=.*[a-z]) - Garante que haja pelo menos uma letra minúscula.
-                Deve conter números: (?=.*\d) - Garante que haja pelo menos um número.
-                Deve conter símbolos: (?=.*[@$!%*?&]) - Garante que haja pelo menos um símbolo especial.
-            -->
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$"><br>
             <button type="submit" value="Submit">Entrar</button> <br>
@@ -41,12 +31,16 @@
         </form>
         <a href="registro.php">Cadastrar novo usuário</a>
     </div>
-    <!-- <script src="js/scripts.js"></script> -->
+    <footer>
+        <p>&copy; 2025 Fazenda Etec-033. Todos os direitos reservados.</p>
+    </footer>
 
+    <!-- Link de importação da biblioteca js de autorização de cookies -->
     <script 
         src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false">
     </script>
-    
+
+    <!-- Script de autorização de cookies -->
     <script>
         window.cookieconsent.initialise({
         "palette": {
