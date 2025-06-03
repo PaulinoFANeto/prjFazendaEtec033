@@ -1,9 +1,6 @@
 <?php
 include '../auth/db.php';
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    die("Acesso negado. Faça login para cadastrar usuários.");
-}
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $usuario = trim($_POST['usuario']);
@@ -31,13 +28,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Verificações contra o usuário logado
-    if (
-        $usuario === $_SESSION['nome'] ||
-        $email === $_SESSION['email'] ||
-        $nivel_acesso === $_SESSION['nivel_acesso']
-    ) {
-        die("Erro: Não é permitido cadastrar um usuário com os mesmos dados do usuário logado.");
+    if (isset($_SESSION['nome'], $_SESSION['email'], $_SESSION['nivel_acesso'])) {
+        if (
+            $usuario === $_SESSION['nome'] ||
+            $email === $_SESSION['email'] ||
+            $nivel_acesso === $_SESSION['nivel_acesso']
+        ) {
+            die("Erro: Não é permitido cadastrar um usuário com os mesmos dados do usuário logado.");
+        }
     }
+    
 
     // Verifica se nome ou email já existem
     $stmt = $conn->prepare("SELECT id FROM usuarios WHERE nome = ? OR email = ?");
