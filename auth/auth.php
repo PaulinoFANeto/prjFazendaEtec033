@@ -1,6 +1,5 @@
 <?php
-session_start();
-include 'db.php';
+include("db.php");
 
 if (!isset($_SESSION['usuario_id']) || !isset($_SESSION['nivel_acesso'])) {
     header("Location: login.php");
@@ -30,4 +29,3 @@ if (isset($permissoes[$nivel_acesso])) {
 } else {
     die("Erro: Nível de acesso inválido.");
 }
-?>

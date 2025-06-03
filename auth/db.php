@@ -1,4 +1,5 @@
 <?php
+// Arquivo criado para iniciar sessão - ele verifica se existe e se não existir ele inicia a sessão - Leandro
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -18,4 +19,3 @@ if ($conn->connect_error) {
 
 // Tornar a conexão acessível globalmente
 $GLOBALS['conn'] = $conn;
-?>
