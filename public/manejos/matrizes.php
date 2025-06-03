@@ -1,7 +1,7 @@
 <?php
 //Fiz mudanças nos links dos arquivos devido a configuração das pastas - Leandro
 $titulo_pagina = "Bem-vindo à tela de Matrizes";
-include("../../auth/db.php");
+include("../../auth/auth.php");
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 

@@ -1,7 +1,7 @@
 <?php
 //Fiz mudanças nos links dos arquivos devido a configuração das pastas - Leandro
 $titulo_pagina = "Bem vindo à tela de Partos";
-include("../../auth/db.php");
+include("../../auth/auth.php");
 
 $sql = "SELECT * FROM partos";
 $result = $conn->query($sql);

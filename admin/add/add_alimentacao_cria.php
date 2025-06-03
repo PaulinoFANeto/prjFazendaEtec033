@@ -18,11 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Adicionar Alimentação para Cria</title>
     <link rel="stylesheet" href="../../assets/css/styles.css">
 </head>
+
 <body>
     <h1>Adicionar Alimentação para Cria</h1>
     <form method="post">
@@ -37,4 +39,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit">Adicionar</button>
     </form>
 </body>
+
 </html>
