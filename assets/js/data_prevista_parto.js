@@ -1,6 +1,17 @@
+// Uma tentativa de completar o código anterior - Juan
+// Falta adicionar um objeto de configurações. É necessario fazer teste.
 function calcularDataPrevistaParto() {
-data_prevista_parto = cobertura.data_cobertura + configuracoes.dia_previsto_gestacao
+  const tempoPrevistoGestao = 114; // Tempo de gestão em dias.
+  //Data da cobertura, enviada pelo form. Talvez substituir por um campo da db
+  const dataCobertura = document.getElementById("data_cobertura");
+
+  //Cria a data prevista
+  let dataPrevistaParto = new Date(dataCobertura);
+  dataPrevistaParto.setDate(dataPrevistaParto.getDate() + tempoPrevistoGestao);
+
+  return dataPrevistaParto;
 }
+
 // o código abaixo é apenas uma referencia - Vinicius
 //function calcularDataPrevistaParto(cobertura, configuracoes) {
     // cria objeto Date da data de cobertura
