@@ -31,4 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit">Adicionar</button>
     </form>
 </body>
+<!-- adicionei um link para o javascript abaixo para pegar a data de cobertura - Vinicius -->
+<script src=../../assets/js/data_prevista_parto.js></script>
 </html>
