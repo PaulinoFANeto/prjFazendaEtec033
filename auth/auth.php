@@ -1,8 +1,8 @@
 <?php
-include("db.php");
+include(__DIR__ . "/../database/conexao.php");
 
 if (!isset($_SESSION['usuario_id']) || !isset($_SESSION['nivel_acesso'])) {
-    header("Location: login.php");
+    header("Location: ../public/entrar.php");
     exit();
 }
 

@@ -1,9 +1,7 @@
 <div class="top-bar">
-    <?php
-        $voltar_para = isset($_GET['from']) ? $_GET['from'] : '../index.php';
-        $voltar_para = htmlspecialchars($voltar_para); // segurança extra
-    ?>
-    <button class="btn" onclick="window.location.href='<?php echo $voltar_para; ?>'">Voltar</button>
+    <!-- Foi alterado esse arquivo por conta que a forma como estava sendo feito o redirecionamento estava desnecessáriamente longo -Leandro -->
+    <!-- Usando a função history.back() ele retorna exatamente para a página que ele saiu, sem necessidade de passar o id toda vez -Leandro -->
+    <button class="btn" onclick="history.back()">Voltar</button>
     <h1><?php echo $titulo_pagina; ?></h1>
     <button class="btn" onclick="document.getElementById('modalAjuda').style.display='block'">Ajudar</button>
 </div>
