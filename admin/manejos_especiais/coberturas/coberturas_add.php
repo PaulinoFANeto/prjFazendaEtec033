@@ -1,5 +1,6 @@
 <?php
 include(__DIR__ . "/../../../auth/auth.php");
+// Verifica se o usuário está autenticado
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $matriz_id = $_POST['matriz_id'];

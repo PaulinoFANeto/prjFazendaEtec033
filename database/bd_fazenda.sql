@@ -1,3 +1,4 @@
+-- Script para criação do banco de dados e tabelas do sistema de gerenciamento de fazenda
 CREATE DATABASE fazendaEtec;
 
 USE fazendaEtec;
