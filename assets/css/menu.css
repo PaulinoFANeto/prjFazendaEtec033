@@ -1,0 +1,218 @@
+:root {
+    --verde-base: #4e944f;
+    --verde-hover: #3b7a3f;
+    --fundo-claro: #f0f5ec;
+    --texto-claro: #ffffff;
+    --borda: #c7e1c4;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--fundo-claro);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que a página tenha altura total */
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.top-bar h1 {
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.btn {
+    background-color: var(--verde-base);
+    color: var(--texto-claro);
+    border: none;
+    border-radius: 6px;
+    padding: 5px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--verde-hover);
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.container {
+    flex: 1; /* Garante que o conteúdo ocupe o espaço entre o cabeçalho e o rodapé */
+    padding: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: var(--fundo-claro);
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 60%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    color: #333;
+}
+
+.close {
+    color: #666;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.footer {
+    max-width: 1300px;
+    width: 100%;
+    background-color: var(--verde-base);
+    color: var(--texto-claro);
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.footer-left {
+    margin-left: 20px;
+}
+
+.footer-right {
+    margin-right: 20px;
+    text-align: right;
+}
+
+nav {
+    background-color: var(--verde-base);
+    padding: 15px;
+    border-radius: 6px;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.container-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 1300px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.grupo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid var(--borda); /* Adiciona uma linha de borda */
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.grupo h3 {
+    background-color: var(--verde-hover);
+    color: var(--texto-claro);
+    padding: 10px;
+    border-radius: 6px;
+    width: 90%;
+    text-align: center;
+}
+
+.grupo ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.grupo ul li a {
+    text-decoration: none;
+    background-color: var(--texto-claro);
+    color: var(--verde-base);
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px; /* Ajustado para evitar sobreposição */
+    text-align: center;
+    width: 160px; /* Ajustado para não estourar */
+    height: 40px; /* Mantém padrão */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--verde-base); /* Adiciona borda nos botões */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.grupo ul li a:hover {
+    background-color: var(--verde-hover);
+    color: var(--texto-claro);
+}
+
+@media (max-width: 1024px) {
+    .container-nav {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .container-nav {
+        grid-template-columns: 1fr;
+    }
+
+    .grupo ul li a {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-left,
+    .footer-right {
+        margin: 5px 0;
+    }
+}

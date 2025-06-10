@@ -1,0 +1,192 @@
+Relatório de regras de negócio a serem implementadas no sistema
+
+Contexto:
+    O presente projeto propõe o desenvolvimento de um aplicativo mobile denominado “SuínoPró” e é desenvolvido 
+no âmbito da Fazenda Etec-033 como "prjFazendaEtec033".
+
+    Por ser mobile, deve atender diferentes dispositivos, como celulares, tablets, etc.
+
+Regras de negócio para padronização, documentação e estruturação:
+    1ª Regra: Para efeitos de padronização: 
+        1.1 - A nomenclatura das pastas ou arquivos deve seguir o Padrão SNAKE CASE, ou seja: 
+                - Deve ser digitado em letras minúsculas, sem acentos de qualquer espécie
+                - Deve utilizar o símbolo "underline" no lugar do espaço para separar as palavras.
+                Exemplo: regras_negocio.txt
+
+        1.2 - No início de cada arquivo, antes de qualquer programação, deve ser colocada a frase abaixo, como segue.
+                <!-- Veja orientações de funcionamento deste arquivo, no arquivo "regras_negocio.txt" -->
+                - Obviamente, o arquivo regras_negocio.txt deverá receber os escritos das novas regras do novo arquivo.
+
+    2ª Regra: Para efeitos de documentação:
+        2.1 - Antes de iniciar os trabalhos é obrigatório:
+                - Fazer uma cópia de segurança do diretório (pasta do projeto), especificando a data da cópia
+                    Exemplo: prjFazendaEtec033 - Copia 16052025 - Inicio
+                - Fazer a atualização do diretório (pasta do projeto) para deixá-lo igual ao repositório do github.
+                    Orientações de como fazer:
+                        - Na internet: Abra o repositório do projeto no github.
+                        - Na sua máquina, no visual estudio code:
+                            - Abra o diretório do projeto
+                            - Abra um novo terminal de comandos git´s
+                            - Digite no prompt do terminal o seguinte comando:
+                                git pull origin main
+                            - Certifique-se de que tudo ocorreu corretamente. Caso contrário procure ajuda.
+        
+        2.2 - Durante os trabalhos é obrigatório:
+                - Caso já exista o arquivo no qual vai trabalhar:
+                    Faça uma cópia de segurança do mesmo.
+                        Exemplo: Se já existe o arquivo "matrizes.php" crie uma cópia "matrizes_old_30052025.php"
+                - Caso não exista a pasta ou arquivo no qual vai trabalhar: 
+                    Crie a pasta ou arquivo desejado de acordo com as regras de nomenclatura.
+                - Caso tenha um arquivo semelhante ao que deseja trabalhar:
+                    Crie uma cópia do arquivo semelhante,
+                    Altere o nome do arquivo de cópia, para o nome desejado,
+                    Faça as alterações no novo arquivo a fim de adaptá-lo as novas necessidades.
+                - Caso já exista um ou mais arquivos de cópia do arquivo a ser trabalhado:
+                    Mantenha apenas as 3 últimas datas, ou seja, substitua sempre a cópia mais velha. 
+                - Sempre coloque o máximo de comentários possíveis na sua programação.
+                - Manter este arquivo "regras_negocio.txt" sempre atualizado, da seguinte forma:
+                    Escreva a regra que será implementada no sistema; e
+                    Mantenha atualizado o status da referida regra
+                        Status possíveis: 
+                            A ser desenvolvida;
+                            Em desenvolvimento;
+                            Finalizada;
+        
+        2.3 - Após finalizar os trabalhos é orbigatório:
+                - Fazer a atualização do repositório no github deixando-o igual ao diretório (pasta do projeto)
+                    Orientações de como fazer:
+                        - Na internet: Abra o repositório do projeto no github.
+                        - Na sua máquina, no visual estudio code:
+                            - Abra o diretório do projeto
+                            - Abra um novo terminal de comandos git´s
+                            - Digite no prompt do terminal os seguintes comandos:
+                                git add .
+                                git commit -m "<<digite o que foi alterado aqui>>"
+                                    Exemplo:
+                                        git commit - m "Alteração feita em 30052025 - Paulino"
+                                git push origin main
+                            - Certifique-se de que tudo ocorreu corretamente. Caso contrário procure ajuda.
+                - Fazer uma cópia de segurança do diretório (pasta do projeto), especificando a data da cópia
+                    Exemplo: prjFazendaEtec033 - Copia 16052025 - Fim
+    3ª Regra: Para efeitos de estruturação:
+        2.1 - Durante sua programação, utilize o sistema de tabulação para que o código fique endentado.
+        2.2 - Lembre-se de programar, sempre que possível, através de parametrização.
+        2.3 - Se preocupe, o tempo todo, com a responsividade do arquivo trabalhado. Lembre-se o projeto é mobile.
+
+Regras de negócio do arquivo "index.php": 
+STATUS: Finalizada
+1º Deve usar o atributo "pattern" nos input´s para fazer a segurança de entrada de dados:
+    - O campo usuário:
+        * Deve ser único e não pode conter caracteres especiais: 
+            O pattern abaixo garante que apenas caracteres alfanuméricos sejam permitidos.
+                ^[a-zA-Z0-9]
+        * Deve ter entre 3 e 20 caracteres: 
+            O pattern abaixo limita o comprimento do campo entre 3 e 20 caracteres.
+                {3,20}$
+    - O campo senha:
+        * Deve ter entre 6 e 20 caracteres.
+            O pattern abaixo limita o comprimento do campo entre 6 e 20 caracteres.
+                [A-Za-z\d@$!%*?&]{6,20}$
+        * Deve conter letras maiúsculas:
+            O pattern abaixo garante que haja pelo menos uma letra maiúscula. 
+                (?=.*[A-Z]) 
+        * Deve conter letras minúsculas: 
+            O pattern abaixo garante que haja pelo menos uma letra minúscula.
+                (?=.*[a-z])
+        * Deve conter números: 
+            O pattern abaixo garante que haja pelo menos um número.
+                (?=.*\d)
+        * Deve conter símbolos: 
+            O pattern abaixo garante que haja pelo menos um símbolo especial.
+                (?=.*[@$!%*?&])
+
+Regras de negócio para cálculo do campo de dados "data_prevista_parto" que fica na tabela de "partos": 
+STATUS: A ser desenvolvida 
+    - Quando um registro for INSERIDO na tabela de "coberturas" o sistema deverá:
+        - Gerar, automaticamente, um registro na tabela de "partos" com as seguintes informações:
+            partos.data_prevista_parto = coberturas.data_cobertura + configuracoes.dia_previsto_gestacao;
+            partos.data_prevista_transferencia_maternidade = partos.data_prevista_parto - configuracoes.dia_preparacao_parto;
+
+Regras de negócio para cálculo do campo de dados "data_prevista_desmame" que fica na tabela de "partos": 
+STATUS: A ser desenvolvida 
+    - Quando um registro for ALTERADO na tabela de "partos", informando a "data_efetiva_parto" o sistema deverá:
+        - Atualizar, também, de forma automática o campo de dados "data_prevista_desmame", através do cálculo:
+            partos.data_prevista_desmame = partos.data_efetiva_parto + configuracoes.dia_previsto_desmame;
+
+Regras de negócio para cálculo do campo de dados "data_efetiva_parto" que fica na tabela de "partos": 
+STATUS: A ser desenvolvida 
+    - Quando o usuário ALTERAR a tabela de partos, marcando a data_efetiva_parto, o sistema deverá HABILITAR para digitação o campo qtd_crias. 
+    - Após ser salva a informação, o sistema deverá gerar uma tabela, de acordo com a "qtd_crias", parta os respectivos registros na tabela de "crias" da seguinte forma:
+        - O campo "crias.nome" (da tabela de crias), deve ser gerado automaticamente concatenando algumas informações, 
+        ficando semelhante ao exemplo abaixo:
+            crias.nome = matrizes.nome + partos.parto_id + “cria” + nro;
+            onde: "nro" é um valor gerado entre 1 e qtd_crias
+        - O campo crias.data_nascimento será igual ao campo partos.data_efetiva_parto, 
+            observando que esta informação poderá ser alterada pelo usuário.
+        - O campo crias.peso_nascimento deverá ser informado um a um, cria por cria pelo usuário.
+
+Regras de negócio sobre o campo de dados "data_nascimento" que fica na tabela de "crias": 
+STATUS: A ser desenvolvida
+    - Com o campo preenchido e salvo crias.data_nascimento, o sistema deverá gerar registros nas tabelas de procedimentos e procedimentos_crias, da seguinte forma:
+
+    - TABELA PROCEDIMENTOS
+        - Antes de gerar os registros, o sistema deverá consultar se já existe os procedimentos, na tabela de "procedimentos" com os nomes:
+            - “APLICAÇÃO DE FERRO”, 
+            - “DESBASTE DE DENTES”, 
+            - “DESBASTE DE CAUDA” e 
+            - “BAYCOX”
+        - Se NÃO EXISTIR os registros acima referidos, o sistema deverá criá-los.
+
+    - TABELA PROCEDIMENTOS_CRIAS
+        - O sistema deve gerar para cada cria as datas de procedimentos iniciais considerando as seguintes regras:
+            - Para o procedimento “APLICAÇÃO DE FERRO”  deve ser gerado DOIS registros de data_procedimento sendo:
+                - 1º registro: data_procedimento = crias.data_nascimento + configuracoes.dia_aplicacao_ferro1;
+                - 2º registro: data_procedimento = crias.data_nascimento + configuracoes.dia_aplicacao_ferro2;
+            - Para o procedimento “BAYCOX”  deve ser gerado DOIS registros de data_procedimento sendo:
+                - 1º registro: data_procedimento = crias.data_nascimento + configuracoes.dia_aplicacao_baycox1;
+                - 2º registro: data_procedimento = crias.data_nascimento + configuracoes.dia_aplicacao_baycox2;
+            - Para o procedimento “DESBASTE DE DENTES”  deve ser gerado UM registro de data_procedimento sendo:
+                - 1º registro: data_procedimento = crias.data_nascimento + configuracoes.dia_desbaste_dentes;
+            - Para o procedimento “DESBASTE DE CAUDA”  deve ser gerado UM registro de data_procedimento sendo:
+                - 1º registro: data_procedimento = crias.data_nascimento + configuracoes.dia_desbaste_cauda;
+
+Regras de negócio sobre o comportamento do sistema: 
+STATUS: A ser desenvolvida
+    - Após fazer o login, e antes de acessar o menu principal, o sistema deverá, automaticamente:
+        - Fazer uma leitura das tabelas do banco de dados, gerando:
+            - Uma tela de layout, na forma de tabela, que irá:
+                - Mostrar e permitir filtrar informações
+        - Como deverá funcionar a montagem do layout acima solicitado:
+            - A tabela a ser gerada deverá ter as seguintes colunas:
+                - identificador da atividade (sugestão para nome "Nro Atividade");
+                - descrição da atividade (sugestão para nome "Descrição"):
+                    exemplos:   - "transferir matriz para a maternidade"
+                                - "efetuar aplicação de ferro nas crias"
+                                - "verificar os cuidados de parto na matriz (x)"
+                                - etc...
+                - Status da atividade (sugestão para nome "Status"):
+                    exemplos:
+                    - ATRASADA, que ainda não foram realizadas ou atualizadas no sistema. (cor vermelha)
+                    - PREVISTA para os próximos 5 dias. (cor amarela)
+                    - REALIZADA. (cor verde)
+                - Data da ação (sugestão para nome "Data Ação")
+            - De posse da data do sistema (data de hoje) o sistema deverá:
+                - Verificar se as datas "previstas" que existem nas tabelas estão:
+                    - atrasadas em relação a data de hoje:
+                        Exemplo: 
+                        Sendo a data de hoje igual a "09/06/2025"; 
+                        Estando prevista da tabela de partos a "data_prevista_parto" igual a "08/06/2025"; e
+                        NÃO estando preenchida a "data_efetiva_parto";
+                        o sistema gera uma atividade com o "status ATRASADA"
+                    - previstas em relação a data de hoje:
+                        Exemplo: 
+                        Sendo a data de hoje igual a "09/06/2025"; 
+                        Estando prevista da tabela de partos a "data_prevista_parto" igual a "10/06/2025"; e
+                        NÃO estando preenchida a "data_efetiva_parto";
+                        o sistema gera uma atividade com o "status PREVISTA"
+                    - realizadas em relação a data de hoje:
+                        Exemplo: 
+                        Sendo a data de hoje igual a "09/06/2025"; e
+                        Estando preenchida a "data_efetiva_parto";
+                        o sistema gera uma atividade com o "status REALIZADA"
+                - OBSERVAÇÃO: Esta leitura de "datas" deverá ser feita em todas as tabelas do sistema.
