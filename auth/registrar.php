@@ -3,10 +3,16 @@ include("../database/conexao.php");
 include("../database/funcoes.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Verificar se tem todos os dados obrigatórios
+    if (!isset($_POST["usuario"], $_POST["senha"], $_POST["confirma_senha"], $_POST["email"], $_POST["csrf"])) {
+        die("Erro: Campos obrigatórios não enviados.");
+    }
+
+    //Sanitizar os dados recebidos por POST
     $usuario = strip_tags(trim($_POST['usuario']));
     $senha = strip_tags(trim($_POST['senha']));
     $confirma_senha = strip_tags(trim($_POST["confirma_senha"]));
-    $email = strip_tags(trim($_POST['email']));
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $data_cadastro = date('Y-m-d H:i:s');
     $csrf = strip_tags(trim($_POST["csrf"]));
 
@@ -37,8 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("Erro: Email inválido.");
     }
 
-    // Continuar daqui - Leandro
-
     // Verificações contra o usuário logado
     if (isset($_SESSION['nome'], $_SESSION['email'], $_SESSION['nivel_acesso'])) {
         if (
@@ -50,34 +54,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
-
-    // Verifica se nome ou email já existem
-    $stmt = $conn->prepare("SELECT id FROM usuarios WHERE nome = ? OR email = ?");
-    $stmt->bind_param("ss", $usuario, $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
+    // Verifica se usuário existe
+    if (verificarContaExiste($email, $usuario) == true) {
         die("Erro: Nome de usuário ou email já cadastrados.");
     }
-    $stmt->close();
 
-    // Inserção no banco
-    $stmt = $conn->prepare("INSERT INTO usuarios (nome, senha, email, nivel_acesso, data_cadastro) VALUES (?, ?, ?, ?, ?)");
-    if (!$stmt) {
-        die("Erro na preparação da inserção: " . $conn->error);
-    }
+    // Validar para saber se os dados chegaram corretamente depois das validações
+    if (!empty($usuario) && !empty($senha) && !empty($email) && !empty($data_cadastro)) {
+        try {
+            // Inserção no banco
+            $insert = "INSERT INTO usuarios (nome, senha, email, data_cadastro) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($insert);
+            $stmt->bind_param("ssss", $usuario, $senha_hash, $email, $data_cadastro);
 
-    $stmt->bind_param("sssss", $usuario, $senha_hash, $email, $nivel_acesso, $data_cadastro);
-
-    if ($stmt->execute()) {
-        header("Location: ../index.php");
-        exit;
+            // Se executar manda para a index, se não dá uma mensagem de erro.
+            if ($stmt->execute()) {
+                header("Location: ../entrar.php");
+                exit;
+            } else {
+                die("Erro ao cadastrar: " . $stmt->error);
+            }
+            $stmt->close();
+        } catch (Exception $erro) {
+            die("Erro: " . $erro->getCode());
+        }
     } else {
-        echo "Erro ao cadastrar: " . $stmt->error;
+        die("Erro: Os parâmetros não chegaram corretamente!");
     }
-
-    $stmt->close();
+} else {
+    die("Erro: método inválido!");
 }
 
 $conn->close();

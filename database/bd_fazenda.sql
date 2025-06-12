@@ -8,7 +8,7 @@ CREATE TABLE usuarios (
   nome varchar(50) NOT NULL,
   senha varchar(250) NOT NULL,
   email varchar(100) NOT NULL,
-  nivel_acesso tinyint(4) NOT NULL,
+  nivel_acesso tinyint(4) NOT NULL DEFAULT 0,
   data_cadastro datetime DEFAULT NULL,
   UNIQUE KEY email (email),
   UNIQUE KEY unique_nome (nome),

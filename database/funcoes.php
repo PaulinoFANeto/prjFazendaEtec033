@@ -31,6 +31,23 @@ function validarEmail($email)
     return true;
 }
 
+// Verifica se usuário existe
+function verificarContaExiste($email, $usuario)
+{
+    global $conn;
+    // Verifica se nome ou email já existem
+    $stmt = $conn->prepare("SELECT id FROM usuarios WHERE nome = ? OR email = ?");
+    $stmt->bind_param("ss", $usuario, $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        return true;
+    }
+    $stmt->close();
+    return false;
+}
+
 //Gerar token CSRF
 function gerarCSRF()
 {

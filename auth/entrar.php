@@ -3,65 +3,59 @@ include("../database/conexao.php");
 include("../database/funcoes.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!isset($_POST['usuario'], $_POST['senha'])) {
+    // Verificar se tem todos os dados obrigatórios
+    if (!isset($_POST["usuario"], $_POST["senha"])) {
         die("Erro: Campos obrigatórios não enviados.");
     }
 
-    $nome = trim($_POST['usuario']);
-    $senha = $_POST['senha'];
+    //Sanitizar os dados recebidos por POST
+    $usuario = strip_tags(trim($_POST['usuario']));
+    $senha = strip_tags(trim($_POST['senha']));
 
-    // Validação backend do nome de usuário
-    if (validarNome($nome)) {
+    // Validar usuário que vem do formulário
+    if (!validarUsuario($usuario) == true) {
         die("Erro: Nome de usuário inválido.");
     }
 
-    // Validação backend da senha do usuário
-    if (validarSenha($senha)) {
+    //Validar senha que vem do formulário
+    if (!validarSenha($senha) == true) {
         die("Erro: Senha inválida.");
     }
 
-    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nome = ?");
-    if (!$stmt) {
-        die("Erro na preparação da consulta: " . $conn->error);
-    }
+    // Validar para saber se os dados chegaram corretamente depois das validações
+    if (!empty($usuario) && !empty($senha)) {
+        try {
+            $select = "SELECT id, nome, email, nivel_acesso, senha FROM usuarios WHERE nome = ?";
+            $stmt = $conn->prepare($select);
+            $stmt->bind_param("s", $usuario);
+            $stmt->execute();
+            $stmt->bind_result($id, $usuario_db, $email, $nivel_acesso, $senha_db);
 
-    $stmt->bind_param("s", $nome);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+            if ($stmt->fetch()) {
 
-    if ($user && password_verify($senha, $user['senha'])) {
-        $_SESSION['usuario_id'] = $user['id'];
-        $_SESSION['nome'] = $user['nome'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['nivel_acesso'] = $user['nivel_acesso'];
-        $_SESSION['loggedin'] = true;
-
-        // Redireciona com base no nível de acesso
-        switch ($user['nivel_acesso']) {
-            case 'administrador':
-                header("Location: admin_dashboard.php");
-                break;
-            case 'docente':
-                header("Location: docente_dashboard.php");
-                break;
-            case 'auxiliar':
-                header("Location: auxiliar_dashboard.php");
-                break;
-            case 'aluno':
-                header("Location: aluno_dashboard.php");
-                break;
-            default:
-                header("Location: ../admin/dashboard.php");
+                if (!empty($usuario_db) && password_verify($senha, $senha_db)) {
+                    $_SESSION['usuario_id'] = $id;
+                    $_SESSION['nome'] = $usuario_db;
+                    $_SESSION['email'] = $email;
+                    $_SESSION['nivel_acesso'] = $nivel_acesso;
+                    $_SESSION['loggedin'] = true;
+                    header("Location: ../admin/notifica_tarefa.php");
+                    exit;
+                } else {
+                    echo "Usuário ou senha incorretos.";
+                }
+            } else {
+                die("Erro: Os parâmetros não chegaram corretamente!");
+            }
+            $stmt->close();
+        } catch (Exception $erro) {
+            die("Erro: " . $erro->getCode());
         }
-        exit;
     } else {
-        echo "Usuário ou senha incorretos.";
+        die("Erro: Os parâmetros não chegaram corretamente!");
     }
-
-    $stmt->close();
 } else {
-    die("Erro: Requisição inválida.");
+    die("Erro: método inválido!");
 }
 
 $conn->close();
