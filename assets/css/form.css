@@ -1,0 +1,127 @@
+/* Veja orientações de funcionamento deste arquivo, no arquivo "regras_negocio.txt" */
+/*Aqui nós colocamos o css da página de login somente*/
+
+body {  /*Corpo da página*/
+    background-color: var(--corfundo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container { /*É a caixa branca*/
+    background-color:var(--corfundo2);
+    padding: 4rem;
+    border-radius: 2rem;
+    box-shadow: 1px 1px 23px 3px black;
+    width: 30%;
+}
+
+
+/* aqui é a parte da "logo" antiga, tem que mudar
+.login-box .logo { Logo(porquinho) que está na caixa
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.logo h1 {  Estilo do texto do titulo
+    color: #083b2f;
+    font-weight: 700;
+}
+.logo .pig { tamanho do porquinho
+    font-size: 32px;
+}
+.logo h2 { titulo secundário
+    color: #083b2f;
+    font-weight: 700;
+}
+.logo h2 span { parte do h2 que está em destaque
+    color: #0e663a;
+}
+.logo p { aqui vc altera a estilização do subtitulo
+    margin-top: 8px;
+    color: var(--corsubtitulo);
+    font-size: 14px;
+}*/
+
+
+form label { /*Estilo dos textos dos rótulo*/
+    font-weight: 500;
+    color: var(--cortexto);
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="password"] { /* Estilização dos campos de texto e senha(input) */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+form input:focus { /*A borda das caixas de texto*/
+    border-color: var(--corborda);
+}
+
+.options { /*Estilo da caixa que contém links de opção ( Esqueci senha, Voltar) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.options a { /*Estilo dos links dentro da caixa*/
+    color: var(--corminitexto1);
+    text-decoration: none;
+}
+
+.options a:hover { /*Estilo quando passa o mouse sobre os links*/
+    text-decoration: underline;
+}
+
+.btn { /*Estilo botão principal*/
+    width: 100%;
+    padding: 10px;
+    background-color: var(--corbotao);
+    color: var(--corfundo2);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover { /*Estilo de quando passa o mouse sobre o botão*/
+    background-color: var(--hover);
+}
+
+.create-account { /*Estilo para a área de Criar conta etc... */
+    text-align: center;
+    margin-top: 15px;
+}
+
+.create-account a { /*Seção de criar conta*/
+    color: var(--corminitexto1);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.create-account a:hover { /* estilo dos links dentro da área de criar conta*/
+    text-decoration: underline;
+}
+
+@media (min-width:501px) and (max-width:1024px) {
+    .container { /*É a caixa branca*/
+        width: 60%;
+    }
+}
+
+@media (min-width:0px) and (max-width:500px) {
+    .container { /*É a caixa branca*/
+        width: 90%;
+    }
+}

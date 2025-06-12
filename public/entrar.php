@@ -12,8 +12,9 @@
         1. Certifique-se que o arquivo CSS esteja na pasta "css" do projeto.
         2. Se não tiver o arquivo CSS, deixe comentada a linha abaixo.
         3. Se tiver o arquivo CSS, descomente a linha abaixo.
-        <link rel="stylesheet" href="../css/estilo_index.css"> 
     -->
+    <link rel="stylesheet" href="../assets/css/form.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
     <!-- Link de importação da biblioteca css de autorização de cookies -->
     <link rel="stylesheet" type="text/css"
@@ -22,23 +23,36 @@
 </head>
 
 <body>
-    <button onclick="history.back()">Voltar para index</button>
-    <div class="login-container">
+    <div class="container">
         <h2>Login</h2>
+
         <form action="../auth/entrar.php" method="POST">
             <label for="usuario">Usuário:</label>
-            <input type="text" id="usuario" name="usuario" required pattern="^[a-zA-Z0-9]{3,20}$"><br>
+            <input type="text" id="usuario" name="usuario" required pattern="^[a-zA-Z0-9]{3,20}$">
+
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$"><br>
-            <button type="submit" value="Submit">Entrar</button> <br>
-            <button type="reset" value="Limpar">Limpar</button>
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$">
+
+                <div class="options">
+                    <label><input type="checkbox"> Lembrar pra mim</label>
+                    <a href="#">Esqueci minha senha</a>
+                </div>
+
+            <button type="submit" class="btn" value="Submit">Entrar</button>
+            
+                <div class="create-account">            
+                <a href="registro.php">Não tem usuário? Cadastre-se</a>
+                </div>
         </form>
-        <a href="registro.php">Cadastrar novo usuário</a>
+        <button onclick="history.back()">Voltar para index</button>
+        
     </div>
+    <!--
     <footer>
         <p>&copy; 2025 Fazenda Etec-033. Todos os direitos reservados.</p>
     </footer>
+-->
 
     <!-- Link de importação da biblioteca js de autorização de cookies -->
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false">

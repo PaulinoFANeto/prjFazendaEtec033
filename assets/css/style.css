@@ -1,0 +1,23 @@
+:root {
+    --corfundo: #083b2f;
+    --cortexto: black;
+    --corsubtitulo:#333;
+    --corbotao: #0e663a;
+    --corfundo2: white;
+    --corextra: ;
+    --corminitexto1:#0e663a;
+    --corminitexto2: white;
+    --hover: #094d2c;
+    --corborda:#0e663a;
+}
+
+*{  /*Reset e configurações em geral*/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+html{
+    font-size: 70%;
+}
