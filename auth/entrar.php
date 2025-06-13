@@ -38,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $_SESSION['nome'] = $usuario_db;
                     $_SESSION['email'] = $email;
                     $_SESSION['nivel_acesso'] = $nivel_acesso;
-                    $_SESSION['loggedin'] = true;
                     header("Location: ../admin/notifica_tarefa.php");
                     exit;
                 } else {
