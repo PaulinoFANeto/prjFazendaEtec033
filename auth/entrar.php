@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $senha = $_POST['senha'];
 
     // Validação backend do nome de usuário
-    if (validarNome($nome)) {
+    if (validarUsuario($nome)) {
         die("Erro: Nome de usuário inválido.");
     }
 
