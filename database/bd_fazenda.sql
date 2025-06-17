@@ -247,7 +247,7 @@ CREATE TABLE coberturas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   matriz_id INT,
   data_cobertura DATE,
-  tipo_cobertura ENUM('Monta Natural', 'Inseminacao Artificial') NOT NULL,
+  tipo_cobertura VARCHAR(25) NOT NULL,
   usuario_id INT,
   data_acao DATETIME,
   FOREIGN KEY (matriz_id) REFERENCES matrizes(id),
