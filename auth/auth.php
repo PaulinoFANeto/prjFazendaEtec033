@@ -15,7 +15,15 @@ $stmt_usuario->bind_param("i", $usuario_id);
 $stmt_usuario->execute();
 $result_usuario = $stmt_usuario->get_result();
 $usuario = $result_usuario->fetch_assoc();
-$nivel_acesso = $_SESSION['nivel_acesso'];
+
+$mapa_niveis = [
+    0 => 'Administrador',
+    1 => 'Docente',
+    2 => 'Auxiliar',
+    3 => 'Aluno'
+];
+
+$nivel_acesso = $mapa_niveis[$usuario['nivel_acesso']] ?? null;
 
 $permissoes = [
     'Administrador' => ['consulta', 'inclusao', 'alteracao', 'exclusao'],

@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 //Fiz mudanças nos links dos arquivos devido a configuração das pastas - Leandro
 include("../../../database/conexao.php");
 $sql = "SELECT c.id, m.nome AS matriz_nome, c.data_cobertura 

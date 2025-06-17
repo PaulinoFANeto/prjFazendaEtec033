@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include("../database/conexao.php");
 
 date_default_timezone_set('America/Sao_Paulo');
@@ -34,13 +35,7 @@ function adicionarAtividade(&$atividades, $descricao, $dataPrevista, $dataEfetiv
     }
 
     // Define classe CSS com base no tipo de atividade
-    $tipo = '';
-    if (str_contains($descricao, 'parto')) $tipo = 'parto';
-    elseif (str_contains($descricao, 'desmame')) $tipo = 'desmame';
-    elseif (str_contains($descricao, 'maternidade')) $tipo = 'maternidade';
-    else $tipo = 'geral';
-
-    $classe = "{$corBase}-{$tipo}";
+    $classe = $corBase;
 
     $atividades[] = [
         'descricao' => $descricao,
@@ -51,12 +46,24 @@ function adicionarAtividade(&$atividades, $descricao, $dataPrevista, $dataEfetiv
 }
 
 // Exemplo com a tabela de partos
-$sql = "SELECT id, matriz_id, data_prevista_parto, data_efetiva_parto, data_prevista_desmame, data_efetiva_desmame, data_prevista_maternidade, data_efetiva_maternidade FROM partos";
+$sql = "SELECT 
+            p.id, 
+            p.matriz_id, 
+            m.nome AS nome_matriz,
+            p.data_prevista_parto, 
+            p.data_efetiva_parto, 
+            p.data_prevista_desmame, 
+            p.data_efetiva_desmame, 
+            p.data_prevista_maternidade, 
+            p.data_efetiva_maternidade 
+        FROM partos p
+        JOIN matrizes m ON p.matriz_id = m.id";
+
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {
     $id = $row['id'];
-    $matriz = $row['matriz_id'];
+    $matriz = $row['nome_matriz'];
 
     adicionarAtividade($atividades, "Verificar parto da matriz ($matriz)", $row['data_prevista_parto'], $row['data_efetiva_parto']);
     adicionarAtividade($atividades, "Verificar desmame da matriz ($matriz)", $row['data_prevista_desmame'], $row['data_efetiva_desmame']);
@@ -95,19 +102,6 @@ while ($row = $result->fetch_assoc()) {
             cursor: pointer;
         }
 
-        /*
-        .verde-parto { background-color: #d4edda; }
-        .verde-desmame { background-color: #c3e6cb; }
-        .verde-maternidade { background-color: #b2dfdb; }
-
-        .amarela-parto { background-color: #fff3cd; }
-        .amarela-desmame { background-color: #ffeeba; }
-        .amarela-maternidade { background-color: #fff8dc; }
-
-        .vermelha-parto { background-color: #f8d7da; }
-        .vermelha-desmame { background-color: #f5c6cb; }
-        .vermelha-maternidade { background-color: #f3bcbc; }
-*/
         th.sortable {
             cursor: pointer;
             user-select: none;
@@ -164,7 +158,7 @@ while ($row = $result->fetch_assoc()) {
     <div class="paginacao" id="paginacao"></div>
 
     <div style="margin-top: 20px; text-align: center;">
-        <form action="../admin/dashboard.php" method="get">
+        <form action="dashboard.php" method="get">
             <button type="submit">Ir para o Dashboard</button>
         </form>
     </div>
