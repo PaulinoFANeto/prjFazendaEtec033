@@ -1,6 +1,5 @@
 <?php
 include(__DIR__ . "/../../../auth/auth.php");
-// Verifica se o usuário está autenticado
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $matriz_id = $_POST['matriz_id'];
@@ -8,26 +7,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $sql = "INSERT INTO coberturas (matriz_id, data_cobertura) VALUES ('$matriz_id', '$data_cobertura')";
     if ($conn->query($sql) === TRUE) {
-        // Buscar o último valor de dia_previsto_gestacao
-        $config_sql = "SELECT dia_previsto_gestacao FROM configuracoes ORDER BY data_acao DESC LIMIT 1";
-        $config_result = $conn->query($config_sql);
+        // aqui vai entrar os testes necessários para efetuar o cadastro de partos
 
-        if ($config_result && $config_result->num_rows > 0) {
-            $config = $config_result->fetch_assoc();
-            $dias_gestacao = $config['dia_previsto_gestacao'];
 
-            // Calcular data prevista de parto
-            $data_prevista_parto = date('Y-m-d', strtotime($data_cobertura . " +$dias_gestacao days"));
+        // Guarda o ID gerado automaticamente para essa nova cobertura
+        //Será usado para ligar essa cobertura a um parto
+        $cobertura_id = $conn->insert_id;
 
-            // Inserir na tabela partos
-            $parto_sql = "INSERT INTO partos (matriz_id, data_prevista_parto, usuario_id, data_acao)
-                          VALUES ('$matriz_id', '$data_prevista_parto', '$usuario_id', NOW())";
-            $conn->query($parto_sql);
+        // Buscar na tabela de configuração (dia_previsto_gestacao e dia_preparacao_parto)
+        $configSql = "SELECT dia_previsto_gestacao, dia_preparacao_parto FROM configuracoes LIMIT 1";
+        $resultConfig = $conn->query($configSql);
+        if ($resultConfig && $resultConfig->num_rows > 0) {
+            $config = $resultConfig->fetch_assoc();
+
+            // Calcula a data_prevista_parto
+            $dataPrevistaParto = date('Y-m-d', strtotime($data_cobertura . " +{$config['dia_previsto_gestacao']} days"));
+
+            // Calcula a data_prevista_transferencia_maternidade
+            $dataPrevistaTransferencia = date('Y-m-d', strtotime($dataPrevistaParto . " -{$config['dia_preparacao_parto']} days"));
+
+            // Insere em partos
+            $sqlParto = "INSERT INTO partos (cobertura_id, data_prevista_parto, data_prevista_transferencia_maternidade)
+                         VALUES ('$cobertura_id', '$dataPrevistaParto', '$dataPrevistaTransferencia')";
+
+            if ($conn->query($sqlParto) === TRUE) {
+                // Redirecionar após sucesso
+                header('Location: coberturas.php');
+                exit();
+            } else {
+                echo "Erro ao inserir em partos: " . $conn->error;
+            }
+        } else {
+            echo "Configurações não encontradas no banco.";
         }
 
-        header('Location: ../../public/coberturas.php');
     } else {
-        echo "Erro: " . $sql . "<br>" . $conn->error;
+        echo "Erro ao inserir em coberturas: " . $conn->error;
     }
 }
 ?>
