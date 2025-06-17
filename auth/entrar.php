@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include("../database/conexao.php");
 include("../database/funcoes.php");
 
@@ -41,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $_SESSION['nome'] = $usuario_db;
                     $_SESSION['email'] = $email;
                     $_SESSION['nivel_acesso'] = $nivel_acesso;
-                    header("Location: ../admin/notifica_tarefa.php");
+                    header("Location: ../admin/atividades.php");
                     exit;
                 } else {
                     echo "Usuário ou senha incorretos.";

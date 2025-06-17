@@ -94,6 +94,8 @@ while ($row = $result->fetch_assoc()) {
             padding: 5px 10px;
             cursor: pointer;
         }
+
+        /*
         .verde-parto { background-color: #d4edda; }
         .verde-desmame { background-color: #c3e6cb; }
         .verde-maternidade { background-color: #b2dfdb; }
@@ -105,7 +107,7 @@ while ($row = $result->fetch_assoc()) {
         .vermelha-parto { background-color: #f8d7da; }
         .vermelha-desmame { background-color: #f5c6cb; }
         .vermelha-maternidade { background-color: #f3bcbc; }
-
+*/
         th.sortable {
             cursor: pointer;
             user-select: none;
