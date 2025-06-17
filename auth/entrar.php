@@ -29,8 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt = $conn->prepare($select);
             $stmt->bind_param("s", $usuario);
             $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows() <= 0) {
+                die("Erro: Usuário ou senha inválidos.");
+            }
             $stmt->bind_result($id, $usuario_db, $email, $nivel_acesso, $senha_db);
-
             if ($stmt->fetch()) {
 
                 if (!empty($usuario_db) && password_verify($senha, $senha_db)) {
@@ -44,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     echo "Usuário ou senha incorretos.";
                 }
             } else {
-                die("Erro: Os parâmetros não chegaram corretamente!");
+                die("Erro: Os parâmetros não chegaram corretamente! fetch");
             }
             $stmt->close();
         } catch (Exception $erro) {
