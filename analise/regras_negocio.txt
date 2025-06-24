@@ -152,7 +152,7 @@ STATUS: A ser desenvolvida
                 - 1º registro: data_procedimento = crias.data_nascimento + configuracoes.dia_desbaste_cauda;
 
 Regras de negócio sobre o comportamento do sistema: 
-STATUS: A ser desenvolvida
+STATUS: Finalizada
     - Após fazer o login, e antes de acessar o menu principal, o sistema deverá, automaticamente:
         - Fazer uma leitura das tabelas do banco de dados, gerando:
             - Uma tela de layout, na forma de tabela, que irá:
@@ -191,3 +191,27 @@ STATUS: A ser desenvolvida
                         Estando preenchida a "data_efetiva_parto";
                         o sistema gera uma atividade com o "status REALIZADA"
                 - OBSERVAÇÃO: Esta leitura de "datas" deverá ser feita em todas as tabelas do sistema.
+
+Regras de negócio do arquivo `coberturas_edit.php`:
+STATUS: Finalizada
+
+    1º O formulário deve garantir a integridade e segurança dos dados:
+        Campo `matriz_id`:
+            -Deve ser numérico e obrigatório.
+            -Utiliza `<input type="number">`.
+        Campo `data_cobertura`:
+            -Deve ser uma data válida e obrigatória.
+            -Utiliza `<input type="date">`.
+        Campo `tipo_cobertura`:
+            -Deve ser texto obrigatório com no máximo 25 caracteres.
+            -Utiliza `<input type="text" maxlength="25">`.
+    2º Autenticação obrigatória:
+        -Apenas usuários autenticados podem acessar o formulário.
+        -O ID do usuário logado é salvo junto com a edição (via `$_SESSION['usuario_id']`).
+    3º Ação de atualização:
+        -A atualização é feita via `POST` com comando `UPDATE`.
+        -A data da ação é registrada com `NOW()`.
+        -Em caso de sucesso, o usuário é redirecionado; caso contrário, é exibido erro.
+    4º Observação:
+        -O código não usa `prepared statements`, o que pode permitir SQL Injection.
+        → Recomenda-se utilizar parâmetros preparados para maior segurança.

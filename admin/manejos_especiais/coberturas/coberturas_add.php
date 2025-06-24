@@ -1,4 +1,5 @@
 <?php
+//Período de teste - Lays 
 session_start();
 
 include(__DIR__ . "/../../../auth/auth.php");
