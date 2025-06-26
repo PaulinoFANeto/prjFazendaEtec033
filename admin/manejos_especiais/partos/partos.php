@@ -50,13 +50,6 @@ if ($result === false) {
             </tr>
             <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-<<<<<<< HEAD
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo $row['matriz_id']; ?></td>
-                <!--Alterei a variavel de data de parto, pois a anterior nao existia. É necessário testar - Vinicius  -->
-                <td><?php echo date('d/m/Y', strtotime($row['$dataPrevistaParto'])); ?></td>
-                <td><?php echo date('d/m/Y', strtotime($row['data_desmame'])); ?></td>
-=======
                 <td><?= $row['id'] ?></td>
                 <td><?= htmlspecialchars($row['nome_matriz']) ?></td>
                 <td><?= $row['data_prevista_parto'] ? date('d/m/Y', strtotime($row['data_prevista_parto'])) : '—' ?></td>
@@ -66,7 +59,6 @@ if ($result === false) {
                 <td><?= $row['data_prevista_maternidade'] ? date('d/m/Y', strtotime($row['data_prevista_maternidade'])) : '—' ?></td>
                 <td><?= $row['data_efetiva_maternidade'] ? date('d/m/Y', strtotime($row['data_efetiva_maternidade'])) : '—' ?></td>
                 <td><?= $row['qtd_crias'] ?></td>
->>>>>>> 9dbd58a (Alterações nas chamadas de telas - Paulino)
                 <td>
                     <?php if (in_array('alteracao', $usuario_permissoes)): ?>
                         <button class="btn" onclick="window.location.href='partos_edit.php?id=<?= $row['id'] ?>'">Editar</button>
