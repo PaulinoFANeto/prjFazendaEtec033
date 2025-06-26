@@ -84,7 +84,7 @@ $titulo_pagina = "Bem-vindo à tela de Menu Principal";
 
             <!-- Exibir opção de configuração do sistema apenas para administradores -->
             <?php
-            if (isset($_SESSION['nivel_acesso']) && $_SESSION['nivel_acesso'] === 'Administrador') {
+            if (isset($_SESSION['nivel_acesso']) && $_SESSION['nivel_acesso'] == '0') {
                 echo '
                         <div class="grupo">
                             <h3>Configurações</h3>

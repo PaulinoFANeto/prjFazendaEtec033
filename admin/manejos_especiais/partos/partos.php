@@ -5,7 +5,10 @@ include(__DIR__ . "/../../../auth/auth.php");
 //Adicionei um include para o arquivo de coberturas - Vinicius
 include 'coberturas_add.php';
 
-$sql = "SELECT * FROM partos";
+$sql = "SELECT p.*, m.nome AS nome_matriz 
+        FROM partos p 
+        JOIN matrizes m ON p.matriz_id = m.id";
+
 $result = $conn->query($sql);
 if ($result === false) {
     die("Erro na consulta: " . $conn->error);
@@ -35,27 +38,41 @@ if ($result === false) {
         <table>
             <tr>
                 <th>ID</th>
-                <th>ID Matriz</th>
-                <th>Data do Parto</th>
-                <th>Data do Desmame</th>
+                <th>Matriz</th>
+                <th>Data Prevista Parto</th>
+                <th>Data Efetiva Parto</th>
+                <th>Data Prevista Desmame</th>
+                <th>Data Efetiva Desmame</th>
+                <th>Data Prevista Maternidade</th>
+                <th>Data Efetiva Maternidade</th>
+                <th>Qtd. Crias</th>
                 <th>Ações</th>
             </tr>
             <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
+<<<<<<< HEAD
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['matriz_id']; ?></td>
                 <!--Alterei a variavel de data de parto, pois a anterior nao existia. É necessário testar - Vinicius  -->
                 <td><?php echo date('d/m/Y', strtotime($row['$dataPrevistaParto'])); ?></td>
                 <td><?php echo date('d/m/Y', strtotime($row['data_desmame'])); ?></td>
+=======
+                <td><?= $row['id'] ?></td>
+                <td><?= htmlspecialchars($row['nome_matriz']) ?></td>
+                <td><?= $row['data_prevista_parto'] ? date('d/m/Y', strtotime($row['data_prevista_parto'])) : '—' ?></td>
+                <td><?= $row['data_efetiva_parto'] ? date('d/m/Y', strtotime($row['data_efetiva_parto'])) : '—' ?></td>
+                <td><?= $row['data_prevista_desmame'] ? date('d/m/Y', strtotime($row['data_prevista_desmame'])) : '—' ?></td>
+                <td><?= $row['data_efetiva_desmame'] ? date('d/m/Y', strtotime($row['data_efetiva_desmame'])) : '—' ?></td>
+                <td><?= $row['data_prevista_maternidade'] ? date('d/m/Y', strtotime($row['data_prevista_maternidade'])) : '—' ?></td>
+                <td><?= $row['data_efetiva_maternidade'] ? date('d/m/Y', strtotime($row['data_efetiva_maternidade'])) : '—' ?></td>
+                <td><?= $row['qtd_crias'] ?></td>
+>>>>>>> 9dbd58a (Alterações nas chamadas de telas - Paulino)
                 <td>
                     <?php if (in_array('alteracao', $usuario_permissoes)): ?>
-                    <button class="btn"
-                        onclick="window.location.href='partos_edit.php?id=<?php echo $row['id']; ?>'">Editar</button>
+                        <button class="btn" onclick="window.location.href='partos_edit.php?id=<?= $row['id'] ?>'">Editar</button>
                     <?php endif; ?>
                     <?php if (in_array('exclusao', $usuario_permissoes)): ?>
-                    <!-- O arquivo abaixo não foi criado - Letícia -->
-                    <button class="btn"
-                        onclick="if(confirm('Deseja realmente excluir este parto?')) window.location.href='../../admin/delete/delete_partos.php?id=<?php echo $row['id']; ?>'">Excluir</button>
+                        <button class="btn" onclick="if(confirm('Deseja realmente excluir este parto?')) window.location.href='delete_parto.php?id=<?= $row['id'] ?>'">Excluir</button>
                     <?php endif; ?>
                 </td>
             </tr>

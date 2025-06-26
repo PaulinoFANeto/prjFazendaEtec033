@@ -1,44 +1,54 @@
 <?php
 include(__DIR__ . "/../../../auth/auth.php");
 
-$id = $_GET['id'];
-$sql = "SELECT * FROM partos WHERE id=$id";
-$result = $conn->query($sql);
+$id = intval($_GET['id']);
+
+// Buscar dados do parto
+$stmt = $conn->prepare("SELECT p.*, m.nome AS nome_matriz FROM partos p JOIN matrizes m ON p.matriz_id = m.id WHERE p.id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $matriz_id = $_POST['matriz_id'];
-    $data_parto = $_POST['data_parto'];
-    $data_desmame = $_POST['data_desmame'];
+    $data_parto = $_POST['data_efetiva_parto'];
+    $data_desmame = $_POST['data_efetiva_desmame'];
+    $qtd_crias = $_POST['qtd_crias'];
 
-    $sql = "UPDATE partos SET matriz_id='$matriz_id', data_parto='$data_parto', data_desmame='$data_desmame' WHERE id=$id";
-    if ($conn->query($sql) === TRUE) {
+    $stmt = $conn->prepare("UPDATE partos SET data_efetiva_parto = ?, data_efetiva_desmame = ?, qtd_crias = ? WHERE id = ?");
+    $stmt->bind_param("ssii", $data_parto, $data_desmame, $qtd_crias, $id);
+
+    if ($stmt->execute()) {
         header('Location: partos.php');
+        exit;
     } else {
-        echo "Erro: " . $sql . "<br>" . $conn->error;
+        echo "Erro: " . $stmt->error;
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <title>Editar Parto</title>
     <link rel="stylesheet" href="../../../assets/css/styles.css">
 </head>
-
 <body>
     <h1>Editar Parto</h1>
     <form method="post">
-        <label for="matriz_id">ID Matriz:</label>
-        <input type="number" id="matriz_id" name="matriz_id" value="<?php echo $row['matriz_id']; ?>" required>
-        <label for="data_parto">Data do Parto:</label>
-        <input type="date" id="data_parto" name="data_parto" value="<?php echo $row['data_parto']; ?>" required>
-        <label for="data_desmame">Data do Desmame:</label>
-        <input type="date" id="data_desmame" name="data_desmame" value="<?php echo $row['data_desmame']; ?>" required>
+        <label for="nome_matriz">Matriz:</label>
+        <input type="text" id="nome_matriz" value="<?= htmlspecialchars($row['nome_matriz']) ?>" disabled>
+
+        <label for="data_efetiva_parto">Data Efetiva do Parto:</label>
+        <input type="date" id="data_efetiva_parto" name="data_efetiva_parto" value="<?= $row['data_efetiva_parto'] ?>" required>
+
+        <label for="data_efetiva_desmame">Data Efetiva do Desmame:</label>
+        <input type="date" id="data_efetiva_desmame" name="data_efetiva_desmame" value="<?= $row['data_efetiva_desmame'] ?>" required>
+
+        <label for="qtd_crias">Quantidade de Crias:</label>
+        <input type="number" id="qtd_crias" name="qtd_crias" value="<?= $row['qtd_crias'] ?>" required>
+
         <button type="submit">Salvar</button>
     </form>
 </body>
-
 </html>
