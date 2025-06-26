@@ -3,10 +3,25 @@
 session_start();
 include(__DIR__ . "/../../../auth/auth.php");
 
+// Fiz isto para buscar as matrizes do banco de dados facilitando a seleção por nome no formulário - Paulino
+$sqlMatrizes = "SELECT id, nome FROM matrizes ORDER BY nome";
+$resultMatrizes = $conn->query($sqlMatrizes);
+if (!$resultMatrizes) {
+    die("Erro ao buscar matrizes: " . $conn->error);
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $matriz_id = $_POST['matriz_id'];
-    $data_parto = $_POST['data_parto'];
-    $data_desmame = $_POST['data_desmame'];
+    $data_prevista_parto = $_POST['data_prevista_parto'];
+    $data_efetiva_parto = $_POST['data_efetiva_parto'];
+    $data_prevista_desmame = $_POST['data_prevista_desmame'];
+    $data_efetiva_desmame = $_POST['data_efetiva_desmame'];
+    $data_prevista_maternidade = $_POST['data_prevista_maternidade'];
+    $data_efetiva_maternidade = $_POST['data_efetiva_maternidade'];
+    $qtd_crias = $_POST['qtd_crias'];
+    $usuario_id = $_SESSION['usuario_id'];
+    $data_acao = date('Y-m-d H:i:s');
 
     $sql = "INSERT INTO partos (matriz_id, data_parto, data_desmame) VALUES ('$matriz_id', '$data_parto', '$data_desmame')";
     if ($conn->query($sql) === TRUE) {

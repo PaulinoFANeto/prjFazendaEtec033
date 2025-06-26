@@ -2,6 +2,8 @@
 //Fiz mudanças nos links dos arquivos devido a configuração das pastas - Leandro
 $titulo_pagina = "Bem vindo à tela de Partos";
 include(__DIR__ . "/../../../auth/auth.php");
+//Adicionei um include para o arquivo de coberturas - Vinicius
+include 'coberturas_add.php';
 
 $sql = "SELECT * FROM partos";
 $result = $conn->query($sql);
@@ -42,7 +44,8 @@ if ($result === false) {
             <tr>
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['matriz_id']; ?></td>
-                <td><?php echo date('d/m/Y', strtotime($row['data_parto'])); ?></td>
+                <!--Alterei a variavel de data de parto, pois a anterior nao existia. É necessário testar - Vinicius  -->
+                <td><?php echo date('d/m/Y', strtotime($row['$dataPrevistaParto'])); ?></td>
                 <td><?php echo date('d/m/Y', strtotime($row['data_desmame'])); ?></td>
                 <td>
                     <?php if (in_array('alteracao', $usuario_permissoes)): ?>
