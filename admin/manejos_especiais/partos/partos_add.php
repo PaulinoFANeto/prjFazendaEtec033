@@ -27,7 +27,7 @@
         $checkSql = "SELECT id FROM partos WHERE matriz_id = '$matriz_id' AND data_efetiva_parto = '$data_efetiva_parto'";
         $checkResult = $conn->query($checkSql);
 
-        // Este teste serve para não deixar duplicar coberturas
+        // Este teste serve para não deixar duplicar partos
         if ($checkResult && $checkResult->num_rows > 0) {
             echo "Já existe um parto registrado para essa matriz nesta data.";
         } else {

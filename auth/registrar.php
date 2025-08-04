@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             // Se executar manda para a index, se não dá uma mensagem de erro.
             if ($stmt->execute()) {
-                header("Location: ../entrar.php");
+                header("Location: ../public/entrar.php");
                 exit;
             } else {
                 die("Erro ao cadastrar: " . $stmt->error);

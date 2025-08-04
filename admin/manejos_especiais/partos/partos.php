@@ -2,8 +2,6 @@
 //Fiz mudanças nos links dos arquivos devido a configuração das pastas - Leandro
 $titulo_pagina = "Bem vindo à tela de Partos";
 include(__DIR__ . "/../../../auth/auth.php");
-//Adicionei um include para o arquivo de coberturas - Vinicius
-include 'coberturas_add.php';
 
 $sql = "SELECT p.*, m.nome AS nome_matriz 
         FROM partos p 
