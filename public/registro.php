@@ -27,11 +27,13 @@ include("../database/funcoes.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Sistema Fazenda ETEC</title>
+    <link rel="stylesheet" href="..\assets\css\estilo_registro.css">
 </head>
 
 <body>
     <button onclick="history.back()">Voltar para index</button>
 
+    <div class='container'>
     <form action="../auth/registrar.php" method="POST">
         <h2>Cadastrar Usuário</h2>
         <!-- O input abaixo é do tipo hidden que ele vai mandar o token CSRF -->
@@ -64,7 +66,7 @@ include("../database/funcoes.php");
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$">
 
         <input type="submit" value="Cadastrar">
-
+        </div>
     </form>
 </body>
 
