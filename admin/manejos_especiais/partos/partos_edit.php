@@ -42,8 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label for="data_efetiva_parto">Data Efetiva do Parto:</label>
         <input type="date" id="data_efetiva_parto" name="data_efetiva_parto" value="<?= $row['data_efetiva_parto'] ?>" required>
 
+
+        <!-- tem que colocar essa data efetiva após a data prevista ser gerada - Vinicius
         <label for="data_efetiva_desmame">Data Efetiva do Desmame:</label>
-        <input type="date" id="data_efetiva_desmame" name="data_efetiva_desmame" value="<?= $row['data_efetiva_desmame'] ?>" required>
+        <input type="date" id="data_efetiva_desmame" name="data_efetiva_desmame" value="<?/*= $row['data_efetiva_desmame']*/ ?>" required>
+-->
 
         <label for="qtd_crias">Quantidade de Crias:</label>
         <input type="number" id="qtd_crias" name="qtd_crias" value="<?= $row['qtd_crias'] ?>" required>
