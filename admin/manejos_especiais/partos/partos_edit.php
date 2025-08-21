@@ -13,6 +13,7 @@ $row = $result->fetch_assoc();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data_parto = $_POST['data_efetiva_parto'];
     $data_desmame = isset($_POST['data_efetiva_desmame']) ? $_POST['data_efetiva_desmame'] : null;
+    $data_maternidade = $_POST['data_efetiva_maternidade'];
     $qtd_crias = $_POST['qtd_crias'];
 
     // Buscar quantidade de dias para o desmame na tabela configuracoes
@@ -30,8 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data_prevista_desmame = date('Y-m-d', strtotime($data_parto . " +{$diasDesmame} days"));
     }
 
-    $stmt = $conn->prepare("UPDATE partos SET data_efetiva_parto = ?, data_efetiva_desmame = ?, qtd_crias = ?, data_prevista_desmame = ? WHERE id = ?");
-    $stmt->bind_param("ssisi", $data_parto, $data_desmame, $qtd_crias, $data_prevista_desmame, $id);
+    // Adiciona data_efetiva_maternidade na query e no bind
+    $stmt = $conn->prepare("UPDATE partos SET data_efetiva_parto = ?, data_efetiva_desmame = ?, data_efetiva_maternidade = ?, qtd_crias = ?, data_prevista_desmame = ? WHERE id = ?");
+    $stmt->bind_param("sssssi", $data_parto, $data_desmame, $data_maternidade, $qtd_crias, $data_prevista_desmame, $id);
 
     if ($stmt->execute()) {
         header('Location: partos.php');
@@ -81,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="data_efetiva_desmame">Data Efetiva do Desmame:</label>
             <input type="date" id="data_efetiva_desmame" name="data_efetiva_desmame" value="<?= $row['data_efetiva_desmame'] ?>">
         <?php endif; ?>
-        <!-- Falta ligar este input ao de partos.php - Vinicius -->
+
         <label for="data_efetiva_maternidade">Data Efetiva da Maternidade:</label>
         <input type="date" id="data_efetiva_maternidade" name="data_efetiva_maternidade" value="<?= $row['data_efetiva_maternidade'] ?>" required>
 

@@ -5,7 +5,7 @@ session_start();
 include(__DIR__ . "/../../../auth/auth.php");
 
 // Fiz isto para buscar as matrizes do banco de dados facilitando a seleção por nome no formulário - Paulino
-$sqlMatrizes = "SELECT id, nome FROM matrizes ORDER BY nome";
+$sqlMatrizes = "SELECT id, nome FROM matrizes ORDER BY id";
 $resultMatrizes = $conn->query($sqlMatrizes);
 if (!$resultMatrizes) {
     die("Erro ao buscar matrizes: " . $conn->error);
@@ -44,11 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $resultConfig = $conn->query($configSql);
 
             if ($resultConfig && $resultConfig->num_rows > 0) {
-                $config = $resultConfig->fetch_assoc();
+            $config = $resultConfig->fetch_assoc();
 
-                // Calcula as datas de parto e transferência
-                $dataPrevistaParto = date('Y-m-d', strtotime($data_cobertura . " +{$config['dia_previsto_gestacao']} days"));
-                $dataPrevistaTransferencia = date('Y-m-d', strtotime($dataPrevistaParto . " -{$config['dia_preparacao_parto']} days"));
+            // Calcula as datas de parto e transferência
+            $dataPrevistaParto = date('Y-m-d', strtotime($data_cobertura . " +{$config['dia_previsto_gestacao']} days"));
+            // Transferência: data_cobertura + 107 dias
+            $dataPrevistaTransferencia = date('Y-m-d', strtotime($data_cobertura . " +107 days"));
 
                 // Inserção do parto
                 $sqlParto = "INSERT INTO partos (
@@ -114,6 +115,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit">Adicionar</button>
     </form>
 </body>
-<!-- adicionei um link para o javascript abaixo para pegar a data de cobertura - Vinicius -->
-<!-- <script src=../../assets/js/data_prevista_parto.js></script> -->
 </html>
