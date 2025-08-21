@@ -12,9 +12,9 @@
     <form method="post">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required>
-        <label for="nome">Descrição:</label>
-        <input type="text" id="descricao" name="descricao" value="<?php echo htmlspecialchars($row['descricao']); ?>" required>
+        <input type="text" id="nome" name="nome" value="<?php echo $row['nome']; ?>" required>
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" value="<?php echo $row['descricao']; ?>" required>
         <button type="submit">Salvar</button>
     </form>
 </body>
