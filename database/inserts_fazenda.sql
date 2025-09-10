@@ -1,7 +1,7 @@
 -- Inserção de usuários com senha hashada (password_hash)
 -- Senha original informada em comentário para testes
 
-INSERT INTO usuarios (nome, senha, email, nivel_acesso, data_cadastro) VALUES
+INSERT INTO usuarios (nome, senha, email, nivel_acesso, data_criacao) VALUES
 ('Lucas123', '$2y$10$uX8Lz4oyG.6Ab6wqzZBeqOJ1WmEcOsmwVkd2/.t93c0UNZFb/hvNS', 'lucas123@example.com', 1, NOW()), -- Senha: Senha@123
 ('Maria99', '$2y$10$ACeLq0k1XkSv6lrf2J6riOp8cZJzVzI9cznP52XdDxdNcQL84Ccfu', 'maria99@example.com', 0, NOW()), -- Senha: Maria@2024
 ('JoaoTech', '$2y$10$EzYYmJIR7LTV0GqVFGvqvOVuRnzIRrA.R1yUtSkYcCCxXLqA4l8RO', 'joaotech@example.com', 2, NOW()), -- Senha: JTech@2025

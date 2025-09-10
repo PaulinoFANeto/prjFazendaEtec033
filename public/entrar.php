@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 
     <!-- Link de importação da biblioteca css de autorização de cookies -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+    <!-- <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"> -->
 
 </head>
 
@@ -34,19 +34,19 @@
             <input type="password" id="senha" name="senha" required
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$">
 
-                <div class="options">
-                    <label><input type="checkbox"> Lembrar pra mim</label>
-                    <a href="#">Esqueci minha senha</a>
-                </div>
+            <div class="options">
+                <label><input type="checkbox"> Lembrar pra mim</label>
+                <a href="#">Esqueci minha senha</a>
+            </div>
 
             <button type="submit" class="btn" value="Submit">Entrar</button>
-            
-                <div class="create-account">            
+
+            <div class="create-account">
                 <a href="registro.php">Não tem usuário? Cadastre-se</a>
-                </div>
+            </div>
         </form>
         <button onclick="history.back()">Voltar para index</button>
-        
+
     </div>
     <!--
     <footer>
@@ -54,11 +54,11 @@
     </footer>
 -->
 
-    <!-- Link de importação da biblioteca js de autorização de cookies -->
+    <!-- Link de importação da biblioteca js de autorização de cookies
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false">
-    </script>
+    </script> -->
 
-    <!-- Script de autorização de cookies -->
+    <!-- Script de autorização de cookies
     <script>
         window.cookieconsent.initialise({
             "palette": {
@@ -79,7 +79,7 @@
                 // "href": "https://seu-dominio-de-site.com.br/pagina-da-politica"
             }
         });
-    </script>
+    </script> -->
 </body>
 
 </html>
