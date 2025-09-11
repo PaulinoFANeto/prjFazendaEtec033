@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <h1>Editar Parto</h1>
-    <form method="post">
+    <form method="post" onsubmit="return confirm('Confirma a edição deste parto?');">
         <label for="nome_matriz">Matriz:</label>
         <input type="text" id="nome_matriz" value="<?= htmlspecialchars($row['nome_matriz']) ?>" disabled>
 

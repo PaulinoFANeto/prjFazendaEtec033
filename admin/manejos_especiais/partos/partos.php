@@ -59,7 +59,7 @@ if ($result === false) {
                 <td><?= $row['qtd_crias'] ?></td>
                 <td>
                     <?php if (in_array('alteracao', $usuario_permissoes)): ?>
-                        <button class="btn" onclick="window.location.href='partos_edit.php?id=<?= $row['id'] ?>'">Editar</button>
+                        <button class="btn" onclick="window.location.href='partos_edit.php? id=<?= $row['id'] ?>'">Editar</button>
                     <?php endif; ?>
                     <?php if (in_array('exclusao', $usuario_permissoes)): ?>
                         <button class="btn" onclick="if(confirm('Deseja realmente excluir este parto?')) window.location.href='delete_parto.php?id=<?= $row['id'] ?>'">Excluir</button>

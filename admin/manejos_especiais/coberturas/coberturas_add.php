@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <h1>Adicionar Cobertura</h1>
-    <form method="post">
+    <form method="post" onsubmit="return confirm('Confirma a adição desta cobertura?');">
         <label for="matriz_id">Matriz:</label>
         <select id="matriz_id" name="matriz_id" required>
             <option value="">Selecione uma matriz</option>

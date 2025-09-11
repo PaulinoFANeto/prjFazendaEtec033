@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <h1>Editar Cobertura</h1>
-    <form method="post">
+    <form method="post" onsubmit="return confirm('Confirma a edição desta cobertura?');">
         <label for="matriz_id">ID da Matriz:</label>
         <input type="number" id="matriz_id" name="matriz_id" value="<?php echo $row['matriz_id']; ?>" required>
 

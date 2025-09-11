@@ -36,7 +36,7 @@ $result = $conn->query($sql);
                 <td>
                     <a href="coberturas_edit.php?id=<?php echo $row['id']; ?>">Editar</a>
                     <!-- O arquivo abaixo não foi criado - Letícia -->
-                    <a href="delete_coberturas.php?id=<?php echo $row['id']; ?>">Excluir</a>
+                    <a href="coberturas_delete.php?id=<?php echo $row['id']; ?>">Excluir</a>
                 </td>
             </tr>
         <?php endwhile; ?>

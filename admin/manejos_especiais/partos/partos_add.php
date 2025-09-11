@@ -94,7 +94,7 @@
 
 <body>
     <h1>Adicionar Parto</h1>
-    <form method="post">
+    <form method="post" onsubmit="return confirm('Confirma a adição deste parto?');">
         <label for="matriz_id">ID Matriz:</label>
         <input type="number" id="matriz_id" name="matriz_id" required>
         <label for="data_parto">Data do Parto:</label>
