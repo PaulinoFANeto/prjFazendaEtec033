@@ -14,7 +14,7 @@
     </header>
     <!-- A página index foi editada para que na primeira página do site sejá sua identidade visual, que apresente a ideia principal, funcionalidades etc -Leandro -->
     <a href="./public/entrar.php">Fazer Login</a>
-    <a href="./public/registro.php">Fazer Registro</a>
+    <a href="./public/registro.php">Fazer Registros</a>
 </body>
 
 </html>
