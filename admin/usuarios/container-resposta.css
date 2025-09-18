@@ -1,0 +1,25 @@
+.container-erro {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    box-shadow: var(--boxshadow);
+    display: none;
+    font-size: 1rem;
+    color: var(--letra-preta);
+
+    &.erro {
+        background-color: #ff9191ff;
+    }
+
+    &.sucesso {
+        background-color: #b9ff91ff;
+    }
+
+    &.ativo {
+        display: flex;
+    }
+}
