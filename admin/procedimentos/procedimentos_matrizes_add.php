@@ -1,19 +1,7 @@
 <?php
 include(__DIR__ . "/../../auth/auth.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $matriz_id = $_POST['matriz_id'];
-    $procedimento_id = $_POST['procedimento_id'];
-    $data_procedimento = $_POST['data_procedimento'];
-    $descricao = $_POST['descricao'];
 
-    $sql = "INSERT INTO procedimentos_matrizes (matriz_id, procedimento_id, data_procedimento, descricao) VALUES ('$matriz_id', '$procedimento_id', '$data_procedimento', '$descricao')";
-    if ($conn->query($sql) === TRUE) {
-        header('Location: procedimentos_matrizes.php');
-    } else {
-        echo "Erro: " . $sql . "<br>" . $conn->error;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
