@@ -3,10 +3,25 @@
         Usuário: <?php echo isset($_SESSION['nome']) ? htmlspecialchars($_SESSION['nome']) : 'Desconhecido'; ?>
     </div>
     <div class="footer-right">
-        Nível de acesso:  
+        Nível de acesso:
         <?php
             if (isset($_SESSION['nivel_acesso'])) {
-                echo($_SESSION['nivel_acesso']);
+                switch ($_SESSION['nivel_acesso']) {
+                    case 0:
+                        echo 'Administrador';
+                        break;
+                    case 1:
+                        echo 'Docente';
+                        break;
+                    case 2:
+                        echo 'Auxiliar';
+                        break;
+                    case 3:
+                        echo 'Aluno';
+                        break;
+                    default:
+                        echo 'Desconhecido';
+                }
             } else {
                 echo 'Desconhecido';
             }

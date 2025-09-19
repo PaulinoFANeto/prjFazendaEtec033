@@ -1,3 +1,23 @@
+<?php
+include(__DIR__ . "/../../../auth/auth.php");
+$id = $_GET['id'];
+$sql = "SELECT * FROM alimentos WHERE id=$id";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+
+    $sql = "UPDATE alimentos SET nome='$nome', descricao='$descricao' WHERE id=$id";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: alimentos.php');
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
