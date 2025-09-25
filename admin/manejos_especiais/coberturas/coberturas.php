@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 //Fiz mudanças nos links dos arquivos devido a configuração das pastas - Leandro
@@ -14,33 +15,38 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>Coberturas</title>
-    <link rel="stylesheet" href="../../assets/css/estilos.css">
+    <link rel="stylesheet" href="../../assets/css/estilo.css">
 </head>
 
 <body>
-    <h1>Coberturas</h1>
-    <!-- O arquivo abaixo não foi criado - Letícia -->
-    <a href="coberturas_add.php">Adicionar Cobertura</a>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Matriz</th>
-            <th>Data de Cobertura</th>
-            <th>Ações</th>
-        </tr>
-        <?php while ($row = $result->fetch_assoc()): ?>
+    <div class="container">
+        <div class="top-bar">
+            <h1>Coberturas</h1>
+        </div>
+        <div class="btn-group">
+            <button class="btn" onclick="window.location.href='coberturas_add.php'">Adicionar nova Cobertura</button>
+        </div>
+
+        <table>
             <tr>
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo $row['matriz_nome']; ?></td>
-                <td><?php echo $row['data_cobertura']; ?></td>
-                <td>
-                    <a href="coberturas_edit.php?id=<?php echo $row['id']; ?>">Editar</a>
-                    <!-- O arquivo abaixo não foi criado - Letícia -->
-                    <a href="coberturas_delete.php?id=<?php echo $row['id']; ?>">Excluir</a>
-                </td>
+                <th>ID</th>
+                <th>Matriz</th>
+                <th>Data de Cobertura</th>
+                <th>Ações</th>
             </tr>
-        <?php endwhile; ?>
-    </table>
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo htmlspecialchars($row['matriz_nome']); ?></td>
+                    <td><?php echo $row['data_cobertura']; ?></td>
+                    <td>
+                        <button class="btn" onclick="window.location.href='coberturas_edit.php?id=<?= $row['id'] ?>'">Editar</button>
+                        <button class="btn" onclick="if(confirm('Deseja realmente excluir esta cobertura?')) window.location.href='coberturas_delete.php?id=<?= $row['id'] ?>'">Excluir</button>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
+    </div>
 </body>
 
 </html>
