@@ -29,7 +29,7 @@ $result = $conn->query($sql);
                 <td><?php echo $row['nome']; ?></td>
                 <td><?php echo $row['descricao']; ?></td>
                 <td>
-                    <a href="vacinas_edit.php?echo $row['id']; ?>">Editar</a>
+                    <a href="vacinas_edit.php?id=<?php echo $row['id']; ?>">Editar</a>
                     <a href="delete_vacina.php?id=<?php echo $row['id']; ?>">Excluir</a>
                 </td>
             </tr>
