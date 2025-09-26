@@ -1,8 +1,15 @@
 <?php
 //Fiz mudanças nos links dos arquivos devido a configuração das pastas - Leandro
+$titulo_pagina = "Bem-vindo à tela de Vacinas";
 include(__DIR__ . "/../../../auth/auth.php");
-$sql = "SELECT * FROM vacinas";
+
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
+$sql = "SELECT * FROM vacinas WHERE nome LIKE '%$search%'";
 $result = $conn->query($sql);
+if ($result === false) {
+    die("Erro na consulta: " . $conn->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -14,8 +21,20 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-    <h1>Vacinas</h1>
-    <a href="vacinas_add.php">Adicionar Vacina</a>
+    <?php include '../../../include/header.php'; ?>
+
+    <div class="top-bar">
+            <form class="search-form" method="GET" action="">
+                <input type="text" name="search" placeholder="Buscar vacina..."
+                    value="<?php echo htmlspecialchars($search); ?>">
+            </form>
+
+            <?php if (in_array('inclusao', $usuario_permissoes)): ?>
+                <button class="btn" onclick="window.location.href='vacinas_add.php'">Adicionar nova
+                    Vacina</button>
+            <?php endif; ?>
+    </div>
+
     <table>
         <tr>
             <th>ID</th>
@@ -35,6 +54,8 @@ $result = $conn->query($sql);
             </tr>
         <?php endwhile; ?>
     </table>
+
+    <?php include '../../../include/footer.php'; ?>
 </body>
 
 </html>
