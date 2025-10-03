@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $sql = "INSERT INTO procedimentos (nome, descricao) VALUES ('$nome', '$descricao')";
     if ($conn->query($sql) === TRUE) {
-        header('Location: ../../public/procedimentos.php');
+        header('Location: procedimentos.php');
     } else {
         echo "Erro: " . $error;
     }
